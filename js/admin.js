@@ -23,12 +23,14 @@ window.guardarProducto = async function () {
         return;
     }
 
-    // =========================
-    // MODO EDITAR
-    // =========================
-    if (editandoId !== null) {
+    console.log("EDITANDO ID:", editandoId); // 🔥 DEBUG
 
-        const { error } = await window.supabaseClient
+    // =========================
+    // EDITAR
+    // =========================
+    if (editandoId) {
+
+        const { data, error } = await window.supabaseClient
             .from("productos")
             .update({
                 nombre,
@@ -37,25 +39,28 @@ window.guardarProducto = async function () {
                 categoria,
                 imagen
             })
-            .eq("id", editandoId);
+            .eq("id", editandoId)
+            .select(); // 🔥 IMPORTANTE
+
+        console.log("UPDATE DATA:", data);
+        console.log("UPDATE ERROR:", error);
 
         if (error) {
-            console.log("ERROR UPDATE:", error);
             alert("Error actualizando producto");
             return;
         }
 
         alert("✅ Producto actualizado");
 
-        editandoId = null; // 🔥 IMPORTANTE
+        editandoId = null;
     }
 
     // =========================
-    // MODO NUEVO
+    // NUEVO
     // =========================
     else {
 
-        const { error } = await window.supabaseClient
+        const { data, error } = await window.supabaseClient
             .from("productos")
             .insert([{
                 nombre,
@@ -63,10 +68,13 @@ window.guardarProducto = async function () {
                 descripcion,
                 categoria,
                 imagen
-            }]);
+            }])
+            .select();
+
+        console.log("INSERT DATA:", data);
+        console.log("INSERT ERROR:", error);
 
         if (error) {
-            console.log("ERROR INSERT:", error);
             alert("Error guardando producto");
             return;
         }
