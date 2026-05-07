@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // GUARDAR PRODUCTO
 // =========================
 
-async function guardarProducto() {
+window.guardarProducto = async function () {
 
     const nombre =
         document.getElementById("nombre").value;
@@ -20,33 +20,26 @@ async function guardarProducto() {
         document.getElementById("categoria").value;
 
     const inputImagen =
-    document.getElementById("imagen");
+        document.getElementById("imagen");
 
-if (!inputImagen.files.length) {
+    // VALIDAR IMAGEN
+    if (!inputImagen.files.length) {
 
-    alert("Selecciona una imagen");
+        alert("Selecciona una imagen");
 
-    return;
-}
+        return;
+    }
 
-const inputImagen =
-    document.getElementById("imagen");
+    const archivo =
+        inputImagen.files[0];
 
-if (!inputImagen.files.length) {
+    // VALIDAR CAMPOS
+    if (!nombre || !precio || !categoria) {
 
-    alert("Selecciona una imagen");
+        alert("Completa todos los campos");
 
-    return;
-}
-
-const archivo = inputImagen.text[0];
-
-if (!nombre || !precio || !categoria) {
-
-    alert("Completa todos los campos");
-
-    return;
-}
+        return;
+    }
 
     // =========================
     // NOMBRE IMAGEN
@@ -113,7 +106,7 @@ if (!nombre || !precio || !categoria) {
     limpiarFormulario();
 
     cargarProductos();
-}
+};
 
 // =========================
 // CARGAR PRODUCTOS
@@ -173,7 +166,7 @@ async function cargarProductos() {
 // ELIMINAR
 // =========================
 
-async function eliminarProducto(id) {
+window.eliminarProducto = async function (id) {
 
     const confirmar =
         confirm("¿Eliminar producto?");
@@ -194,13 +187,13 @@ async function eliminarProducto(id) {
     }
 
     cargarProductos();
-}
+};
 
 // =========================
 // LIMPIAR
 // =========================
 
-function limpiarFormulario() {
+window.limpiarFormulario = function () {
 
     document.getElementById("nombre").value = "";
 
@@ -209,4 +202,4 @@ function limpiarFormulario() {
     document.getElementById("categoria").value = "";
 
     document.getElementById("imagen").value = "";
-}
+};
