@@ -22,6 +22,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     async function cargarProductos() {
 
+        console.log("SUPABASE CLIENT:", window.supabaseClient);
+console.log("DATA:", data);
+console.log("ERROR:", error);
+
         const { data, error } = await window.supabaseClient
             .from("productos")
             .select("*");
