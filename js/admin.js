@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // =========================
-// GUARDAR
+// GUARDAR PRODUCTO
 // =========================
 
 window.guardarProducto = async function () {
@@ -22,6 +22,7 @@ window.guardarProducto = async function () {
     const inputImagen =
         document.getElementById("imagen");
 
+    // VALIDAR
     if (
         !nombre ||
         !precio ||
@@ -35,12 +36,13 @@ window.guardarProducto = async function () {
     }
 
     const archivo =
-        inputImagen.text[0];
+        inputImagen.files[0];
 
+    // NOMBRE IMAGEN
     const nombreArchivo =
         Date.now() + "_" + archivo.name;
 
-    // SUBIR IMAGEN
+    // SUBIR STORAGE
     const { error: errorUpload } =
         await window.supabaseClient.storage
         .from("productos")
@@ -62,7 +64,7 @@ window.guardarProducto = async function () {
         .from("productos")
         .getPublicUrl(nombreArchivo);
 
-    // GUARDAR DB
+    // INSERTAR DB
     const { error } =
         await window.supabaseClient
         .from("productos")
@@ -128,10 +130,12 @@ async function cargarProductos() {
                     <h3>${producto.nombre}</h3>
 
                     <p>
-                        $${Number(producto.precio).toLocaleString()}
+                        💲 ${Number(producto.precio).toLocaleString()}
                     </p>
 
-                    <p>${producto.categoria}</p>
+                    <p>
+                        📦 ${producto.categoria}
+                    </p>
 
                     <button onclick="eliminarProducto(${producto.id})">
                         🗑 Eliminar
