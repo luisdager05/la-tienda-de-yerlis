@@ -1,36 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>La Tienda de Yerlis</title>
-  <link rel="stylesheet" href="css/estilos.css">
+<meta charset="UTF-8">
+<title>La Tienda de Yerlis</title>
+
+<link rel="stylesheet" href="./css/estilos.css">
 </head>
 
 <body>
-  <nav class="menu">
 
+<nav class="menu">
     <a href="#">Inicio</a>
     <a href="#productos">Productos</a>
     <a href="#contacto">Contacto</a>
-    <a href="#" id="adminBtn">Admin</a>
-    <a href="#" id="carritoBtn">🛒 Carrito</a>
-
+    <a href="#" onclick="toggleCarrito()">🛒 Carrito</a>
 </nav>
-
-  <div id="carrito" class="carrito">
-
-    <h2>🛒 Mi Carrito</h2>
-
-    <div id="itemsCarrito"></div>
-
-    <button onclick="cerrarCarrito()">Cerrar</button>
-
-</div>
 
 <h1>🛍️ La Tienda de Yerlis</h1>
 
 <div class="contenedor-slider">
-
     <button id="prev">❮</button>
 
     <div class="slider-container">
@@ -38,14 +26,23 @@
     </div>
 
     <button id="next">❯</button>
-
 </div>
 
 <div id="dots" class="dots"></div>
 
+<!-- CARRITO -->
+<div id="carrito" class="carrito">
+    <h2>🛒 Carrito</h2>
+    <div id="itemsCarrito"></div>
+    <button onclick="cerrarCarrito()">Cerrar</button>
+</div>
+
+<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script src="js/supabase.js"></script>
-<script src="js/app.js"></script>
+
+<script src="./js/supabase.js"></script>
+<script src="./js/carrito.js"></script>
+<script src="./js/app.js"></script>
 
 </body>
 </html>
