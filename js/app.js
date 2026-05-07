@@ -95,6 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================
     renderSlider();
 
+    if(!slider || !dots || !prev || !next){
+    console.log("Faltan elementos HTML");
+    return;
+}
+
     // 🔥 INICIO RÁPIDO (SIN ESPERAR IMÁGENES)
     setTimeout(() => {
         iniciarCarrusel();
