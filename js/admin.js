@@ -10,20 +10,31 @@ async function guardarProducto() {
         return;
     }
 
-    const { error } = await window.supabaseClient
+    console.log("Enviando datos...");
+
+    const { data, error } = await window.supabaseClient
         .from("productos")
         .insert([
             {
-                nombre,
-                precio,
-                categoria,
-                imagen
+                nombre: nombre,
+                precio: Number(precio),
+                categoria: categoria,
+                imagen: imagen
             }
-        ]);
+        ])
+        .select();
+
+    console.log("DATA:", data);
+    console.log("ERROR:", error);
 
     if (error) {
-        console.log(error);
+
         alert("Error guardando");
+
+        console.log("MENSAJE:", error.message);
+        console.log("DETAILS:", error.details);
+        console.log("HINT:", error.hint);
+
         return;
     }
 
