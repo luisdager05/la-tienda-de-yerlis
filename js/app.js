@@ -6,49 +6,90 @@ document.addEventListener("DOMContentLoaded", () => {
     const next = document.getElementById("next");
 
     let productos = [
-        { id: 1, img: "img/imagen1.png" },
-        { id: 2, img: "img/imagen2.png" },
-        { id: 3, img: "img/imagen3.png" },
-        { id: 4, img: "img/imagen4.png" },
-        { id: 5, img: "img/imagen5.png" },
-        { id: 6, img: "img/imagen1.png" },
-        { id: 7, img: "img/imagen2.png" },
-        { id: 8, img: "img/imagen3.png" },
-        { id: 9, img: "img/imagen4.png" },
-        { id: 10, img: "img/imagen5.png" },
-        { id: 11, img: "img/imagen1.png" },
-        { id: 12, img: "img/imagen5.png" },
-        { id: 13, img: "img/imagen3.png" },
-        { id: 14, img: "img/imagen3.png" },
-        { id: 15, img: "img/imagen3.png" },
-        { id: 16, img: "img/imagen3.png" },
-        { id: 17, img: "img/imagen3.png" },
-        { id: 18, img: "img/imagen3.png" },
-        { id: 19, img: "img/imagen3.png" }
+        {
+            id: 1,
+            nombre: "Vestido Elegante",
+            precio: 85000,
+            cantidad: 10,
+            img: "img/imagen1.png"
+        },
+        {
+            id: 2,
+            nombre: "Blusa Moderna",
+            precio: 55000,
+            cantidad: 8,
+            img: "img/imagen2.png"
+        },
+        {
+            id: 3,
+            nombre: "Falda Larga",
+            precio: 70000,
+            cantidad: 5,
+            img: "img/imagen3.png"
+        },
+        {
+            id: 4,
+            nombre: "Crop Top",
+            precio: 40000,
+            cantidad: 12,
+            img: "img/imagen4.png"
+        },
+        {
+            id: 5,
+            nombre: "Jean Dama",
+            precio: 95000,
+            cantidad: 6,
+            img: "img/imagen5.png"
+        }
     ];
 
     let index = 0;
     let autoplay;
 
     // =========================
-    // RENDER
+    // RENDER PRODUCTOS
     // =========================
     function renderSlider() {
+
         slider.innerHTML = "";
         dots.innerHTML = "";
 
         productos.forEach((p, i) => {
+
             slider.innerHTML += `
                 <div class="card ${i === 0 ? "active" : ""}">
-                    <img src="${p.img}">
+
+                    <img src="${p.img}" alt="${p.nombre}">
+
+                    <div class="info">
+
+                        <h3>${p.nombre}</h3>
+
+                        <p class="precio">
+                            $${p.precio.toLocaleString()}
+                        </p>
+
+                        <p class="cantidad">
+                            Stock: ${p.cantidad}
+                        </p>
+
+                        <button class="btn-carrito">
+                            Agregar al carrito
+                        </button>
+
+                    </div>
+
                 </div>
             `;
-            dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
+
+            dots.innerHTML += `
+                <span class="${i === 0 ? "active" : ""}"></span>
+            `;
         });
     }
 
     // =========================
-    // MOVER
+    // MOVER SLIDER
     // =========================
     function mover(dir) {
 
@@ -61,15 +102,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const cardWidth = cards[0].offsetWidth + 15;
 
-        // 🔥 CONTROL DE LÍMITES
         if (index >= productos.length) {
             index = 0;
-            slider.scrollLeft = 0;
         }
 
         if (index < 0) {
             index = productos.length - 1;
-            slider.scrollLeft = index * cardWidth;
         }
 
         cards.forEach(c => c.classList.remove("active"));
@@ -91,29 +129,20 @@ document.addEventListener("DOMContentLoaded", () => {
     prev.onclick = () => mover(-1);
 
     // =========================
-    // INIT
+    // INICIAR
     // =========================
     renderSlider();
 
-    if(!slider || !dots || !prev || !next){
-    console.log("Faltan elementos HTML");
-    return;
-}
-
-    // 🔥 INICIO RÁPIDO (SIN ESPERAR IMÁGENES)
     setTimeout(() => {
-        iniciarCarrusel();
-    }, 100);
 
-    function iniciarCarrusel() {
         mover(0);
 
         autoplay = setInterval(() => {
             mover(1);
-        }, 2500); // 🔥 velocidad ideal
-    }
+        }, 3000);
+
+    }, 100);
 
 });
-
 
 
