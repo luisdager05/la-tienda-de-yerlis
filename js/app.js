@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        const { data, error } = await supabaseClient
+        const { data, error } = await window.supabaseClient
             .from("productos")
             .select("*");
 
