@@ -12,92 +12,62 @@ let editandoId = null;
 
 window.guardarProducto = async function () {
 
-    const nombre =
-        document.getElementById("nombre").value;
+    const nombre = document.getElementById("nombre").value;
+    const precio = document.getElementById("precio").value;
+    const descripcion = document.getElementById("descripcion").value;
+    const categoria = document.getElementById("categoria").value;
+    const imagen = document.getElementById("imagen").value;
 
-    const precio =
-        document.getElementById("precio").value;
-
-    const descripcion =
-        document.getElementById("descripcion").value;
-
-    const categoria =
-        document.getElementById("categoria").value;
-
-    const imagen =
-        document.getElementById("imagen").value;
-
-    // VALIDAR
-    if (
-        !nombre ||
-        !precio ||
-        !descripcion ||
-        !categoria ||
-        !imagen
-    ) {
-
+    if (!nombre || !precio || !descripcion || !categoria || !imagen) {
         alert("Completa todos los campos");
-
         return;
     }
 
     // =========================
-    // EDITAR
+    // MODO EDITAR
     // =========================
+    if (editandoId !== null) {
 
-    if (editandoId) {
-
-        const { error } =
-            await window.supabaseClient
+        const { error } = await window.supabaseClient
             .from("productos")
             .update({
-                nombre: nombre,
+                nombre,
                 precio: Number(precio),
-                descripcion: descripcion,
-                categoria: categoria,
-                imagen: imagen
+                descripcion,
+                categoria,
+                imagen
             })
             .eq("id", editandoId);
 
         if (error) {
-
-            console.log(error);
-
-            alert("Error actualizando");
-
+            console.log("ERROR UPDATE:", error);
+            alert("Error actualizando producto");
             return;
         }
 
         alert("✅ Producto actualizado");
 
-        editandoId = null;
+        editandoId = null; // 🔥 IMPORTANTE
     }
 
     // =========================
-    // NUEVO PRODUCTO
+    // MODO NUEVO
     // =========================
-
     else {
 
-        const { error } =
-            await window.supabaseClient
+        const { error } = await window.supabaseClient
             .from("productos")
-            .insert([
-                {
-                    nombre: nombre,
-                    precio: Number(precio),
-                    descripcion: descripcion,
-                    categoria: categoria,
-                    imagen: imagen
-                }
-            ]);
+            .insert([{
+                nombre,
+                precio: Number(precio),
+                descripcion,
+                categoria,
+                imagen
+            }]);
 
         if (error) {
-
-            console.log(error);
-
+            console.log("ERROR INSERT:", error);
             alert("Error guardando producto");
-
             return;
         }
 
@@ -105,10 +75,8 @@ window.guardarProducto = async function () {
     }
 
     limpiarFormulario();
-
     cargarProductos();
 };
-
 // =========================
 // CARGAR PRODUCTOS
 // =========================
