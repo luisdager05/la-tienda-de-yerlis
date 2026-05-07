@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // =========================
 // GUARDAR PRODUCTO
 // =========================
-
 window.guardarProducto = async function () {
 
     const nombre =
@@ -35,7 +34,7 @@ window.guardarProducto = async function () {
         return;
     }
 
-    // GUARDAR EN SUPABASE
+    // INSERTAR EN SUPABASE
     const { error } =
         await window.supabaseClient
         .from("productos")
@@ -48,6 +47,7 @@ window.guardarProducto = async function () {
             }
         ]);
 
+    // ERROR
     if (error) {
 
         console.log(error);
@@ -57,15 +57,14 @@ window.guardarProducto = async function () {
         return;
     }
 
+    // OK
     alert("✅ Producto guardado");
 
     limpiarFormulario();
 
     cargarProductos();
 };
-// =========================
-// CARGAR PRODUCTOS
-// =========================
+=======
 
 async function cargarProductos() {
 
