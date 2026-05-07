@@ -5,12 +5,7 @@ async function guardarProducto() {
     const categoria = document.getElementById("categoria").value;
     const imagen = document.getElementById("imagen").value;
 
-    if (!nombre || !precio || !categoria || !imagen) {
-        alert("Completa todos los campos");
-        return;
-    }
-
-    console.log("Enviando datos...");
+    console.log(nombre, precio, categoria, imagen);
 
     const { data, error } = await window.supabaseClient
         .from("productos")
@@ -28,21 +23,9 @@ async function guardarProducto() {
     console.log("ERROR:", error);
 
     if (error) {
-
         alert("Error guardando");
-
-        console.log("MENSAJE:", error.message);
-        console.log("DETAILS:", error.details);
-        console.log("HINT:", error.hint);
-
         return;
     }
 
-    document.getElementById("mensaje").innerHTML =
-        "✅ Producto guardado correctamente";
-
-    document.getElementById("nombre").value = "";
-    document.getElementById("precio").value = "";
-    document.getElementById("categoria").value = "";
-    document.getElementById("imagen").value = "";
+    alert("✅ Producto guardado correctamente");
 }
