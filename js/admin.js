@@ -19,14 +19,24 @@ async function guardarProducto() {
     const categoria =
         document.getElementById("categoria").value;
 
-    const archivo =
-        document.getElementById("imagen").files[0];
+    const inputImagen =
+    document.getElementById("imagen");
 
-    if (!nombre || !precio || !categoria || !archivo) {
+if (!inputImagen.files.length) {
 
-        alert("Completa todos los campos");
-        return;
-    }
+    alert("Selecciona una imagen");
+
+    return;
+}
+
+const archivo = inputImagen.files[0];
+
+if (!nombre || !precio || !categoria) {
+
+    alert("Completa todos los campos");
+
+    return;
+}
 
     // =========================
     // NOMBRE IMAGEN
