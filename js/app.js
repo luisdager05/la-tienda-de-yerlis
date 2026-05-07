@@ -92,3 +92,6 @@ function iniciarCarrusel() {
 slider.addEventListener("mouseenter", () => clearInterval(intervalo));
 slider.addEventListener("mouseleave", iniciarCarrusel);
 
+    render();
+iniciarCarrusel();
+
