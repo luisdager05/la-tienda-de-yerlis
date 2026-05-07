@@ -3,27 +3,44 @@ document.addEventListener("DOMContentLoaded", async () => {
     const slider = document.getElementById("slider");
     const dots = document.getElementById("dots");
 
-    let index = 0;
+    if (!slider || !dots) {
+        console.error("Faltan elementos HTML");
+        return;
+    }
 
+    let index = 0;
+    let intervalo;
+
+    // =========================
+    // CARGAR PRODUCTOS
+    // =========================
     async function cargarProductos() {
 
-    const { data, error } = await supabaseClient
-        .from("productos")
-        .select("*");
+        if (!window.supabaseClient) {
+            console.error("Supabase no está inicializado");
+            return;
+        }
 
-    if (error) {
-        console.log("Error Supabase:", error);
-        return;
+        const { data, error } = await supabaseClient
+            .from("productos")
+            .select("*");
+
+        if (error) {
+            console.log("Error Supabase:", error);
+            return;
+        }
+
+        if (!data || data.length === 0) {
+            slider.innerHTML = "<h2>No hay productos</h2>";
+            return;
+        }
+
+        render(data);
     }
 
-    if (!data || data.length === 0) {
-        slider.innerHTML = "<h2>No hay productos</h2>";
-        return;
-    }
-
-    render(data);
-}
-
+    // =========================
+    // RENDER
+    // =========================
     function render(productos) {
 
         slider.innerHTML = "";
@@ -34,13 +51,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             slider.innerHTML += `
                 <div class="card">
 
-                    <img src="${p.imagen}" alt="producto">
+                    <img src="${p.imagen}" onerror="this.src='./img/error.png'">
 
                     <div class="info">
 
                         <h3>${p.nombre}</h3>
 
-                        <p class="precio">$${p.precio}</p>
+                        <p class="precio">$${p.precio.toLocaleString()}</p>
 
                         <p class="cantidad">Stock: ${p.cantidad}</p>
 
@@ -59,11 +76,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         iniciarCarrusel();
     }
 
+    // =========================
+    // CARRUSEL SEGURO
+    // =========================
     function iniciarCarrusel() {
 
-        setInterval(() => {
+        clearInterval(intervalo);
+
+        intervalo = setInterval(() => {
 
             const cards = document.querySelectorAll(".card");
+
             if (!cards.length) return;
 
             index++;
@@ -80,5 +103,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         }, 3000);
     }
 
+    // =========================
+    // INICIO
+    // =========================
     cargarProductos();
+
 });
