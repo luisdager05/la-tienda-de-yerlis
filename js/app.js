@@ -49,45 +49,31 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================
     // RENDER PRODUCTOS
     // =========================
-    function renderSlider() {
+   slider.innerHTML += `
+    <div class="card ${i === 0 ? "active" : ""}">
 
-        slider.innerHTML = "";
-        dots.innerHTML = "";
+        <img src="${p.img}" alt="${p.nombre}">
 
-        productos.forEach((p, i) => {
+        <div class="info">
 
-            slider.innerHTML += `
-                <div class="card ${i === 0 ? "active" : ""}">
+            <h3>${p.nombre}</h3>
 
-                    <img src="${p.img}" alt="${p.nombre}">
+            <p class="precio">
+                $${p.precio.toLocaleString()}
+            </p>
 
-                    <div class="info">
+            <p class="cantidad">
+                Disponibles: ${p.cantidad}
+            </p>
 
-                        <h3>${p.nombre}</h3>
+            <button class="btn-carrito">
+                🛒 Agregar
+            </button>
 
-                        <p class="precio">
-                            $${p.precio.toLocaleString()}
-                        </p>
+        </div>
 
-                        <p class="cantidad">
-                            Stock: ${p.cantidad}
-                        </p>
-
-                        <button class="btn-carrito">
-                            Agregar al carrito
-                        </button>
-
-                    </div>
-
-                </div>
-            `;
-
-            dots.innerHTML += `
-                <span class="${i === 0 ? "active" : ""}"></span>
-            `;
-        });
-    }
-
+    </div>
+`;
     // =========================
     // MOVER SLIDER
     // =========================
