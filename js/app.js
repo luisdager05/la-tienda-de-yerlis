@@ -41,40 +41,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     // =========================
     // RENDER
     // =========================
-    function render(productos) {
+   function render(productos) {
 
-        slider.innerHTML = "";
-        dots.innerHTML = "";
+    slider.innerHTML = "";
+    dots.innerHTML = "";
 
-        productos.forEach((p, i) => {
+    productos.forEach((p, i) => {
 
-            slider.innerHTML += `
-                <div class="card">
+        slider.innerHTML += `
+            <div class="card">
 
-                    <img src="${p.imagen}" onerror="this.src='./img/error.png'">
+                <img src="${p.imagen}" onerror="this.src='./img/error.png'">
 
-                    <div class="info">
+                <div class="info">
 
-                        <h3>${p.nombre}</h3>
+                    <h3>${p.nombre}</h3>
 
-                        <p class="precio">$${p.precio.toLocaleString()}</p>
+                    <p class="precio">$${Number(p.precio).toLocaleString()}</p>
 
-                        <p class="cantidad">Stock: ${p.cantidad}</p>
+                    <p class="cantidad">
+                        Categoría: ${p.categoria}
+                    </p>
 
-                        <button onclick="agregarCarrito('${p.nombre}', ${p.precio})">
-                            🛒 Agregar
-                        </button>
-
-                    </div>
+                    <button onclick="agregarCarrito('${p.nombre}', ${p.precio})">
+                        🛒 Agregar
+                    </button>
 
                 </div>
-            `;
 
-            dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
-        });
+            </div>
+        `;
 
-        iniciarCarrusel();
-    }
+        dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
+    });
+
+    iniciarCarrusel();
+}
 
     // =========================
     // CARRUSEL SEGURO
