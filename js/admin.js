@@ -6,40 +6,53 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function guardarProducto() {
 
-    const nombre = document.getElementById("nombre").value;
-    const precio = document.getElementById("precio").value;
-    const categoria = document.getElementById("categoria").value;
-    const imagen = document.getElementById("imagen").value;
+    const nombre =
+        document.getElementById("nombre").value;
+
+    const precio =
+        document.getElementById("precio").value;
+
+    const categoria =
+        document.getElementById("categoria").value;
+
+    const imagen =
+        document.getElementById("imagen").value;
+
+    console.log(nombre, precio, categoria, imagen);
 
     if (!nombre || !precio || !categoria || !imagen) {
+
         alert("Completa todos los campos");
         return;
     }
 
-    const { error } = await window.supabaseClient
+    const { data, error } =
+        await window.supabaseClient
         .from("productos")
         .insert([
             {
-                nombre,
+                nombre: nombre,
                 precio: Number(precio),
-                categoria,
-                imagen
+                categoria: categoria,
+                imagen: imagen
             }
-        ]);
+        ])
+        .select();
+
+    console.log("DATA:", data);
+    console.log("ERROR:", error);
 
     if (error) {
-        console.log(error);
-        alert("Error guardando producto");
+
+        alert("Error guardando");
+
         return;
     }
 
     alert("✅ Producto guardado");
 
-    limpiarFormulario();
-
     cargarProductos();
 }
-
 async function cargarProductos() {
 
     const { data, error } = await window.supabaseClient
