@@ -42,40 +42,49 @@ document.addEventListener("DOMContentLoaded", async () => {
         render(data);
     }
 
-    function render(productos) {
+function render(productos) {
 
-        slider.innerHTML = "";
-        dots.innerHTML = "";
+    slider.innerHTML = "";
+    dots.innerHTML = "";
 
-        productos.forEach((p, i) => {
+    if (!productos || productos.length === 0) {
+        slider.innerHTML = "<h2>No hay productos</h2>";
+        return;
+    }
 
-            slider.innerHTML += `
-                <div class="card">
+    productos.forEach((p, i) => {
 
-                    <img src="${p.imagen}" onerror="this.src='./img/error.png'">
+        slider.innerHTML += `
+            <div class="card">
 
-                    <div class="info">
+                <img src="${p.imagen || './img/error.png'}">
 
-                        <h3>${p.nombre}</h3>
+                <div class="info">
 
-                        <p class="precio">$${Number(p.precio).toLocaleString()}</p>
+                    <h3>${p.nombre || "Sin nombre"}</h3>
 
-                        <p class="cantidad">Categoría: ${p.categoria || ""}</p>
+                    <p class="precio">
+                        $${Number(p.precio || 0).toLocaleString()}
+                    </p>
 
-                        <button onclick="agregarCarrito('${p.nombre}', ${p.precio})">
-                            🛒 Agregar
-                        </button>
+                    <p class="cantidad">
+                        ${p.categoria || "Sin categoría"}
+                    </p>
 
-                    </div>
+                    <button onclick="agregarCarrito('${p.nombre || "Producto"}', ${p.precio || 0})">
+                        🛒 Agregar
+                    </button>
 
                 </div>
-            `;
 
-            dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
-        });
+            </div>
+        `;
 
-        iniciarCarrusel();
-    }
+        dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
+    });
+
+    iniciarCarrusel();
+}
 
     function iniciarCarrusel() {
 
