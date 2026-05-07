@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const next = document.getElementById("next");
 
     if (!slider) {
-        console.error("No existe #slider en el HTML");
+        console.error("No existe #slider");
         return;
     }
 
@@ -19,7 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     let index = 0;
+    let intervalo;
 
+    // =========================
+    // RENDER
+    // =========================
     function render() {
 
         slider.innerHTML = "";
@@ -51,58 +55,59 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
+    // =========================
+    // MOVIMIENTO
+    // =========================
+    function mover(dir = 1) {
 
-   let index = 0;
-let intervalo;
+        const cards = document.querySelectorAll(".card");
 
-function mover(dir = 1) {
+        if (!cards.length) return;
 
-    const cards = document.querySelectorAll(".card");
+        index += dir;
 
-    if (!cards.length) return;
+        if (index >= cards.length) index = 0;
+        if (index < 0) index = cards.length - 1;
 
-    index += dir;
+        const width = cards[0].offsetWidth + 20;
 
-    if (index >= cards.length) index = 0;
-    if (index < 0) index = cards.length - 1;
+        slider.scrollTo({
+            left: index * width,
+            behavior: "smooth"
+        });
 
-    const width = cards[0].offsetWidth + 20;
+        document.querySelectorAll("#dots span")
+            .forEach(d => d.classList.remove("active"));
 
-    slider.scrollTo({
-        left: index * width,
-        behavior: "smooth"
-    });
+        document.querySelectorAll("#dots span")[index]
+            ?.classList.add("active");
+    }
 
-    document.querySelectorAll("#dots span")
-        .forEach(d => d.classList.remove("active"));
+    // =========================
+    // AUTOPLAY
+    // =========================
+    function iniciarCarrusel() {
 
-    document.querySelectorAll("#dots span")[index]
-        ?.classList.add("active");
-}
+        clearInterval(intervalo);
 
-// 🔥 autoplay
-function iniciarCarrusel() {
-    intervalo = setInterval(() => {
-        mover(1);
-    }, 2500);
-}
+        intervalo = setInterval(() => {
+            mover(1);
+        }, 2500);
+    }
 
-// pausar al mover mouse
-slider.addEventListener("mouseenter", () => clearInterval(intervalo));
-slider.addEventListener("mouseleave", iniciarCarrusel);
+    slider.addEventListener("mouseenter", () => clearInterval(intervalo));
+    slider.addEventListener("mouseleave", iniciarCarrusel);
 
+    // =========================
+    // BOTONES
+    // =========================
+    next?.addEventListener("click", () => mover(1));
+    prev?.addEventListener("click", () => mover(-1));
+
+    // =========================
+    // INICIO SEGURO
+    // =========================
     render();
-iniciarCarrusel();
+    iniciarCarrusel();
 
-    const carrito = document.getElementById("carrito");
-const carritoBtn = document.getElementById("carritoBtn");
-
-carritoBtn?.addEventListener("click", () => {
-    carrito.classList.add("active");
 });
-
-function cerrarCarrito(){
-    carrito.classList.remove("active");
-}
-
