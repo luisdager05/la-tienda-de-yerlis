@@ -13,18 +13,16 @@ function mostrarCarrito() {
 
     const contenedor = document.getElementById("itemsCarrito");
 
-    if (!contenedor) return;
-
     contenedor.innerHTML = "";
 
     let total = 0;
 
-    carrito.forEach((p, i) => {
+    carrito.forEach(p => {
 
         total += p.precio;
 
         contenedor.innerHTML += `
-            <p>${p.nombre} - $${p.precio.toLocaleString()}</p>
+            <p>${p.nombre} - $${Number(p.precio).toLocaleString()}</p>
         `;
     });
 
