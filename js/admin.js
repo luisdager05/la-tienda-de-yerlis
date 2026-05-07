@@ -4,11 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    cargarProductos();
-
-});
+// =========================
+// GUARDAR PRODUCTO
+// =========================
 
 async function guardarProducto() {
 
@@ -21,57 +19,103 @@ async function guardarProducto() {
     const categoria =
         document.getElementById("categoria").value;
 
-    const imagen =
-        document.getElementById("imagen").value;
+    const archivo =
+        document.getElementById("imagen").files[0];
 
-    console.log(nombre, precio, categoria, imagen);
-
-    if (!nombre || !precio || !categoria || !imagen) {
+    if (!nombre || !precio || !categoria || !archivo) {
 
         alert("Completa todos los campos");
         return;
     }
 
-    const { data, error } =
+    // =========================
+    // NOMBRE IMAGEN
+    // =========================
+
+    const nombreArchivo =
+        Date.now() + "_" + archivo.name;
+
+    // =========================
+    // SUBIR STORAGE
+    // =========================
+
+    const { error: errorUpload } =
+        await window.supabaseClient.storage
+        .from("productos")
+        .upload(nombreArchivo, archivo);
+
+    if (errorUpload) {
+
+        console.log(errorUpload);
+
+        alert("Error subiendo imagen");
+
+        return;
+    }
+
+    // =========================
+    // URL PUBLICA
+    // =========================
+
+    const {
+        data: { publicUrl }
+    } = window.supabaseClient.storage
+        .from("productos")
+        .getPublicUrl(nombreArchivo);
+
+    // =========================
+    // GUARDAR DB
+    // =========================
+
+    const { error } =
         await window.supabaseClient
         .from("productos")
         .insert([
             {
-                nombre: nombre,
+                nombre,
                 precio: Number(precio),
-                categoria: categoria,
-                imagen: imagen
+                categoria,
+                imagen: publicUrl
             }
-        ])
-        .select();
-
-    console.log("DATA:", data);
-    console.log("ERROR:", error);
+        ]);
 
     if (error) {
 
-        alert("Error guardando");
+        console.log(error);
+
+        alert("Error guardando producto");
 
         return;
     }
 
     alert("✅ Producto guardado");
 
+    limpiarFormulario();
+
     cargarProductos();
 }
+
+// =========================
+// CARGAR PRODUCTOS
+// =========================
+
 async function cargarProductos() {
 
-    const { data, error } = await window.supabaseClient
+    const { data, error } =
+        await window.supabaseClient
         .from("productos")
         .select("*")
         .order("id", { ascending: false });
 
     if (error) {
+
         console.log(error);
+
         return;
     }
 
-    const lista = document.getElementById("listaProductos");
+    const lista =
+        document.getElementById("listaProductos");
 
     lista.innerHTML = "";
 
@@ -87,7 +131,9 @@ async function cargarProductos() {
 
                     <h3>${producto.nombre}</h3>
 
-                    <p>$${Number(producto.precio).toLocaleString()}</p>
+                    <p>
+                        $${Number(producto.precio).toLocaleString()}
+                    </p>
 
                     <p>${producto.categoria}</p>
 
@@ -103,99 +149,44 @@ async function cargarProductos() {
     });
 }
 
+// =========================
+// ELIMINAR
+// =========================
+
 async function eliminarProducto(id) {
 
-    const confirmar = confirm("¿Eliminar producto?");
+    const confirmar =
+        confirm("¿Eliminar producto?");
 
     if (!confirmar) return;
 
-    const { error } = await window.supabaseClient
+    const { error } =
+        await window.supabaseClient
         .from("productos")
         .delete()
         .eq("id", id);
 
     if (error) {
+
         console.log(error);
+
         return;
     }
 
     cargarProductos();
 }
 
-function limpiarFormulario() {
-
-    document.getElementById("nombre").value = "";
-    document.getElementById("precio").value = "";
-    document.getElementById("categoria").value = "";
-    document.getElementById("imagen").value = "";
-}
-async function cargarProductos() {
-
-    const { data, error } = await window.supabaseClient
-        .from("productos")
-        .select("*")
-        .order("id", { ascending: false });
-
-    if (error) {
-        console.log(error);
-        return;
-    }
-
-    const lista = document.getElementById("listaProductos");
-
-    lista.innerHTML = "";
-
-    data.forEach(producto => {
-
-        lista.innerHTML += `
-        
-            <div class="producto-admin">
-
-                <img src="${producto.imagen}">
-
-                <div>
-
-                    <h3>${producto.nombre}</h3>
-
-                    <p>$${Number(producto.precio).toLocaleString()}</p>
-
-                    <p>${producto.categoria}</p>
-
-                    <button onclick="eliminarProducto(${producto.id})">
-                        🗑 Eliminar
-                    </button>
-
-                </div>
-
-            </div>
-
-        `;
-    });
-}
-
-async function eliminarProducto(id) {
-
-    const confirmar = confirm("¿Eliminar producto?");
-
-    if (!confirmar) return;
-
-    const { error } = await window.supabaseClient
-        .from("productos")
-        .delete()
-        .eq("id", id);
-
-    if (error) {
-        console.log(error);
-        return;
-    }
-
-    cargarProductos();
-}
+// =========================
+// LIMPIAR
+// =========================
 
 function limpiarFormulario() {
 
     document.getElementById("nombre").value = "";
+
     document.getElementById("precio").value = "";
+
     document.getElementById("categoria").value = "";
+
     document.getElementById("imagen").value = "";
 }
