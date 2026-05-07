@@ -204,3 +204,21 @@ h1{
 .carrito.active{
     right:0;
 }
+
+.slider-container{
+    overflow:hidden;
+    width:100%;
+}
+
+#slider{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    scroll-behavior:smooth;
+    padding:20px 10px 40px;
+    scroll-snap-type:x mandatory;
+}
+
+.card{
+    scroll-snap-align:center;
+}
