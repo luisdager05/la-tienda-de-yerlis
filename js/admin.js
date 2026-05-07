@@ -19,15 +19,15 @@ window.guardarProducto = async function () {
     const categoria =
         document.getElementById("categoria").value;
 
-    const inputImagen =
-        document.getElementById("imagen");
+    const imagen =
+        document.getElementById("imagen").value;
 
     // VALIDAR
     if (
         !nombre ||
         !precio ||
         !categoria ||
-        !inputImagen.files.length
+        !imagen
     ) {
 
         alert("Completa todos los campos");
@@ -35,36 +35,7 @@ window.guardarProducto = async function () {
         return;
     }
 
-    const archivo =
-        inputImagen.files[0];
-
-    // NOMBRE IMAGEN
-    const nombreArchivo =
-        Date.now() + "_" + archivo.name;
-
-    // SUBIR STORAGE
-    const { error: errorUpload } =
-        await window.supabaseClient.storage
-        .from("productos")
-        .upload(nombreArchivo, archivo);
-
-    if (errorUpload) {
-
-        console.log(errorUpload);
-
-        alert("Error subiendo imagen");
-
-        return;
-    }
-
-    // URL PUBLICA
-    const {
-        data: { publicUrl }
-    } = window.supabaseClient.storage
-        .from("productos")
-        .getPublicUrl(nombreArchivo);
-
-    // INSERTAR DB
+    // GUARDAR EN SUPABASE
     const { error } =
         await window.supabaseClient
         .from("productos")
@@ -73,7 +44,7 @@ window.guardarProducto = async function () {
                 nombre: nombre,
                 precio: Number(precio),
                 categoria: categoria,
-                imagen: publicUrl
+                imagen: imagen
             }
         ]);
 
@@ -92,7 +63,6 @@ window.guardarProducto = async function () {
 
     cargarProductos();
 };
-
 // =========================
 // CARGAR PRODUCTOS
 // =========================
