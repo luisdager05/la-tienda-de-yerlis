@@ -15,34 +15,69 @@ async function guardarProducto() {
     const categoria =
         document.getElementById("categoria").value;
 
-    const imagen =
-        document.getElementById("imagen").value;
+    const archivo =
+        document.getElementById("imagen").files[0];
 
-    console.log(nombre, precio, categoria, imagen);
-
-    if (!nombre || !precio || !categoria || !imagen) {
+    if (!nombre || !precio || !categoria || !archivo) {
 
         alert("Completa todos los campos");
         return;
     }
 
-    const { data, error } =
+    // =========================
+    // NOMBRE IMAGEN
+    // =========================
+
+    const nombreArchivo =
+        Date.now() + "_" + archivo.name;
+
+    // =========================
+    // SUBIR STORAGE
+    // =========================
+
+    const { error: errorUpload } =
+        await window.supabaseClient.storage
+        .from("productos")
+        .upload(nombreArchivo, archivo);
+
+    if (errorUpload) {
+
+        console.log(errorUpload);
+
+        alert("Error subiendo imagen");
+
+        return;
+    }
+
+    // =========================
+    // URL PUBLICA
+    // =========================
+
+    const {
+        data: { publicUrl }
+    } = window.supabaseClient.storage
+        .from("productos")
+        .getPublicUrl(nombreArchivo);
+
+    // =========================
+    // GUARDAR PRODUCTO
+    // =========================
+
+    const { error } =
         await window.supabaseClient
         .from("productos")
         .insert([
             {
-                nombre: nombre,
+                nombre,
                 precio: Number(precio),
-                categoria: categoria,
-                imagen: imagen
+                categoria,
+                imagen: publicUrl
             }
-        ])
-        .select();
-
-    console.log("DATA:", data);
-    console.log("ERROR:", error);
+        ]);
 
     if (error) {
+
+        console.log(error);
 
         alert("Error guardando");
 
@@ -50,6 +85,8 @@ async function guardarProducto() {
     }
 
     alert("✅ Producto guardado");
+
+    limpiarFormulario();
 
     cargarProductos();
 }
