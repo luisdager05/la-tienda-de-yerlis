@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     async function cargarProductos() {
 
         if (!window.supabaseClient) {
-            console.error("Supabase no está inicializado");
+            console.error("Supabase no inicializado");
             return;
         }
 
@@ -41,45 +41,49 @@ document.addEventListener("DOMContentLoaded", async () => {
     // =========================
     // RENDER
     // =========================
-   function render(productos) {
+    function render(productos) {
 
-    slider.innerHTML = "";
-    dots.innerHTML = "";
+        slider.innerHTML = "";
+        dots.innerHTML = "";
 
-    productos.forEach((p, i) => {
+        if (!Array.isArray(productos)) return;
 
-        slider.innerHTML += `
-            <div class="card">
+        productos.forEach((p, i) => {
 
-                <img src="${p.imagen}" onerror="this.src='./img/error.png'">
+            slider.innerHTML += `
+                <div class="card">
 
-                <div class="info">
+                    <img src="${p.imagen}" onerror="this.src='./img/error.png'">
 
-                    <h3>${p.nombre}</h3>
+                    <div class="info">
 
-                    <p class="precio">$${Number(p.precio).toLocaleString()}</p>
+                        <h3>${p.nombre}</h3>
 
-                    <p class="cantidad">
-                        Categoría: ${p.categoria}
-                    </p>
+                        <p class="precio">
+                            $${Number(p.precio).toLocaleString()}
+                        </p>
 
-                    <button onclick="agregarCarrito('${p.nombre}', ${p.precio})">
-                        🛒 Agregar
-                    </button>
+                        <p class="cantidad">
+                            Categoría: ${p.categoria || "Sin categoría"}
+                        </p>
+
+                        <button onclick="agregarCarrito('${p.nombre}', ${p.precio})">
+                            🛒 Agregar
+                        </button>
+
+                    </div>
 
                 </div>
+            `;
 
-            </div>
-        `;
+            dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
+        });
 
-        dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
-    });
-
-    iniciarCarrusel();
-}
+        iniciarCarrusel();
+    }
 
     // =========================
-    // CARRUSEL SEGURO
+    // CARRUSEL
     // =========================
     function iniciarCarrusel() {
 
@@ -105,9 +109,5 @@ document.addEventListener("DOMContentLoaded", async () => {
         }, 3000);
     }
 
-    // =========================
-    // INICIO
-    // =========================
     cargarProductos();
-
 });
