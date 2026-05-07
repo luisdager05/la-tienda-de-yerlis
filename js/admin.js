@@ -1,3 +1,9 @@
+document.addEventListener("DOMContentLoaded", () => {
+
+    cargarProductos();
+
+});
+
 async function guardarProducto() {
 
     const nombre = document.getElementById("nombre").value;
@@ -15,7 +21,7 @@ async function guardarProducto() {
         .insert([
             {
                 nombre,
-                precio,
+                precio: Number(precio),
                 categoria,
                 imagen
             }
@@ -23,12 +29,81 @@ async function guardarProducto() {
 
     if (error) {
         console.log(error);
-        alert("Error guardando");
+        alert("Error guardando producto");
         return;
     }
 
-    document.getElementById("mensaje").innerHTML =
-        "✅ Producto guardado correctamente";
+    alert("✅ Producto guardado");
+
+    limpiarFormulario();
+
+    cargarProductos();
+}
+
+async function cargarProductos() {
+
+    const { data, error } = await window.supabaseClient
+        .from("productos")
+        .select("*")
+        .order("id", { ascending: false });
+
+    if (error) {
+        console.log(error);
+        return;
+    }
+
+    const lista = document.getElementById("listaProductos");
+
+    lista.innerHTML = "";
+
+    data.forEach(producto => {
+
+        lista.innerHTML += `
+        
+            <div class="producto-admin">
+
+                <img src="${producto.imagen}">
+
+                <div>
+
+                    <h3>${producto.nombre}</h3>
+
+                    <p>$${Number(producto.precio).toLocaleString()}</p>
+
+                    <p>${producto.categoria}</p>
+
+                    <button onclick="eliminarProducto(${producto.id})">
+                        🗑 Eliminar
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+    });
+}
+
+async function eliminarProducto(id) {
+
+    const confirmar = confirm("¿Eliminar producto?");
+
+    if (!confirmar) return;
+
+    const { error } = await window.supabaseClient
+        .from("productos")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+        console.log(error);
+        return;
+    }
+
+    cargarProductos();
+}
+
+function limpiarFormulario() {
 
     document.getElementById("nombre").value = "";
     document.getElementById("precio").value = "";
