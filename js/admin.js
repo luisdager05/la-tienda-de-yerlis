@@ -5,27 +5,33 @@ async function guardarProducto() {
     const categoria = document.getElementById("categoria").value;
     const imagen = document.getElementById("imagen").value;
 
-    console.log(nombre, precio, categoria, imagen);
+    if (!nombre || !precio || !categoria || !imagen) {
+        alert("Completa todos los campos");
+        return;
+    }
 
-    const { data, error } = await window.supabaseClient
+    const { error } = await window.supabaseClient
         .from("productos")
         .insert([
             {
-                nombre: nombre,
-                precio: Number(precio),
-                categoria: categoria,
-                imagen: imagen
+                nombre,
+                precio,
+                categoria,
+                imagen
             }
-        ])
-        .select();
-
-    console.log("DATA:", data);
-    console.log("ERROR:", error);
+        ]);
 
     if (error) {
+        console.log(error);
         alert("Error guardando");
         return;
     }
 
-    alert("✅ Producto guardado correctamente");
+    document.getElementById("mensaje").innerHTML =
+        "✅ Producto guardado correctamente";
+
+    document.getElementById("nombre").value = "";
+    document.getElementById("precio").value = "";
+    document.getElementById("categoria").value = "";
+    document.getElementById("imagen").value = "";
 }
