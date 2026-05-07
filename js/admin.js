@@ -4,9 +4,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+let editandoId = null;
+
 // =========================
 // GUARDAR PRODUCTO
 // =========================
+
 window.guardarProducto = async function () {
 
     const nombre =
@@ -14,6 +17,9 @@ window.guardarProducto = async function () {
 
     const precio =
         document.getElementById("precio").value;
+
+    const descripcion =
+        document.getElementById("descripcion").value;
 
     const categoria =
         document.getElementById("categoria").value;
@@ -25,6 +31,7 @@ window.guardarProducto = async function () {
     if (
         !nombre ||
         !precio ||
+        !descripcion ||
         !categoria ||
         !imagen
     ) {
@@ -34,37 +41,77 @@ window.guardarProducto = async function () {
         return;
     }
 
-    // INSERTAR EN SUPABASE
-    const { error } =
-        await window.supabaseClient
-        .from("productos")
-        .insert([
-            {
+    // =========================
+    // EDITAR
+    // =========================
+
+    if (editandoId) {
+
+        const { error } =
+            await window.supabaseClient
+            .from("productos")
+            .update({
                 nombre: nombre,
                 precio: Number(precio),
+                descripcion: descripcion,
                 categoria: categoria,
                 imagen: imagen
-            }
-        ]);
+            })
+            .eq("id", editandoId);
 
-    // ERROR
-    if (error) {
+        if (error) {
 
-        console.log(error);
+            console.log(error);
 
-        alert("Error guardando producto");
+            alert("Error actualizando");
 
-        return;
+            return;
+        }
+
+        alert("✅ Producto actualizado");
+
+        editandoId = null;
     }
 
-    // OK
-    alert("✅ Producto guardado");
+    // =========================
+    // NUEVO PRODUCTO
+    // =========================
+
+    else {
+
+        const { error } =
+            await window.supabaseClient
+            .from("productos")
+            .insert([
+                {
+                    nombre: nombre,
+                    precio: Number(precio),
+                    descripcion: descripcion,
+                    categoria: categoria,
+                    imagen: imagen
+                }
+            ]);
+
+        if (error) {
+
+            console.log(error);
+
+            alert("Error guardando producto");
+
+            return;
+        }
+
+        alert("✅ Producto guardado");
+    }
 
     limpiarFormulario();
 
     cargarProductos();
 };
 
+// =========================
+// CARGAR PRODUCTOS
+// =========================
 
 async function cargarProductos() {
 
@@ -106,6 +153,14 @@ async function cargarProductos() {
                         📦 ${producto.categoria}
                     </p>
 
+                    <p>
+                        📝 ${producto.descripcion || ""}
+                    </p>
+
+                    <button onclick="editarProducto(${producto.id})">
+                        ✏️ Editar
+                    </button>
+
                     <button onclick="eliminarProducto(${producto.id})">
                         🗑 Eliminar
                     </button>
@@ -117,6 +172,49 @@ async function cargarProductos() {
         `;
     });
 }
+
+// =========================
+// EDITAR
+// =========================
+
+window.editarProducto = async function (id) {
+
+    const { data, error } =
+        await window.supabaseClient
+        .from("productos")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if (error) {
+
+        console.log(error);
+
+        return;
+    }
+
+    document.getElementById("nombre").value =
+        data.nombre;
+
+    document.getElementById("precio").value =
+        data.precio;
+
+    document.getElementById("descripcion").value =
+        data.descripcion;
+
+    document.getElementById("categoria").value =
+        data.categoria;
+
+    document.getElementById("imagen").value =
+        data.imagen;
+
+    editandoId = id;
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+};
 
 // =========================
 // ELIMINAR
@@ -154,6 +252,8 @@ function limpiarFormulario() {
     document.getElementById("nombre").value = "";
 
     document.getElementById("precio").value = "";
+
+    document.getElementById("descripcion").value = "";
 
     document.getElementById("categoria").value = "";
 
