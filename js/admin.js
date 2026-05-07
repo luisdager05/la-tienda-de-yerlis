@@ -39,7 +39,7 @@ if (!inputImagen.files.length) {
     return;
 }
 
-const archivo = inputImagen.files[0];
+const archivo = inputImagen.text[0];
 
 if (!nombre || !precio || !categoria) {
 
