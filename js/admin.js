@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // =========================
-// GUARDAR PRODUCTO
+// GUARDAR
 // =========================
 
 window.guardarProducto = async function () {
@@ -22,10 +22,14 @@ window.guardarProducto = async function () {
     const inputImagen =
         document.getElementById("imagen");
 
-    // VALIDAR IMAGEN
-    if (!inputImagen.files.length) {
+    if (
+        !nombre ||
+        !precio ||
+        !categoria ||
+        !inputImagen.files.length
+    ) {
 
-        alert("Selecciona una imagen");
+        alert("Completa todos los campos");
 
         return;
     }
@@ -33,25 +37,10 @@ window.guardarProducto = async function () {
     const archivo =
         inputImagen.files[0];
 
-    // VALIDAR CAMPOS
-    if (!nombre || !precio || !categoria) {
-
-        alert("Completa todos los campos");
-
-        return;
-    }
-
-    // =========================
-    // NOMBRE IMAGEN
-    // =========================
-
     const nombreArchivo =
         Date.now() + "_" + archivo.name;
 
-    // =========================
-    // SUBIR STORAGE
-    // =========================
-
+    // SUBIR IMAGEN
     const { error: errorUpload } =
         await window.supabaseClient.storage
         .from("productos")
@@ -66,28 +55,22 @@ window.guardarProducto = async function () {
         return;
     }
 
-    // =========================
     // URL PUBLICA
-    // =========================
-
     const {
         data: { publicUrl }
     } = window.supabaseClient.storage
         .from("productos")
         .getPublicUrl(nombreArchivo);
 
-    // =========================
     // GUARDAR DB
-    // =========================
-
     const { error } =
         await window.supabaseClient
         .from("productos")
         .insert([
             {
-                nombre,
+                nombre: nombre,
                 precio: Number(precio),
-                categoria,
+                categoria: categoria,
                 imagen: publicUrl
             }
         ]);
@@ -193,7 +176,7 @@ window.eliminarProducto = async function (id) {
 // LIMPIAR
 // =========================
 
-window.limpiarFormulario = function () {
+function limpiarFormulario() {
 
     document.getElementById("nombre").value = "";
 
@@ -202,4 +185,4 @@ window.limpiarFormulario = function () {
     document.getElementById("categoria").value = "";
 
     document.getElementById("imagen").value = "";
-};
+}
