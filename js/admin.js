@@ -35,7 +35,7 @@ window.guardarProducto = async function () {
     }
 
     const archivo =
-        inputImagen.files[0];
+        inputImagen.text[0];
 
     const nombreArchivo =
         Date.now() + "_" + archivo.name;
