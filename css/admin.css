@@ -101,3 +101,30 @@ select.input-admin{
     color:white;
     font-size:16px;
 }
+
+
+/* TOP BAR */
+
+.top-bar{
+    width:100%;
+    display:flex;
+    justify-content:flex-start;
+    margin-bottom:20px;
+}
+
+/* BOTON VOLVER */
+
+.btn-volver{
+    background:#1a1a1a;
+    color:white;
+    text-decoration:none;
+    padding:12px 18px;
+    border-radius:12px;
+    transition:0.3s;
+    font-weight:bold;
+    border:1px solid #333;
+}
+
+.btn-volver:hover{
+    background:#ff4081;
+}
