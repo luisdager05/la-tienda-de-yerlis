@@ -51,33 +51,44 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function mover(dir) {
+    
 
-        const cards = document.querySelectorAll(".card");
+   let index = 0;
+let intervalo;
 
-        if (!cards.length) return;
+function mover(dir = 1) {
 
-        index += dir;
+    const cards = document.querySelectorAll(".card");
 
-        if (index >= productos.length) index = 0;
-        if (index < 0) index = productos.length - 1;
+    if (!cards.length) return;
 
-        const size = cards[0].offsetWidth + 20;
+    index += dir;
 
-        slider.scrollTo({
-            left: index * size,
-            behavior: "smooth"
-        });
+    if (index >= cards.length) index = 0;
+    if (index < 0) index = cards.length - 1;
 
-        document.querySelectorAll("#dots span").forEach(d => d.classList.remove("active"));
-        document.querySelectorAll("#dots span")[index].classList.add("active");
-    }
+    const width = cards[0].offsetWidth + 20;
 
-    next?.addEventListener("click", () => mover(1));
-    prev?.addEventListener("click", () => mover(-1));
+    slider.scrollTo({
+        left: index * width,
+        behavior: "smooth"
+    });
 
-    render();
+    document.querySelectorAll("#dots span")
+        .forEach(d => d.classList.remove("active"));
 
-    setInterval(() => mover(1), 3000);
-});
+    document.querySelectorAll("#dots span")[index]
+        ?.classList.add("active");
+}
+
+// 🔥 autoplay
+function iniciarCarrusel() {
+    intervalo = setInterval(() => {
+        mover(1);
+    }, 2500);
+}
+
+// pausar al mover mouse
+slider.addEventListener("mouseenter", () => clearInterval(intervalo));
+slider.addEventListener("mouseleave", iniciarCarrusel);
 
