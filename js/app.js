@@ -1,3 +1,5 @@
+
+console.log("SUPABASE:", window.supabaseClient);
 document.addEventListener("DOMContentLoaded", () => {
 
     const slider = document.getElementById("slider");
