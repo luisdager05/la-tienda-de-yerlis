@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function mover(dir) {
 
         const cards = document.querySelectorAll(".card");
-        const puntos = document.querySelectorAll(".dots span");
+        const puntos = document.querySelectorAll("#dots span");
 
         if (!cards.length) return;
 
