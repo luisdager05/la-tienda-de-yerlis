@@ -2,67 +2,75 @@
 <html lang="es">
 
 <head>
-<meta charset="UTF-8">
-<title>Panel Admin</title>
+    <meta charset="UTF-8">
+    <title>Panel Admin</title>
 
-<link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin.css">
 </head>
 
 <body>
 
-<h1>📦 Panel Administrador</h1>
+    <h1>📦 Panel Administrador</h1>
 
-<div class="panel">
+    <div class="panel">
 
-    <input type="text" id="nombre" placeholder="Nombre producto">
+        <input
+            type="text"
+            id="nombre"
+            placeholder="Nombre producto"
+        >
 
-    <input type="number" id="precio" placeholder="Precio">
+        <input
+            type="number"
+            id="precio"
+            placeholder="Precio"
+        >
 
-    <select id="categoria" class="input-admin">
+        <select id="categoria" class="input-admin">
 
-        <option value="">
-            Seleccionar categoría
-        </option>
+            <option value="">
+                Seleccionar categoría
+            </option>
 
-        <option value="mujer">
-            👗 Mujer
-        </option>
+            <option value="mujer">
+                👗 Mujer
+            </option>
 
-        <option value="hombre">
-            👕 Hombre
-        </option>
+            <option value="hombre">
+                👕 Hombre
+            </option>
 
-        <option value="niño">
-            🧒 Niño
-        </option>
+            <option value="niño">
+                🧒 Niño
+            </option>
 
-        <option value="accesorios">
-            👜 Accesorios
-        </option>
+            <option value="accesorios">
+                👜 Accesorios
+            </option>
 
-    </select>
+        </select>
 
-    <input 
-        type="file"
-        id="imagen"
-        class="input-admin"
-        accept="image/*"
-    >
+        <input
+            type="file"
+            id="imagen"
+            class="input-admin"
+            accept="image/*"
+        >
 
-    <button onclick="guardarProducto()">
-        Guardar Producto
-    </button>
+        <button onclick="guardarProducto()">
+            Guardar Producto
+        </button>
 
-</div>
+    </div>
 
-<h2>📋 Productos</h2>
+    <h2>📋 Productos</h2>
 
-<div id="listaProductos"></div>
+    <div id="listaProductos"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-<script src="./js/supabase.js"></script>
-<script src="./js/admin.js"></script>
+    <script src="./js/supabase.js"></script>
+    <script src="./js/admin.js"></script>
 
 </body>
 </html>
