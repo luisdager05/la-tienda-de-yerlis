@@ -5,11 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const prev = document.getElementById("prev");
     const next = document.getElementById("next");
 
-    if (!slider) {
-        console.error("No existe #slider");
-        return;
-    }
-
     let productos = [
         { nombre: "Vestido Elegante", precio: 85000, cantidad: 10, img: "img/imagen1.png" },
         { nombre: "Blusa Moderna", precio: 55000, cantidad: 8, img: "img/imagen2.png" },
@@ -21,9 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let index = 0;
     let intervalo;
 
-    // =========================
-    // RENDER
-    // =========================
     function render() {
 
         slider.innerHTML = "";
@@ -55,9 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // =========================
-    // MOVIMIENTO
-    // =========================
     function mover(dir = 1) {
 
         const cards = document.querySelectorAll(".card");
@@ -83,31 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
             ?.classList.add("active");
     }
 
-    // =========================
-    // AUTOPLAY
-    // =========================
-    function iniciarCarrusel() {
-
-        clearInterval(intervalo);
-
-        intervalo = setInterval(() => {
-            mover(1);
-        }, 2500);
-    }
-
-    slider.addEventListener("mouseenter", () => clearInterval(intervalo));
-    slider.addEventListener("mouseleave", iniciarCarrusel);
-
-    // =========================
-    // BOTONES
-    // =========================
     next?.addEventListener("click", () => mover(1));
     prev?.addEventListener("click", () => mover(-1));
 
-    // =========================
-    // INICIO SEGURO
-    // =========================
     render();
-    iniciarCarrusel();
+
+    intervalo = setInterval(() => mover(1), 2500);
 
 });
