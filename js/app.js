@@ -3,34 +3,38 @@ document.addEventListener("DOMContentLoaded", async () => {
     const slider = document.getElementById("slider");
     const dots = document.getElementById("dots");
 
-    if (!slider || !dots) {
-        console.error("Faltan elementos HTML");
-        return;
-    }
-
     let index = 0;
     let intervalo;
 
-    // =========================
-    // CARGAR PRODUCTOS
-    // =========================
-    async function cargarProductos() {
+    // 🔥 ESPERAR SUPABASE LISTO
+    const waitSupabase = () => {
+        return new Promise((resolve) => {
+            const check = setInterval(() => {
+                if (window.supabaseClient) {
+                    clearInterval(check);
+                    resolve();
+                }
+            }, 100);
+        });
+    };
 
-        if (!window.supabaseClient) {
-            console.error("Supabase no inicializado");
-            return;
-        }
+    await waitSupabase();
+
+    async function cargarProductos() {
 
         const { data, error } = await window.supabaseClient
             .from("productos")
             .select("*");
 
-        if (error) {
-            console.log("Error Supabase:", error);
+        console.log("DATA:", data);
+        console.log("ERROR:", error);
+
+        if (error || !data) {
+            slider.innerHTML = "<h2>Error cargando productos</h2>";
             return;
         }
 
-        if (!data || data.length === 0) {
+        if (data.length === 0) {
             slider.innerHTML = "<h2>No hay productos</h2>";
             return;
         }
@@ -38,15 +42,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         render(data);
     }
 
-    // =========================
-    // RENDER
-    // =========================
     function render(productos) {
 
         slider.innerHTML = "";
         dots.innerHTML = "";
-
-        if (!Array.isArray(productos)) return;
 
         productos.forEach((p, i) => {
 
@@ -59,13 +58,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                         <h3>${p.nombre}</h3>
 
-                        <p class="precio">
-                            $${Number(p.precio).toLocaleString()}
-                        </p>
+                        <p class="precio">$${Number(p.precio).toLocaleString()}</p>
 
-                        <p class="cantidad">
-                            Categoría: ${p.categoria || "Sin categoría"}
-                        </p>
+                        <p class="cantidad">Categoría: ${p.categoria || ""}</p>
 
                         <button onclick="agregarCarrito('${p.nombre}', ${p.precio})">
                             🛒 Agregar
@@ -82,9 +77,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         iniciarCarrusel();
     }
 
-    // =========================
-    // CARRUSEL
-    // =========================
     function iniciarCarrusel() {
 
         clearInterval(intervalo);
@@ -92,7 +84,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         intervalo = setInterval(() => {
 
             const cards = document.querySelectorAll(".card");
-
             if (!cards.length) return;
 
             index++;
