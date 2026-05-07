@@ -80,3 +80,14 @@ button:hover{
     font-size:16px;
     outline:none;
 }
+
+select{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    border:none;
+    border-radius:10px;
+    background:#222;
+    color:white;
+    font-size:16px;
+}
