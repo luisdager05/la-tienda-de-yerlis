@@ -222,3 +222,15 @@ h1{
 .card{
     scroll-snap-align:center;
 }
+
+/* CATEGORIA SELECIONAR*/
+select{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    border:none;
+    border-radius:10px;
+    background:#222;
+    color:white;
+    font-size:16px;
+}
