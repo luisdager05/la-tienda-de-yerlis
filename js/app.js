@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
 
     const slider = document.getElementById("slider");
     const dots = document.getElementById("dots");
@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     let index = 0;
     let intervalo;
 
-    // 🔥 ESPERAR SUPABASE LISTO
+    // 🔥 Esperar Supabase
     const waitSupabase = () => {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             const check = setInterval(() => {
                 if (window.supabaseClient) {
                     clearInterval(check);
@@ -18,13 +18,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     };
 
-    await waitSupabase();
+    waitSupabase().then(cargarProductos);
 
     async function cargarProductos() {
-
-        console.log("SUPABASE CLIENT:", window.supabaseClient);
-console.log("DATA:", data);
-console.log("ERROR:", error);
 
         const { data, error } = await window.supabaseClient
             .from("productos")
@@ -46,49 +42,44 @@ console.log("ERROR:", error);
         render(data);
     }
 
-function render(productos) {
+    function render(productos) {
 
-    slider.innerHTML = "";
-    dots.innerHTML = "";
+        slider.innerHTML = "";
+        dots.innerHTML = "";
 
-    if (!productos || productos.length === 0) {
-        slider.innerHTML = "<h2>No hay productos</h2>";
-        return;
-    }
+        productos.forEach((p, i) => {
 
-    productos.forEach((p, i) => {
+            slider.innerHTML += `
+                <div class="card">
 
-        slider.innerHTML += `
-            <div class="card">
+                    <img src="${p.imagen || './img/error.png'}">
 
-                <img src="${p.imagen || './img/error.png'}">
+                    <div class="info">
 
-                <div class="info">
+                        <h3>${p.nombre}</h3>
 
-                    <h3>${p.nombre || "Sin nombre"}</h3>
+                        <p class="precio">
+                            $${Number(p.precio).toLocaleString()}
+                        </p>
 
-                    <p class="precio">
-                        $${Number(p.precio || 0).toLocaleString()}
-                    </p>
+                        <p class="cantidad">
+                            ${p.categoria || "Sin categoría"}
+                        </p>
 
-                    <p class="cantidad">
-                        ${p.categoria || "Sin categoría"}
-                    </p>
+                        <button onclick="agregarCarrito('${p.nombre}', ${p.precio})">
+                            🛒 Agregar
+                        </button>
 
-                    <button onclick="agregarCarrito('${p.nombre || "Producto"}', ${p.precio || 0})">
-                        🛒 Agregar
-                    </button>
+                    </div>
 
                 </div>
+            `;
 
-            </div>
-        `;
+            dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
+        });
 
-        dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
-    });
-
-    iniciarCarrusel();
-}
+        iniciarCarrusel();
+    }
 
     function iniciarCarrusel() {
 
@@ -113,5 +104,4 @@ function render(productos) {
         }, 3000);
     }
 
-    cargarProductos();
 });
