@@ -166,7 +166,7 @@ h1{
 }
 
 
-//menu 
+/*menu*/ 
 
 .menu{
     display:flex;
@@ -185,4 +185,22 @@ h1{
 
 .menu a:hover{
     color:#ff4081;
+}
+
+/*CARRITO*/
+.carrito{
+    position:fixed;
+    right:-300px;
+    top:0;
+    width:300px;
+    height:100%;
+    background:#1a1a1a;
+    color:white;
+    padding:20px;
+    transition:0.3s;
+    overflow-y:auto;
+}
+
+.carrito.active{
+    right:0;
 }
