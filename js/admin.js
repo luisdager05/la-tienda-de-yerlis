@@ -64,7 +64,7 @@ window.guardarProducto = async function () {
 
     cargarProductos();
 };
-=======
+
 
 async function cargarProductos() {
 
