@@ -67,3 +67,16 @@ button:hover{
     margin-top:10px;
     background:red;
 }
+
+
+.input-admin{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    border:none;
+    border-radius:10px;
+    background:#222;
+    color:white;
+    font-size:16px;
+    outline:none;
+}
