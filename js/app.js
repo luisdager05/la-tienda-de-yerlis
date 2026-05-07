@@ -95,3 +95,14 @@ slider.addEventListener("mouseleave", iniciarCarrusel);
     render();
 iniciarCarrusel();
 
+    const carrito = document.getElementById("carrito");
+const carritoBtn = document.getElementById("carritoBtn");
+
+carritoBtn?.addEventListener("click", () => {
+    carrito.classList.add("active");
+});
+
+function cerrarCarrito(){
+    carrito.classList.remove("active");
+}
+
