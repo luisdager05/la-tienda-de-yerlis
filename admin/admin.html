@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Panel Admin</title>
 
+<link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+
+<h1>📦 Panel Administrador</h1>
+
+<div class="panel">
+
+    <input type="text" id="nombre" placeholder="Nombre producto">
+
+    <input type="number" id="precio" placeholder="Precio">
+
+    <input type="text" id="categoria" placeholder="Categoría">
+
+    <input type="text" id="imagen" placeholder="./img/imagen1.png">
+
+    <button onclick="guardarProducto()">
+        Guardar Producto
+    </button>
+
+</div>
+
+<div id="mensaje"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script src="../js/supabase.js"></script>
+<script src="../js/admin.js"></script>
+
+</body>
+</html>
