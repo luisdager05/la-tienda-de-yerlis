@@ -44,38 +44,51 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     let index = 0;
-    let autoplay;
 
     // =========================
-    // RENDER PRODUCTOS
+    // RENDER
     // =========================
-   slider.innerHTML += `
-    <div class="card ${i === 0 ? "active" : ""}">
+    function renderSlider() {
 
-        <img src="${p.img}" alt="${p.nombre}">
+        slider.innerHTML = "";
+        dots.innerHTML = "";
 
-        <div class="info">
+        productos.forEach((p, i) => {
 
-            <h3>${p.nombre}</h3>
+            slider.innerHTML += `
+                <div class="card">
 
-            <p class="precio">
-                $${p.precio.toLocaleString()}
-            </p>
+                    <img src="${p.img}" alt="${p.nombre}">
 
-            <p class="cantidad">
-                Disponibles: ${p.cantidad}
-            </p>
+                    <div class="info">
 
-            <button class="btn-carrito">
-                🛒 Agregar
-            </button>
+                        <h3>${p.nombre}</h3>
 
-        </div>
+                        <p class="precio">
+                            $${p.precio.toLocaleString()}
+                        </p>
 
-    </div>
-`;
+                        <p class="cantidad">
+                            Disponibles: ${p.cantidad}
+                        </p>
+
+                        <button class="btn-carrito">
+                            🛒 Agregar
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+
+            dots.innerHTML += `
+                <span class="${i === 0 ? "active" : ""}"></span>
+            `;
+        });
+    }
+
     // =========================
-    // MOVER SLIDER
+    // MOVER
     // =========================
     function mover(dir) {
 
@@ -86,8 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         index += dir;
 
-        const cardWidth = cards[0].offsetWidth + 15;
-
         if (index >= productos.length) {
             index = 0;
         }
@@ -96,10 +107,10 @@ document.addEventListener("DOMContentLoaded", () => {
             index = productos.length - 1;
         }
 
-        cards.forEach(c => c.classList.remove("active"));
+        const cardWidth = cards[0].offsetWidth + 20;
+
         puntos.forEach(p => p.classList.remove("active"));
 
-        cards[index].classList.add("active");
         puntos[index].classList.add("active");
 
         slider.scrollTo({
@@ -111,24 +122,22 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================
     // BOTONES
     // =========================
-    next.onclick = () => mover(1);
-    prev.onclick = () => mover(-1);
+    next.addEventListener("click", () => {
+        mover(1);
+    });
+
+    prev.addEventListener("click", () => {
+        mover(-1);
+    });
 
     // =========================
     // INICIAR
     // =========================
     renderSlider();
 
-    setTimeout(() => {
-
-        mover(0);
-
-        autoplay = setInterval(() => {
-            mover(1);
-        }, 3000);
-
-    }, 100);
+    setInterval(() => {
+        mover(1);
+    }, 3000);
 
 });
-
 
