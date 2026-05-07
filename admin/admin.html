@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>Panel Admin</title>
 
-<link rel="stylesheet" href="../css/admin.css">
+<link rel="stylesheet" href="./css/admin.css">
 </head>
 
 <body>
@@ -18,36 +18,36 @@
 
     <input type="number" id="precio" placeholder="Precio">
 
-   <select id="categoria" class="input-admin">
+    <select id="categoria" class="input-admin">
 
-    <option value="">
-        Seleccionar categoría
-    </option>
+        <option value="">
+            Seleccionar categoría
+        </option>
 
-    <option value="mujer">
-        👗 Mujer
-    </option>
+        <option value="mujer">
+            👗 Mujer
+        </option>
 
-    <option value="hombre">
-        👕 Hombre
-    </option>
+        <option value="hombre">
+            👕 Hombre
+        </option>
 
-    <option value="niño">
-        🧒 Niño
-    </option>
+        <option value="niño">
+            🧒 Niño
+        </option>
 
-    <option value="accesorios">
-        👜 Accesorios
-    </option>
+        <option value="accesorios">
+            👜 Accesorios
+        </option>
 
-</select>
+    </select>
 
     <input 
-    type="text" 
-    id="imagen"
-    class="input-admin"
-    accept="image/*"
- placeholder="./img/imagen1.png">
+        type="file"
+        id="imagen"
+        class="input-admin"
+        accept="image/*"
+    >
 
     <button onclick="guardarProducto()">
         Guardar Producto
@@ -61,8 +61,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-<script src="../js/supabase.js"></script>
-<script src="../js/admin.js"></script>
+<script src="./js/supabase.js"></script>
+<script src="./js/admin.js"></script>
 
 </body>
 </html>
