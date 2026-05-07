@@ -1,22 +1,20 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
     const slider = document.getElementById("slider");
     const dots = document.getElementById("dots");
-    const prev = document.getElementById("prev");
-    const next = document.getElementById("next");
-
-    let productos = [
-        { nombre: "Vestido Elegante", precio: 85000, cantidad: 10, img: "img/imagen1.png" },
-        { nombre: "Blusa Moderna", precio: 55000, cantidad: 8, img: "img/imagen2.png" },
-        { nombre: "Falda Larga", precio: 70000, cantidad: 5, img: "img/imagen3.png" },
-        { nombre: "Crop Top", precio: 40000, cantidad: 12, img: "img/imagen4.png" },
-        { nombre: "Jean Dama", precio: 95000, cantidad: 6, img: "img/imagen5.png" }
-    ];
 
     let index = 0;
-    let intervalo;
 
-    function render() {
+    async function cargarProductos() {
+
+        const { data } = await supabaseClient
+            .from("productos")
+            .select("*");
+
+        render(data);
+    }
+
+    function render(productos) {
 
         slider.innerHTML = "";
         dots.innerHTML = "";
@@ -26,17 +24,19 @@ document.addEventListener("DOMContentLoaded", () => {
             slider.innerHTML += `
                 <div class="card">
 
-                    <img src="${p.img}" onerror="this.src='img/error.png'">
+                    <img src="${p.imagen}" alt="producto">
 
                     <div class="info">
 
                         <h3>${p.nombre}</h3>
 
-                        <p class="precio">$${p.precio.toLocaleString()}</p>
+                        <p class="precio">$${p.precio}</p>
 
                         <p class="cantidad">Stock: ${p.cantidad}</p>
 
-                        <button>🛒 Agregar</button>
+                        <button onclick="agregarCarrito('${p.nombre}', ${p.precio})">
+                            🛒 Agregar
+                        </button>
 
                     </div>
 
@@ -45,38 +45,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
             dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
         });
+
+        iniciarCarrusel();
     }
 
-    function mover(dir = 1) {
+    function iniciarCarrusel() {
 
-        const cards = document.querySelectorAll(".card");
+        setInterval(() => {
 
-        if (!cards.length) return;
+            const cards = document.querySelectorAll(".card");
+            if (!cards.length) return;
 
-        index += dir;
+            index++;
 
-        if (index >= cards.length) index = 0;
-        if (index < 0) index = cards.length - 1;
+            if (index >= cards.length) index = 0;
 
-        const width = cards[0].offsetWidth + 20;
+            const width = cards[0].offsetWidth + 20;
 
-        slider.scrollTo({
-            left: index * width,
-            behavior: "smooth"
-        });
+            slider.scrollTo({
+                left: index * width,
+                behavior: "smooth"
+            });
 
-        document.querySelectorAll("#dots span")
-            .forEach(d => d.classList.remove("active"));
-
-        document.querySelectorAll("#dots span")[index]
-            ?.classList.add("active");
+        }, 3000);
     }
 
-    next?.addEventListener("click", () => mover(1));
-    prev?.addEventListener("click", () => mover(-1));
-
-    render();
-
-    intervalo = setInterval(() => mover(1), 2500);
-
+    cargarProductos();
 });
