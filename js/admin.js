@@ -29,6 +29,16 @@ if (!inputImagen.files.length) {
     return;
 }
 
+const inputImagen =
+    document.getElementById("imagen");
+
+if (!inputImagen.files.length) {
+
+    alert("Selecciona una imagen");
+
+    return;
+}
+
 const archivo = inputImagen.files[0];
 
 if (!nombre || !precio || !categoria) {
