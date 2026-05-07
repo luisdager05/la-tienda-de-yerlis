@@ -13,6 +13,8 @@ function mostrarCarrito() {
 
     const contenedor = document.getElementById("itemsCarrito");
 
+    if (!contenedor) return;
+
     contenedor.innerHTML = "";
 
     let total = 0;
@@ -22,11 +24,11 @@ function mostrarCarrito() {
         total += p.precio;
 
         contenedor.innerHTML += `
-            <p>${p.nombre} - $${p.precio}</p>
+            <p>${p.nombre} - $${p.precio.toLocaleString()}</p>
         `;
     });
 
-    contenedor.innerHTML += `<h3>Total: $${total}</h3>`;
+    contenedor.innerHTML += `<h3>Total: $${total.toLocaleString()}</h3>`;
 }
 
 function toggleCarrito() {
