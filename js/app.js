@@ -7,12 +7,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     async function cargarProductos() {
 
-        const { data } = await supabaseClient
-            .from("productos")
-            .select("*");
+    const { data, error } = await supabaseClient
+        .from("productos")
+        .select("*");
 
-        render(data);
+    if (error) {
+        console.log("Error Supabase:", error);
+        return;
     }
+
+    if (!data || data.length === 0) {
+        slider.innerHTML = "<h2>No hay productos</h2>";
+        return;
+    }
+
+    render(data);
+}
 
     function render(productos) {
 
