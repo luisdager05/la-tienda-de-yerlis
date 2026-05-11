@@ -227,26 +227,40 @@ activarBuscador(data);
 // =========================
 // BUSCADOR
 // =========================
+// =========================
+// BUSCADOR CORREGIDO
+// =========================
 
 function activarBuscador(productos) {
 
     const buscador = document.getElementById("buscador");
 
-    buscador.addEventListener("keyup", () => {
+    buscador.addEventListener("input", () => {
 
-        const texto = buscador.value.toLowerCase();
+        const texto = buscador.value.toLowerCase().trim();
 
         const filtrados = productos.filter(producto => {
 
-            return producto.nombre
-                .toLowerCase()
-                .includes(texto);
+            return (
+                producto.nombre?.toLowerCase().includes(texto) ||
+                producto.categoria?.toLowerCase().includes(texto)
+            );
 
         });
 
-        // ACTUALIZAR
-        render(filtrados);
+        // SI NO HAY RESULTADOS
+        if (filtrados.length === 0) {
 
+            document.getElementById("mujer").innerHTML = "<p>No hay resultados</p>";
+            document.getElementById("hombre").innerHTML = "";
+            document.getElementById("accesorios").innerHTML = "";
+            document.getElementById("destacados").innerHTML = "";
+            document.getElementById("vendidos").innerHTML = "";
+
+            return;
+        }
+
+        // SOLO ACTUALIZAR SECCIONES
         mostrarSecciones(filtrados);
 
     });
