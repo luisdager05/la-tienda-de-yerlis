@@ -1,5 +1,5 @@
-
 console.log("SUPABASE:", window.supabaseClient);
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const slider = document.getElementById("slider");
@@ -8,19 +8,34 @@ document.addEventListener("DOMContentLoaded", () => {
     let index = 0;
     let intervalo;
 
-    // 🔥 Esperar Supabase
+    // =========================
+    // ESPERAR SUPABASE
+    // =========================
+
     const waitSupabase = () => {
+
         return new Promise(resolve => {
+
             const check = setInterval(() => {
+
                 if (window.supabaseClient) {
+
                     clearInterval(check);
                     resolve();
+
                 }
+
             }, 100);
+
         });
+
     };
 
     waitSupabase().then(cargarProductos);
+
+    // =========================
+    // CARGAR PRODUCTOS
+    // =========================
 
     async function cargarProductos() {
 
@@ -32,17 +47,30 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("ERROR:", error);
 
         if (error || !data) {
+
             slider.innerHTML = "<h2>Error cargando productos</h2>";
             return;
+
         }
 
         if (data.length === 0) {
+
             slider.innerHTML = "<h2>No hay productos</h2>";
             return;
+
         }
 
+        // SLIDER
         render(data);
+
+        // SECCIONES
+        mostrarSecciones(data);
+
     }
+
+    // =========================
+    // RENDER SLIDER
+    // =========================
 
     function render(productos) {
 
@@ -52,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         productos.forEach((p, i) => {
 
             slider.innerHTML += `
+            
                 <div class="card">
 
                     <img src="${p.imagen || './img/error.png'}">
@@ -77,11 +106,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
 
-            dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
+            dots.innerHTML += `
+                <span class="${i === 0 ? "active" : ""}"></span>
+            `;
+
         });
 
         iniciarCarrusel();
+
     }
+
+    // =========================
+    // CARRUSEL AUTOMÁTICO
+    // =========================
 
     function iniciarCarrusel() {
 
@@ -90,111 +127,97 @@ document.addEventListener("DOMContentLoaded", () => {
         intervalo = setInterval(() => {
 
             const cards = document.querySelectorAll(".card");
+
             if (!cards.length) return;
 
             index++;
 
-            if (index >= cards.length) index = 0;
+            if (index >= cards.length) {
+
+                index = 0;
+
+            }
 
             const width = cards[0].offsetWidth + 20;
 
             slider.scrollTo({
+
                 left: index * width,
                 behavior: "smooth"
+
             });
 
         }, 3000);
+
+    }
+
+    // =========================
+    // MOSTRAR SECCIONES
+    // =========================
+
+    function mostrarSecciones(productos) {
+
+        const mujer = document.getElementById("mujer");
+        const hombre = document.getElementById("hombre");
+        const accesorios = document.getElementById("accesorios");
+        const destacados = document.getElementById("destacados");
+        const vendidos = document.getElementById("vendidos");
+
+        // LIMPIAR
+        mujer.innerHTML = "";
+        hombre.innerHTML = "";
+        accesorios.innerHTML = "";
+        destacados.innerHTML = "";
+        vendidos.innerHTML = "";
+
+        productos.forEach(producto => {
+
+            const card = `
+            
+                <div class="producto">
+
+                    <img src="${producto.imagen || './img/error.png'}">
+
+                    <h3>${producto.nombre}</h3>
+
+                    <p>
+                        $${Number(producto.precio).toLocaleString()}
+                    </p>
+
+                    <button onclick="agregarCarrito('${producto.nombre}', ${producto.precio})">
+                        🛒 Agregar
+                    </button>
+
+                </div>
+            `;
+
+            // DESTACADOS
+            destacados.innerHTML += card;
+
+            // MÁS VENDIDOS
+            vendidos.innerHTML += card;
+
+            // CATEGORÍAS
+            if (producto.categoria === "mujer") {
+
+                mujer.innerHTML += card;
+
+            }
+
+            if (producto.categoria === "hombre") {
+
+                hombre.innerHTML += card;
+
+            }
+
+            if (producto.categoria === "accesorios") {
+
+                accesorios.innerHTML += card;
+
+            }
+
+        });
+
     }
 
 });
-// =========================
-// PRODUCTOS DE EJEMPLO
-// =========================
-
-const productos = [
-
-{
-    nombre: "Crop Top",
-    precio: "$40.000",
-    imagen: "./img/imagen1.png",
-    categoria: "mujer"
-},
-
-{
-    nombre: "Camisa Oversize",
-    precio: "$65.000",
-    imagen: "./img/imagen2.png",
-    categoria: "hombre"
-},
-
-{
-    nombre: "Bolso Elegante",
-    precio: "$55.000",
-    imagen: "./img/imagen3.png",
-    categoria: "accesorios"
-},
-
-{
-    nombre: "Vestido Largo",
-    precio: "$90.000",
-    imagen: "./img/imagen4.png",
-    categoria: "mujer"
-}
-
-];
-
-
-// =========================
-// MOSTRAR PRODUCTOS
-// =========================
-
-function mostrarProductos() {
-
-    const mujer = document.getElementById("mujer");
-    const hombre = document.getElementById("hombre");
-    const accesorios = document.getElementById("accesorios");
-    const destacados = document.getElementById("destacados");
-    const vendidos = document.getElementById("vendidos");
-
-    productos.forEach(producto => {
-
-        const card = `
-        
-        <div class="producto">
-
-            <img src="${producto.imagen}">
-
-            <h3>${producto.nombre}</h3>
-
-            <p>${producto.precio}</p>
-
-            <button>Agregar al carrito</button>
-
-        </div>
-
-        `;
-
-        // DESTACADOS
-        destacados.innerHTML += card;
-
-        // MÁS VENDIDOS
-        vendidos.innerHTML += card;
-
-        // CATEGORÍAS
-        if(producto.categoria === "mujer"){
-            mujer.innerHTML += card;
-        }
-
-        if(producto.categoria === "hombre"){
-            hombre.innerHTML += card;
-        }
-
-        if(producto.categoria === "accesorios"){
-            accesorios.innerHTML += card;
-        }
-
-    });
-
-}
-
-mostrarProductos();
