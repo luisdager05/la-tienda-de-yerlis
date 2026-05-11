@@ -63,6 +63,11 @@ HERO (CORREGIDO)
     padding:20px;
 }
 
+.hero{
+    min-height: 35vh;
+    height: auto;
+}
+
 .hero-text h1{
     font-size:42px;
     color:white;
