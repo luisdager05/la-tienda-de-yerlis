@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let index = 0;
     let intervalo;
 
+    let productosGlobal = []; // 🔥 guardamos productos para buscador
+
     // =========================
     // ESPERAR SUPABASE
     // =========================
@@ -60,18 +62,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-        // SLIDER
+        productosGlobal = data; // 🔥 guardamos global
+
         render(data);
-
-        // SECCIONES
-       /* mostrarSecciones(data);*/
-
-activarBuscador(data);
+        mostrarSecciones(data);
+        activarBuscador();
 
     }
 
     // =========================
-    // RENDER SLIDER
+    // SLIDER
     // =========================
 
     function render(productos) {
@@ -82,7 +82,6 @@ activarBuscador(data);
         productos.forEach((p, i) => {
 
             slider.innerHTML += `
-            
                 <div class="card">
 
                     <img src="${p.imagen || './img/error.png'}">
@@ -108,9 +107,7 @@ activarBuscador(data);
                 </div>
             `;
 
-            dots.innerHTML += `
-                <span class="${i === 0 ? "active" : ""}"></span>
-            `;
+            dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
 
         });
 
@@ -119,7 +116,7 @@ activarBuscador(data);
     }
 
     // =========================
-    // CARRUSEL AUTOMÁTICO
+    // CARRUSEL
     // =========================
 
     function iniciarCarrusel() {
@@ -134,19 +131,13 @@ activarBuscador(data);
 
             index++;
 
-            if (index >= cards.length) {
-
-                index = 0;
-
-            }
+            if (index >= cards.length) index = 0;
 
             const width = cards[0].offsetWidth + 20;
 
             slider.scrollTo({
-
                 left: index * width,
                 behavior: "smooth"
-
             });
 
         }, 3000);
@@ -154,7 +145,7 @@ activarBuscador(data);
     }
 
     // =========================
-    // MOSTRAR SECCIONES
+    // SECCIONES
     // =========================
 
     function mostrarSecciones(productos) {
@@ -165,7 +156,8 @@ activarBuscador(data);
         const destacados = document.getElementById("destacados");
         const vendidos = document.getElementById("vendidos");
 
-        // LIMPIAR
+        if (!mujer || !hombre || !accesorios || !destacados || !vendidos) return;
+
         mujer.innerHTML = "";
         hombre.innerHTML = "";
         accesorios.innerHTML = "";
@@ -175,16 +167,13 @@ activarBuscador(data);
         productos.forEach(producto => {
 
             const card = `
-            
                 <div class="producto">
 
                     <img src="${producto.imagen || './img/error.png'}">
 
                     <h3>${producto.nombre}</h3>
 
-                    <p>
-                        $${Number(producto.precio).toLocaleString()}
-                    </p>
+                    <p>$${Number(producto.precio).toLocaleString()}</p>
 
                     <button onclick="agregarCarrito('${producto.nombre}', ${producto.precio})">
                         🛒 Agregar
@@ -193,76 +182,52 @@ activarBuscador(data);
                 </div>
             `;
 
-            // DESTACADOS
             destacados.innerHTML += card;
-
-            // MÁS VENDIDOS
             vendidos.innerHTML += card;
 
-            // CATEGORÍAS
-            if (producto.categoria === "mujer") {
+            if (producto.categoria === "mujer") mujer.innerHTML += card;
+            if (producto.categoria === "hombre") hombre.innerHTML += card;
+            if (producto.categoria === "accesorios") accesorios.innerHTML += card;
 
-                mujer.innerHTML += card;
+        });
+
+    }
+
+    // =========================
+    // BUSCADOR FUNCIONAL
+    // =========================
+
+    function activarBuscador() {
+
+        const buscador = document.getElementById("buscador");
+
+        if (!buscador) return;
+
+        buscador.addEventListener("input", () => {
+
+            const texto = buscador.value.toLowerCase().trim();
+
+            if (texto === "") {
+
+                mostrarSecciones(productosGlobal);
+                render(productosGlobal);
+                return;
 
             }
 
-            if (producto.categoria === "hombre") {
+            const filtrados = productosGlobal.filter(p => {
 
-                hombre.innerHTML += card;
+                return (
+                    p.nombre?.toLowerCase().includes(texto) ||
+                    p.categoria?.toLowerCase().includes(texto)
+                );
 
-            }
+            });
 
-            if (producto.categoria === "accesorios") {
-
-                accesorios.innerHTML += card;
-
-            }
+            mostrarSecciones(filtrados);
 
         });
 
     }
 
 });
-
-// =========================
-// BUSCADOR
-// =========================
-// =========================
-// BUSCADOR CORREGIDO
-// =========================
-
-function activarBuscador(productos) {
-
-    const buscador = document.getElementById("buscador");
-
-    buscador.addEventListener("input", () => {
-
-        const texto = buscador.value.toLowerCase().trim();
-
-        const filtrados = productos.filter(producto => {
-
-            return (
-                producto.nombre?.toLowerCase().includes(texto) ||
-                producto.categoria?.toLowerCase().includes(texto)
-            );
-
-        });
-
-        // SI NO HAY RESULTADOS
-        if (filtrados.length === 0) {
-
-            document.getElementById("mujer").innerHTML = "<p>No hay resultados</p>";
-            document.getElementById("hombre").innerHTML = "";
-            document.getElementById("accesorios").innerHTML = "";
-            document.getElementById("destacados").innerHTML = "";
-            document.getElementById("vendidos").innerHTML = "";
-
-            return;
-        }
-
-        // SOLO ACTUALIZAR SECCIONES
-        mostrarSecciones(filtrados);
-
-    });
-
-}
