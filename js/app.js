@@ -66,6 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // SECCIONES
         mostrarSecciones(data);
 
+activarBuscador(data);
+
     }
 
     // =========================
