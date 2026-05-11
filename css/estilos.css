@@ -336,6 +336,53 @@ SECCIONES PRODUCTOS
 .btn-carrito-menu:hover{
     color:#ff4081;
 }
+.carrito{
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 320px;
+    height: 100%;
+    background: #111;
+    color: white;
+    padding: 20px;
+    transition: 0.3s ease-in-out;
+    overflow-y: auto;
+    z-index: 9999;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+}
+
+.carrito.active{
+    right: 0;
+}
+
+.carrito h2{
+    margin-bottom: 20px;
+}
+
+#itemsCarrito{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ITEM DEL CARRITO */
+.item-carrito{
+    background:#1a1a1a;
+    padding:10px;
+    border-radius:10px;
+}
+
+/* BOTÓN CERRAR */
+.carrito button{
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border:none;
+    background:#ff4081;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+}
 
 /* FOOTER */
 
