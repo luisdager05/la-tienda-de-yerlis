@@ -1,38 +1,66 @@
+function toggleCarrito(){
+    document.getElementById("carrito").classList.toggle("active");
+}
+
+function cerrarCarrito(){
+    document.getElementById("carrito").classList.remove("active");
+}
+
+// =========================
+// AGREGAR PRODUCTO
+// =========================
+
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-function agregarCarrito(nombre, precio) {
+function agregarCarrito(nombre, precio){
 
     carrito.push({ nombre, precio });
 
     localStorage.setItem("carrito", JSON.stringify(carrito));
 
-    mostrarCarrito();
+    renderCarrito();
 }
 
-function mostrarCarrito() {
+// =========================
+// MOSTRAR CARRITO
+// =========================
+
+function renderCarrito(){
 
     const contenedor = document.getElementById("itemsCarrito");
 
     contenedor.innerHTML = "";
 
-    let total = 0;
-
-    carrito.forEach(p => {
-
-        total += p.precio;
+    carrito.forEach((item, i) => {
 
         contenedor.innerHTML += `
-            <p>${p.nombre} - $${Number(p.precio).toLocaleString()}</p>
+            <div class="item-carrito">
+
+                <p>${item.nombre}</p>
+
+                <strong>$${Number(item.precio).toLocaleString()}</strong>
+
+                <button onclick="eliminarItem(${i})">Eliminar</button>
+
+            </div>
         `;
+
     });
 
-    contenedor.innerHTML += `<h3>Total: $${total.toLocaleString()}</h3>`;
 }
 
-function toggleCarrito() {
-    document.getElementById("carrito").classList.toggle("active");
+// =========================
+// ELIMINAR
+// =========================
+
+function eliminarItem(index){
+
+    carrito.splice(index, 1);
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    renderCarrito();
 }
 
-function cerrarCarrito() {
-    document.getElementById("carrito").classList.remove("active");
-}
+// inicial
+renderCarrito();
