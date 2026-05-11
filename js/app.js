@@ -107,3 +107,94 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+// =========================
+// PRODUCTOS DE EJEMPLO
+// =========================
+
+const productos = [
+
+{
+    nombre: "Crop Top",
+    precio: "$40.000",
+    imagen: "./img/imagen1.png",
+    categoria: "mujer"
+},
+
+{
+    nombre: "Camisa Oversize",
+    precio: "$65.000",
+    imagen: "./img/imagen2.png",
+    categoria: "hombre"
+},
+
+{
+    nombre: "Bolso Elegante",
+    precio: "$55.000",
+    imagen: "./img/imagen3.png",
+    categoria: "accesorios"
+},
+
+{
+    nombre: "Vestido Largo",
+    precio: "$90.000",
+    imagen: "./img/imagen4.png",
+    categoria: "mujer"
+}
+
+];
+
+
+// =========================
+// MOSTRAR PRODUCTOS
+// =========================
+
+function mostrarProductos() {
+
+    const mujer = document.getElementById("mujer");
+    const hombre = document.getElementById("hombre");
+    const accesorios = document.getElementById("accesorios");
+    const destacados = document.getElementById("destacados");
+    const vendidos = document.getElementById("vendidos");
+
+    productos.forEach(producto => {
+
+        const card = `
+        
+        <div class="producto">
+
+            <img src="${producto.imagen}">
+
+            <h3>${producto.nombre}</h3>
+
+            <p>${producto.precio}</p>
+
+            <button>Agregar al carrito</button>
+
+        </div>
+
+        `;
+
+        // DESTACADOS
+        destacados.innerHTML += card;
+
+        // MÁS VENDIDOS
+        vendidos.innerHTML += card;
+
+        // CATEGORÍAS
+        if(producto.categoria === "mujer"){
+            mujer.innerHTML += card;
+        }
+
+        if(producto.categoria === "hombre"){
+            hombre.innerHTML += card;
+        }
+
+        if(producto.categoria === "accesorios"){
+            accesorios.innerHTML += card;
+        }
+
+    });
+
+}
+
+mostrarProductos();
