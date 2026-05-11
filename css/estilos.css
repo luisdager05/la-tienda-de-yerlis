@@ -396,3 +396,95 @@ SECCIONES
     background: #ff1f6b;
 
 }
+
+/* =========================
+EFECTO PREMIUM
+========================= */
+
+.producto{
+
+    position: relative;
+    background: #111;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.4s;
+    cursor: pointer;
+
+}
+
+/* EFECTO HOVER */
+
+.producto:hover{
+
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 64, 129, 0.4);
+
+}
+
+/* EFECTO OSCURO IMAGEN */
+
+.producto::before{
+
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.8),
+        transparent
+    );
+
+    opacity: 0;
+    transition: 0.4s;
+    z-index: 1;
+
+}
+
+.producto:hover::before{
+
+    opacity: 1;
+
+}
+
+/* IMAGEN */
+
+.producto img{
+
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: 0.4s;
+
+}
+
+.producto:hover img{
+
+    transform: scale(1.1);
+
+}
+
+/* CONTENIDO */
+
+.producto h3,
+.producto p,
+.producto button{
+
+    position: relative;
+    z-index: 2;
+
+}
+
+/* BOTÓN */
+
+.producto button{
+
+    background: linear-gradient(
+        45deg,
+        #ff4081,
+        #ff0066
+    );
+
+    font-weight: bold;
+    letter-spacing: 1px;
+
+}
