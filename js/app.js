@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 behavior: "smooth"
             });
 
-        }, 3000);
+        }, 2000);
 
     }
 
