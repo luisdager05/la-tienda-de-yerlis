@@ -221,3 +221,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+// =========================
+// BUSCADOR
+// =========================
+
+function activarBuscador(productos) {
+
+    const buscador = document.getElementById("buscador");
+
+    buscador.addEventListener("keyup", () => {
+
+        const texto = buscador.value.toLowerCase();
+
+        const filtrados = productos.filter(producto => {
+
+            return producto.nombre
+                .toLowerCase()
+                .includes(texto);
+
+        });
+
+        // ACTUALIZAR
+        render(filtrados);
+
+        mostrarSecciones(filtrados);
+
+    });
+
+}
