@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         render(data);
 
         // SECCIONES
-        mostrarSecciones(data);
+       /* mostrarSecciones(data);*/
 
 activarBuscador(data);
 
