@@ -325,6 +325,18 @@ SECCIONES PRODUCTOS
     cursor:pointer;
 }
 
+
+.btn-carrito-menu{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn-carrito-menu:hover{
+    color:#ff4081;
+}
+
 /* FOOTER */
 
 footer{
