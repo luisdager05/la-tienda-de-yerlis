@@ -305,3 +305,31 @@ function seleccionarColor(color, el){
     card.dataset.color = color;
 
 }
+
+function abrirModal(nombre, precio, imagen){
+
+    const modal = document.getElementById("modal");
+
+    if(!modal) return;
+
+    modal.style.display = "flex";
+
+    const img = document.getElementById("modal-img");
+    const title = document.getElementById("modal-title");
+    const price = document.getElementById("modal-price");
+
+    if(img) img.src = imagen || "./img/error.png";
+    if(title) title.innerText = nombre;
+    if(price) price.innerText = "$" + Number(precio).toLocaleString();
+
+}
+
+function cerrarModal(){
+
+    const modal = document.getElementById("modal");
+
+    if(!modal) return;
+
+    modal.style.display = "none";
+
+}
