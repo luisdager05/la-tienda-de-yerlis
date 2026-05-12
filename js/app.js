@@ -85,9 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <div class="card">
 
-                    <img
-                    src="${p.imagen || './img/error.png'}"
-                    alt="${p.nombre}">
+                   <img
+class="img-producto"
+src="${producto.imagen || './img/error.png'}"
+alt="${producto.nombre}">
 
                     <div class="info">
 
@@ -407,3 +408,73 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+
+// =========================
+// CAMBIAR COLOR IMAGEN
+// =========================
+
+function cambiarColorImagen(select){
+
+    const card =
+    select.closest(".producto") ||
+    select.closest(".card");
+
+    const img =
+    card.querySelector(".img-producto");
+
+    const color = select.value;
+
+    img.style.filter = "none";
+
+    switch(color){
+
+        case "Negro":
+
+            img.style.filter =
+            "brightness(0.4)";
+
+        break;
+
+        case "Blanco":
+
+            img.style.filter =
+            "brightness(1.2) saturate(0.2)";
+
+        break;
+
+        case "Rosado":
+
+            img.style.filter =
+            "hue-rotate(-20deg) saturate(1.5)";
+
+        break;
+
+        case "Azul":
+
+            img.style.filter =
+            "hue-rotate(180deg) saturate(1.4)";
+
+        break;
+
+        case "Rojo":
+
+            img.style.filter =
+            "hue-rotate(320deg) saturate(1.7)";
+
+        break;
+
+        case "Verde":
+
+            img.style.filter =
+            "hue-rotate(90deg) saturate(1.5)";
+
+        break;
+
+        default:
+
+            img.style.filter = "none";
+
+    }
+
+}
