@@ -1047,3 +1047,275 @@ body{
     }
 
 }
+/* =========================
+   RESPONSIVE MEJORADO
+========================= */
+
+@media(max-width:992px){
+
+    .header-principal{
+        padding:15px 20px;
+    }
+
+    .menu{
+        gap:15px;
+    }
+
+    #buscador{
+        width:220px;
+    }
+
+    .card{
+        min-width:200px;
+        max-width:200px;
+    }
+
+}
+
+/* =========================
+   TABLETS
+========================= */
+
+@media(max-width:768px){
+
+    body{
+        overflow-x:hidden;
+    }
+
+    /* HEADER */
+
+    .header-principal{
+        display:flex;
+        flex-direction:column;
+
+        gap:18px;
+
+        padding:20px 15px;
+
+        position:relative;
+    }
+
+    .logo{
+        width:100%;
+
+        display:flex;
+        justify-content:center;
+    }
+
+    .logo img{
+        width:110px;
+    }
+
+    /* BUSCADOR */
+
+    .buscador-container{
+        position:relative;
+
+        left:auto;
+        transform:none;
+
+        width:100%;
+
+        display:flex;
+        justify-content:center;
+    }
+
+    #buscador{
+        width:100%;
+        max-width:500px;
+    }
+
+    /* MENU */
+
+    .menu{
+        width:100%;
+
+        display:flex;
+        justify-content:center;
+
+        flex-wrap:wrap;
+
+        gap:15px;
+    }
+
+    .menu a{
+        font-size:14px;
+    }
+
+    /* HERO */
+
+    .hero{
+        min-height:auto;
+
+        padding:50px 20px;
+    }
+
+    .hero-text h1{
+        font-size:30px;
+    }
+
+    .hero-text p{
+        font-size:15px;
+    }
+
+    /* SLIDER */
+
+    .contenedor-slider{
+        width:100%;
+    }
+
+    #slider{
+        gap:15px;
+
+        padding:20px 15px 40px;
+    }
+
+    .card{
+        min-width:180px;
+        max-width:180px;
+    }
+
+    .card img{
+        height:240px;
+    }
+
+    /* BOTONES SLIDER */
+
+    #prev,
+    #next{
+        width:40px;
+        height:40px;
+
+        font-size:18px;
+    }
+
+    #prev{
+        left:5px;
+    }
+
+    #next{
+        right:5px;
+    }
+
+    /* PRODUCTOS */
+
+    .contenedor-productos{
+        grid-template-columns:
+        repeat(auto-fit,minmax(170px,1fr));
+
+        gap:15px;
+    }
+
+    .producto img{
+        height:220px;
+    }
+
+    /* CARRITO */
+
+    .carrito{
+        width:100%;
+        right:-100%;
+    }
+
+    .carrito.active{
+        right:0;
+    }
+
+    .item-carrito{
+        gap:10px;
+    }
+
+    .item-carrito img{
+        width:70px;
+        height:70px;
+    }
+
+    .item-info h4{
+        font-size:14px;
+    }
+
+    .carrito-footer{
+        padding:15px;
+    }
+
+    .carrito-footer h3{
+        font-size:20px;
+    }
+
+    #totalCarrito{
+        font-size:24px;
+    }
+
+    .btn-pagar{
+        padding:14px;
+        font-size:15px;
+    }
+
+    /* FOOTER */
+
+    .footer-info{
+        flex-direction:column;
+    }
+
+    .footer-info a{
+        width:100%;
+        justify-content:center;
+    }
+
+}
+
+/* =========================
+   CELULARES PEQUEÑOS
+========================= */
+
+@media(max-width:480px){
+
+    .hero-text h1{
+        font-size:24px;
+    }
+
+    .hero-text p{
+        font-size:14px;
+    }
+
+    .menu{
+        gap:10px;
+    }
+
+    .menu a{
+        font-size:13px;
+    }
+
+    .card{
+        min-width:160px;
+        max-width:160px;
+    }
+
+    .card img{
+        height:210px;
+    }
+
+    .producto img{
+        height:200px;
+    }
+
+    .producto h3{
+        font-size:15px;
+    }
+
+    .precio{
+        font-size:20px;
+    }
+
+    .btn-pagar{
+        font-size:14px;
+    }
+
+    .contador-carrito{
+        width:20px;
+        height:20px;
+
+        font-size:11px;
+    }
+
+}
