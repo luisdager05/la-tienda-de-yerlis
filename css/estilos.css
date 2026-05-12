@@ -644,3 +644,36 @@ body{
     }
 
 }
+
+.cantidad-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:10px;
+}
+
+.cantidad-box button{
+    width:28px;
+    height:28px;
+    border:none;
+    background:#ff4081;
+    color:white;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+.btn-eliminar{
+    background:red;
+    color:white;
+    border:none;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+.carrito-vacio{
+    text-align:center;
+    padding:30px;
+    color:#777;
+}
