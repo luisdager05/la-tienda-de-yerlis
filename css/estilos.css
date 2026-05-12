@@ -1319,3 +1319,52 @@ body{
     }
 
 }
+
+/* =========================
+   SELECTORES PRODUCTOS
+========================= */
+
+.selector-opciones{
+    padding:0 10px;
+
+    margin-bottom:12px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:6px;
+}
+
+.selector-opciones label{
+    font-size:14px;
+
+    font-weight:bold;
+
+    color:#555;
+}
+
+.selector-opciones select{
+    padding:10px;
+
+    border-radius:12px;
+
+    border:1px solid #ffd1df;
+
+    outline:none;
+
+    background:#fff5f8;
+
+    color:#444;
+
+    font-size:14px;
+
+    transition:0.3s;
+}
+
+.selector-opciones select:focus{
+    border:1px solid #ff4081;
+
+    background:white;
+
+    box-shadow:0 0 10px rgba(255,64,129,0.15);
+}
