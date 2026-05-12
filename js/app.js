@@ -361,3 +361,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+function abrirModal(nombre, precio, imagen){
+
+    document.getElementById("modal").style.display = "flex";
+
+    document.getElementById("modal-img").src = imagen;
+    document.getElementById("modal-title").innerText = nombre;
+    document.getElementById("modal-price").innerText = "$" + precio;
+
+}
+
+function cerrarModal(){
+    document.getElementById("modal").style.display = "none";
+}
