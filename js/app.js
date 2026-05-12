@@ -105,8 +105,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         </p>
 
+                        <!-- TALLAS -->
+                        <div class="selector-opciones">
+
+                            <label>Talla:</label>
+
+                            <select class="select-talla">
+
+                                <option value="">Seleccionar</option>
+
+                                <option value="S">S</option>
+
+                                <option value="M">M</option>
+
+                                <option value="L">L</option>
+
+                                <option value="XL">XL</option>
+
+                            </select>
+
+                        </div>
+
+                        <!-- COLORES -->
+                        <div class="selector-opciones">
+
+                            <label>Color:</label>
+
+                            <select class="select-color">
+
+                                <option value="">Seleccionar</option>
+
+                                <option value="Negro">Negro</option>
+
+                                <option value="Blanco">Blanco</option>
+
+                                <option value="Rosado">Rosado</option>
+
+                                <option value="Azul">Azul</option>
+
+                            </select>
+
+                        </div>
+
                         <button onclick="
                         agregarAlCarrito(
+                            this,
                             '${p.id}',
                             '${p.nombre}',
                             '${p.precio}',
@@ -114,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         )
                         ">
 
-                            🛒 Agregar
+                            🛒 Agregar al carrito
 
                         </button>
 
@@ -219,14 +262,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <h3>${producto.nombre}</h3>
 
-                    <p>
+                    <p class="precio">
 
                         $${Number(producto.precio).toLocaleString()}
 
                     </p>
 
+                    <!-- TALLAS -->
+                    <div class="selector-opciones">
+
+                        <label>Talla:</label>
+
+                        <select class="select-talla">
+
+                            <option value="">Seleccionar</option>
+
+                            <option value="S">S</option>
+
+                            <option value="M">M</option>
+
+                            <option value="L">L</option>
+
+                            <option value="XL">XL</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- COLORES -->
+                    <div class="selector-opciones">
+
+                        <label>Color:</label>
+
+                        <select class="select-color">
+
+                            <option value="">Seleccionar</option>
+
+                            <option value="Negro">Negro</option>
+
+                            <option value="Blanco">Blanco</option>
+
+                            <option value="Rosado">Rosado</option>
+
+                            <option value="Azul">Azul</option>
+
+                        </select>
+
+                    </div>
+
                     <button onclick="
                     agregarAlCarrito(
+                        this,
                         '${producto.id}',
                         '${producto.nombre}',
                         '${producto.precio}',
@@ -234,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     )
                     ">
 
-                        🛒 Agregar
+                        🛒 Agregar al carrito
 
                     </button>
 
