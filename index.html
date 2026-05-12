@@ -3,9 +3,16 @@
 
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>La Tienda de Yerlis</title>
 
 <link rel="stylesheet" href="./css/estilos.css">
+
+<!-- FONT AWESOME -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 
 <body>
@@ -26,15 +33,34 @@
         <a href="#contacto">Contacto</a>
         <a href="./admin/admin.html">Admin</a>
 
-        <!-- CARRITO -->
+        <!-- BOTON CARRITO -->
+        <a href="#"
+        class="btn-carrito-menu"
+        onclick="toggleCarrito()">
+
+            🛒 Carrito
+
+        </a>
+
+    </nav>
+
+</header>
+
+<!-- CARRITO -->
 <div id="carrito" class="carrito">
 
     <div class="carrito-header">
+
         <h2>🛒 Mi Carrito</h2>
 
-        <span class="cerrar-carrito" onclick="cerrarCarrito()">
+        <span
+        class="cerrar-carrito"
+        onclick="cerrarCarrito()">
+
             ✖
+
         </span>
+
     </div>
 
     <!-- ITEMS -->
@@ -44,34 +70,58 @@
     <div class="carrito-footer">
 
         <h3>
-            Total: $<span id="totalCarrito">0</span>
+            Total:
+            $<span id="totalCarrito">0</span>
         </h3>
 
-        <button class="btn-pagar" onclick="finalizarCompra()">
+        <button
+        class="btn-pagar"
+        onclick="finalizarCompra()">
+
             Finalizar Compra
+
         </button>
 
     </div>
 
 </div>
 
-<!-- CONTADOR FLOTANTE -->
-<div class="contador-carrito" id="contadorCarrito">
+<!-- CONTADOR -->
+<div
+class="contador-carrito"
+id="contadorCarrito">
+
     0
+
 </div>
 
-    </nav>
+<!-- HERO -->
+<header class="hero">
+
+    <div class="hero-text">
+
+        <h1>🔥 La Tienda de Yerlis</h1>
+
+        <p>
+            Elegancia, estilo y moda
+            pensada para realzar tu esencia
+        </p>
+
+        <a href="#productos" class="btn-hero">
+            Ver productos
+        </a>
+
+    </div>
 
 </header>
 
 <!-- BUSCADOR -->
 <div class="buscador-container">
 
-    <input 
-        type="text"
-        id="buscador"
-        placeholder="🔍 Buscar productos..."
-    >
+    <input
+    type="text"
+    id="buscador"
+    placeholder="🔍 Buscar productos...">
 
 </div>
 
@@ -90,48 +140,58 @@
 
 <div id="dots" class="dots"></div>
 
-<!-- SECCIONES -->
+<!-- PRODUCTOS -->
 <section class="seccion-productos">
 
     <h2>🔥 Productos Destacados</h2>
-    <div class="contenedor-productos" id="destacados"></div>
+
+    <div
+    class="contenedor-productos"
+    id="destacados"></div>
 
 </section>
 
 <section class="seccion-productos">
 
     <h2>👗 Moda Mujer</h2>
-    <div class="contenedor-productos" id="mujer"></div>
+
+    <div
+    class="contenedor-productos"
+    id="mujer"></div>
 
 </section>
 
 <section class="seccion-productos">
 
     <h2>👕 Moda Hombre</h2>
-    <div class="contenedor-productos" id="hombre"></div>
+
+    <div
+    class="contenedor-productos"
+    id="hombre"></div>
 
 </section>
 
 <section class="seccion-productos">
 
     <h2>👜 Accesorios</h2>
-    <div class="contenedor-productos" id="accesorios"></div>
+
+    <div
+    class="contenedor-productos"
+    id="accesorios"></div>
 
 </section>
 
 <section class="seccion-productos">
 
     <h2>⭐ Más Vendidos</h2>
-    <div class="contenedor-productos" id="vendidos"></div>
+
+    <div
+    class="contenedor-productos"
+    id="vendidos"></div>
 
 </section>
 
-<!-- CONTACTO -->
-<!-- FONT AWESOME -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<!-- CONTACTO -->
+<!-- FOOTER -->
 <footer id="contacto">
 
     <div class="footer-contenido">
@@ -140,25 +200,39 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
         <div class="footer-info">
 
-            <a href="https://wa.me/573148471107" target="_blank">
+            <a
+            href="https://wa.me/573148471107"
+            target="_blank">
+
                 <i class="fa-brands fa-whatsapp"></i>
                 WhatsApp
+
             </a>
 
-            <a href="https://instagram.com/latiendadeyerlis" target="_blank">
+            <a
+            href="https://instagram.com/latiendadeyerlis"
+            target="_blank">
+
                 <i class="fa-brands fa-instagram"></i>
                 Instagram
+
             </a>
 
             <a href="mailto:yerlisstore@gmail.com">
+
                 <i class="fa-solid fa-envelope"></i>
                 Email
+
             </a>
 
         </div>
 
         <div class="footer-copy">
-            <p>© 2026 La Tienda de Yerlis - Todos los derechos reservados</p>
+
+            <p>
+                © 2026 La Tienda de Yerlis
+            </p>
+
         </div>
 
     </div>
