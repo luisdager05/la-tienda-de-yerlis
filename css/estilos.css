@@ -388,49 +388,87 @@ SECCIONES PRODUCTOS
    FOOTER
 ========================= */
 
+/* =========================
+   FOOTER PREMIUM
+========================= */
+
 #contacto{
-    background: #111;
+    background: linear-gradient(to right, #111, #1c1c1c);
     color: white;
-    padding: 50px 20px;
+    padding: 60px 20px;
     text-align: center;
-    margin-top: 60px;
+    margin-top: 70px;
 }
 
 .footer-contenido{
-    max-width: 900px;
+    max-width: 1000px;
     margin: auto;
 }
 
 #contacto h2{
-    font-size: 32px;
-    margin-bottom: 25px;
+    font-size: 38px;
+    margin-bottom: 35px;
     color: #ff4d6d;
+    letter-spacing: 1px;
 }
 
 .footer-info{
     display: flex;
     justify-content: center;
-    gap: 40px;
+    align-items: center;
+    gap: 25px;
     flex-wrap: wrap;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
-.footer-info p{
+.footer-info a{
+    text-decoration: none;
+    color: white;
+    background: rgba(255,255,255,0.06);
+    padding: 15px 25px;
+    border-radius: 15px;
     font-size: 18px;
-    background: rgba(255,255,255,0.05);
-    padding: 12px 20px;
-    border-radius: 12px;
-    transition: 0.3s;
+    transition: 0.4s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(5px);
 }
 
-.footer-info p:hover{
-    transform: translateY(-5px);
+.footer-info a:hover{
+    transform: translateY(-8px) scale(1.05);
     background: #ff4d6d;
+    box-shadow: 0 10px 25px rgba(255,77,109,0.4);
+}
+
+.footer-info i{
+    font-size: 22px;
 }
 
 .footer-copy{
-    border-top: 1px solid rgba(255,255,255,0.2);
+    border-top: 1px solid rgba(255,255,255,0.15);
     padding-top: 20px;
     font-size: 14px;
     opacity: 0.8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    #contacto h2{
+        font-size: 30px;
+    }
+
+    .footer-info{
+        flex-direction: column;
+    }
+
+    .footer-info a{
+        width: 90%;
+        justify-content: center;
+    }
+
 }
