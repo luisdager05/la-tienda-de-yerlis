@@ -375,3 +375,7 @@ function abrirModal(nombre, precio, imagen){
 function cerrarModal(){
     document.getElementById("modal").style.display = "none";
 }
+if(stock <= 0){
+    alert("Sin stock");
+    return;
+}
