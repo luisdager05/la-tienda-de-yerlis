@@ -333,3 +333,17 @@ function cerrarModal(){
     modal.style.display = "none";
 
 }
+
+function seleccionarColor(color, el){
+
+    const card = el.closest(".producto") || el.closest(".card");
+
+    if(!card) return;
+
+    card.dataset.color = color;
+
+    card.querySelectorAll(".color")
+        .forEach(c => c.classList.remove("activo"));
+
+    el.classList.add("activo");
+}
