@@ -28,16 +28,14 @@ body{
     background:rgba(255,255,255,0.75);
     backdrop-filter:blur(12px);
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
     padding:15px 40px;
     position:sticky;
     top:0;
     z-index:999;
     box-shadow:0 4px 15px rgba(255,105,180,0.12);
     border-bottom:1px solid rgba(255,192,203,0.3);
-    gap:20px;
-    flex-wrap:wrap;
 }
 
 /* =========================
@@ -51,28 +49,19 @@ body{
 
 .logo img{
     width:100px;
-    height:auto;
-    object-fit:contain;
-    transition:0.3s;
-    filter:drop-shadow(0 0 10px rgba(255,64,129,0.25));
     border-radius:50%;
 }
 
-.logo img:hover{
-    transform:scale(1.05);
-}
-
 /* =========================
-   MENU
+   MENU IZQUIERDA
 ========================= */
 
 .menu{
     display:flex;
     align-items:center;
-    justify-content:center;
-    gap:30px;
-    flex-wrap:wrap;
-    flex:1;
+    gap:25px;
+    margin-right:auto;
+    margin-left:30px;
 }
 
 .menu a{
@@ -105,6 +94,61 @@ body{
     width:100%;
 }
 
+/* =========================
+   BUSCADOR CENTRO
+========================= */
+
+.buscador-container{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    align-items:center;
+}
+
+#buscador{
+    width:260px;
+    padding:10px 15px;
+    border:none;
+    outline:none;
+    border-radius:30px;
+    font-size:15px;
+    background:white;
+    border:1px solid #ffc1d6;
+    box-shadow:0 4px 15px rgba(255,192,203,0.2);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .header-principal{
+        flex-direction:column;
+        gap:15px;
+        padding:15px 20px;
+    }
+
+    .menu{
+        margin:0;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .buscador-container{
+        position:relative;
+        left:auto;
+        transform:none;
+        width:100%;
+        justify-content:center;
+    }
+
+    #buscador{
+        width:90%;
+    }
+
+}
 /* =========================
    HERO
 ========================= */
