@@ -54,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
         productos.forEach((p, i) => {
 
             slider.innerHTML += `
-
                 <div class="card">
 
                     <img
@@ -72,9 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         <!-- TALLA -->
                         <div class="selector-opciones">
-
                             <label>Talla:</label>
-
                             <select class="select-talla">
                                 <option value="">Seleccionar</option>
                                 <option value="S">S</option>
@@ -82,12 +79,10 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <option value="L">L</option>
                                 <option value="XL">XL</option>
                             </select>
-
                         </div>
 
                         <!-- COLORES -->
                         <div class="selector-opciones">
-
                             <label>Color:</label>
 
                             <div class="colores">
@@ -105,8 +100,17 @@ document.addEventListener("DOMContentLoaded", () => {
                                 onclick="seleccionarColor('Azul', this)"></span>
 
                             </div>
-
                         </div>
+
+                        <!-- BOTONES -->
+                        <button onclick="
+                        abrirModal(
+                            '${p.nombre}',
+                            '${p.precio}',
+                            '${p.imagen}'
+                        )">
+                            👁 Ver rápido
+                        </button>
 
                         <button onclick="
                         agregarAlCarrito(
@@ -115,15 +119,12 @@ document.addEventListener("DOMContentLoaded", () => {
                             '${p.nombre}',
                             '${p.precio}',
                             '${p.imagen}'
-                        )
-                        ">
+                        )">
                             🛒 Agregar al carrito
                         </button>
 
                     </div>
-
                 </div>
-
             `;
 
             dots.innerHTML += `
@@ -143,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
         intervalo = setInterval(() => {
 
             const cards = document.querySelectorAll(".card");
-
             if (!cards.length) return;
 
             index++;
@@ -180,7 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
         productos.forEach(p => {
 
             const card = `
-
                 <div class="producto">
 
                     <img
@@ -195,9 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </p>
 
                     <div class="selector-opciones">
-
                         <label>Talla:</label>
-
                         <select class="select-talla">
                             <option value="">Seleccionar</option>
                             <option value="S">S</option>
@@ -205,11 +202,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             <option value="L">L</option>
                             <option value="XL">XL</option>
                         </select>
-
                     </div>
 
                     <div class="selector-opciones">
-
                         <label>Color:</label>
 
                         <div class="colores">
@@ -227,8 +222,16 @@ document.addEventListener("DOMContentLoaded", () => {
                             onclick="seleccionarColor('Azul', this)"></span>
 
                         </div>
-
                     </div>
+
+                    <button onclick="
+                    abrirModal(
+                        '${p.nombre}',
+                        '${p.precio}',
+                        '${p.imagen}'
+                    )">
+                        👁 Ver rápido
+                    </button>
 
                     <button onclick="
                     agregarAlCarrito(
@@ -237,13 +240,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         '${p.nombre}',
                         '${p.precio}',
                         '${p.imagen}'
-                    )
-                    ">
+                    )">
                         🛒 Agregar al carrito
                     </button>
 
                 </div>
-
             `;
 
             destacados.innerHTML += card;
@@ -260,7 +261,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function activarBuscador() {
 
         const buscador = document.getElementById("buscador");
-
         if (!buscador) return;
 
         buscador.addEventListener("input", () => {
@@ -288,51 +288,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // =========================
-// COLOR SELECCIONADO
+// COLOR SELECCIONADO (CORREGIDO)
 // =========================
-
-function seleccionarColor(color, el){
-
-    const card = el.closest(".producto") || el.closest(".card");
-
-    if(!card) return;
-
-    card.querySelectorAll(".color")
-    .forEach(c => c.classList.remove("activo"));
-
-    el.classList.add("activo");
-
-    card.dataset.color = color;
-
-}
-
-function abrirModal(nombre, precio, imagen){
-
-    const modal = document.getElementById("modal");
-
-    if(!modal) return;
-
-    modal.style.display = "flex";
-
-    const img = document.getElementById("modal-img");
-    const title = document.getElementById("modal-title");
-    const price = document.getElementById("modal-price");
-
-    if(img) img.src = imagen || "./img/error.png";
-    if(title) title.innerText = nombre;
-    if(price) price.innerText = "$" + Number(precio).toLocaleString();
-
-}
-
-function cerrarModal(){
-
-    const modal = document.getElementById("modal");
-
-    if(!modal) return;
-
-    modal.style.display = "none";
-
-}
 
 function seleccionarColor(color, el){
 
@@ -346,4 +303,30 @@ function seleccionarColor(color, el){
         .forEach(c => c.classList.remove("activo"));
 
     el.classList.add("activo");
+
+}
+
+// =========================
+// MODAL
+// =========================
+
+function abrirModal(nombre, precio, imagen){
+
+    const modal = document.getElementById("modal");
+    if(!modal) return;
+
+    modal.style.display = "flex";
+
+    document.getElementById("modal-img").src = imagen || "./img/error.png";
+    document.getElementById("modal-title").innerText = nombre;
+    document.getElementById("modal-price").innerText =
+        "$" + Number(precio).toLocaleString();
+
+}
+
+function cerrarModal(){
+
+    const modal = document.getElementById("modal");
+    if(modal) modal.style.display = "none";
+
 }
