@@ -132,7 +132,9 @@ alt="${producto.nombre}">
 
                             <label>Color:</label>
 
-                            <select class="select-color">
+                            <select
+class="select-color"
+onchange="cambiarColorImagen(this)">
 
                                 <option value="">Seleccionar</option>
 
