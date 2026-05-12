@@ -347,24 +347,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function cambiarColor(color, el){
 
-    const card =
-    el.closest(".producto") ||
-    el.closest(".card");
+    const card = el.closest(".producto") || el.closest(".card");
+    const img = card.querySelector(".img-producto");
 
-    const img =
-    card.querySelector(".img-producto");
+    switch(color){
 
-    const map = {
+        case "Negro":
+            img.style.filter = "brightness(0.3)";
+        break;
 
-        Negro: img.dataset.negro,
-        Blanco: img.dataset.blanco,
-        Rosado: img.dataset.rosado,
-        Azul: img.dataset.azul
+        case "Blanco":
+            img.style.filter = "brightness(1.5) grayscale(100%)";
+        break;
 
-    };
+        case "Rosado":
+            img.style.filter = "hue-rotate(-30deg) saturate(1.5)";
+        break;
 
-    if(map[color]){
-        img.src = map[color];
+        case "Azul":
+            img.style.filter = "hue-rotate(180deg) saturate(1.5)";
+        break;
+
     }
 
 }
