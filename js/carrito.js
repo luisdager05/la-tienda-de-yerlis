@@ -1,3 +1,35 @@
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+function agregarAlCarrito(btn, id, nombre, precio, imagen){
+
+    const card = btn.closest(".producto") || btn.closest(".card");
+
+    const talla = card.querySelector(".select-talla").value;
+    const color = card.dataset.color || "";
+
+    if(!talla || !color){
+        alert("Selecciona talla y color");
+        return;
+    }
+
+    const producto = {
+        id,
+        nombre,
+        precio: Number(precio),
+        imagen,
+        talla,
+        color,
+        cantidad: 1
+    };
+
+    carrito.push(producto);
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    actualizarCarrito();
+}
+
+
 let carrito = JSON.parse(
     localStorage.getItem("carrito")
 ) || [];
