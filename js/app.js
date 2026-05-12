@@ -129,19 +129,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             <label>Color:</label>
 
-                            <select
-                            class="select-color"
-                            onchange="cambiarColorImagen(this)">
+                           <div class="colores">
 
-                                <option value="">Seleccionar</option>
-                                <option value="Negro">Negro</option>
-                                <option value="Blanco">Blanco</option>
-                                <option value="Rosado">Rosado</option>
-                                <option value="Azul">Azul</option>
-                                <option value="Rojo">Rojo</option>
-                                <option value="Verde">Verde</option>
+    <span class="color negro"
+    onclick="cambiarColor('Negro', this)"></span>
 
-                            </select>
+    <span class="color blanco"
+    onclick="cambiarColor('Blanco', this)"></span>
+
+    <span class="color rosado"
+    onclick="cambiarColor('Rosado', this)"></span>
+
+    <span class="color azul"
+    onclick="cambiarColor('Azul', this)"></span>
+
+</div>
 
                         </div>
 
