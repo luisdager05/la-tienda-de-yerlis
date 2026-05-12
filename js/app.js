@@ -41,7 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function cargarProductos() {
 
-        const { data, error } = await window.supabaseClient
+        const { data, error } =
+        await window.supabaseClient
             .from("productos")
             .select("*");
 
@@ -50,14 +51,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (error || !data) {
 
-            slider.innerHTML = "<h2>Error cargando productos</h2>";
+            slider.innerHTML =
+            "<h2>Error cargando productos</h2>";
+
             return;
 
         }
 
         if (data.length === 0) {
 
-            slider.innerHTML = "<h2>No hay productos</h2>";
+            slider.innerHTML =
+            "<h2>No hay productos</h2>";
+
             return;
 
         }
@@ -85,25 +90,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <div class="card">
 
-                   <img
-class="img-producto"
-src="${producto.imagen || './img/error.png'}"
-alt="${producto.nombre}">
+                    <img
+                    class="img-producto"
+                    src="${p.imagen || './img/error.png'}"
+                    alt="${p.nombre}">
 
                     <div class="info">
 
                         <h3>${p.nombre}</h3>
 
                         <p class="precio">
-
                             $${Number(p.precio).toLocaleString()}
-
                         </p>
 
                         <p class="cantidad">
-
                             ${p.categoria || "Sin categoría"}
-
                         </p>
 
                         <!-- TALLAS -->
@@ -114,13 +115,9 @@ alt="${producto.nombre}">
                             <select class="select-talla">
 
                                 <option value="">Seleccionar</option>
-
                                 <option value="S">S</option>
-
                                 <option value="M">M</option>
-
                                 <option value="L">L</option>
-
                                 <option value="XL">XL</option>
 
                             </select>
@@ -133,18 +130,16 @@ alt="${producto.nombre}">
                             <label>Color:</label>
 
                             <select
-class="select-color"
-onchange="cambiarColorImagen(this)">
+                            class="select-color"
+                            onchange="cambiarColorImagen(this)">
 
                                 <option value="">Seleccionar</option>
-
                                 <option value="Negro">Negro</option>
-
                                 <option value="Blanco">Blanco</option>
-
                                 <option value="Rosado">Rosado</option>
-
                                 <option value="Azul">Azul</option>
+                                <option value="Rojo">Rojo</option>
+                                <option value="Verde">Verde</option>
 
                             </select>
 
@@ -171,9 +166,7 @@ onchange="cambiarColorImagen(this)">
             `;
 
             dots.innerHTML += `
-
                 <span class="${i === 0 ? "active" : ""}"></span>
-
             `;
 
         });
@@ -192,26 +185,21 @@ onchange="cambiarColorImagen(this)">
 
         intervalo = setInterval(() => {
 
-            const cards = document.querySelectorAll(".card");
+            const cards =
+            document.querySelectorAll(".card");
 
             if (!cards.length) return;
 
             index++;
 
-            if (index >= cards.length) {
-
-                index = 0;
-
-            }
+            if (index >= cards.length) index = 0;
 
             const width =
             cards[0].offsetWidth + 20;
 
             slider.scrollTo({
-
                 left: index * width,
                 behavior: "smooth"
-
             });
 
         }, 2500);
@@ -240,11 +228,9 @@ onchange="cambiarColorImagen(this)">
         document.getElementById("vendidos");
 
         if (
-            !mujer ||
-            !hombre ||
+            !mujer || !hombre ||
             !accesorios ||
-            !destacados ||
-            !vendidos
+            !destacados || !vendidos
         ) return;
 
         mujer.innerHTML = "";
@@ -253,22 +239,21 @@ onchange="cambiarColorImagen(this)">
         destacados.innerHTML = "";
         vendidos.innerHTML = "";
 
-        productos.forEach(producto => {
+        productos.forEach(p => {
 
             const card = `
 
                 <div class="producto">
 
                     <img
-                    src="${producto.imagen || './img/error.png'}"
-                    alt="${producto.nombre}">
+                    class="img-producto"
+                    src="${p.imagen || './img/error.png'}"
+                    alt="${p.nombre}">
 
-                    <h3>${producto.nombre}</h3>
+                    <h3>${p.nombre}</h3>
 
                     <p class="precio">
-
-                        $${Number(producto.precio).toLocaleString()}
-
+                        $${Number(p.precio).toLocaleString()}
                     </p>
 
                     <!-- TALLAS -->
@@ -279,13 +264,9 @@ onchange="cambiarColorImagen(this)">
                         <select class="select-talla">
 
                             <option value="">Seleccionar</option>
-
                             <option value="S">S</option>
-
                             <option value="M">M</option>
-
                             <option value="L">L</option>
-
                             <option value="XL">XL</option>
 
                         </select>
@@ -297,16 +278,14 @@ onchange="cambiarColorImagen(this)">
 
                         <label>Color:</label>
 
-                        <select class="select-color">
+                        <select
+                        class="select-color"
+                        onchange="cambiarColorImagen(this)">
 
                             <option value="">Seleccionar</option>
-
                             <option value="Negro">Negro</option>
-
                             <option value="Blanco">Blanco</option>
-
                             <option value="Rosado">Rosado</option>
-
                             <option value="Azul">Azul</option>
 
                         </select>
@@ -316,10 +295,10 @@ onchange="cambiarColorImagen(this)">
                     <button onclick="
                     agregarAlCarrito(
                         this,
-                        '${producto.id}',
-                        '${producto.nombre}',
-                        '${producto.precio}',
-                        '${producto.imagen}'
+                        '${p.id}',
+                        '${p.nombre}',
+                        '${p.precio}',
+                        '${p.imagen}'
                     )
                     ">
 
@@ -332,26 +311,11 @@ onchange="cambiarColorImagen(this)">
             `;
 
             destacados.innerHTML += card;
-
             vendidos.innerHTML += card;
 
-            if (producto.categoria === "mujer") {
-
-                mujer.innerHTML += card;
-
-            }
-
-            if (producto.categoria === "hombre") {
-
-                hombre.innerHTML += card;
-
-            }
-
-            if (producto.categoria === "accesorios") {
-
-                accesorios.innerHTML += card;
-
-            }
+            if (p.categoria === "mujer") mujer.innerHTML += card;
+            if (p.categoria === "hombre") hombre.innerHTML += card;
+            if (p.categoria === "accesorios") accesorios.innerHTML += card;
 
         });
 
@@ -377,32 +341,17 @@ onchange="cambiarColorImagen(this)">
 
                 mostrarSecciones(productosGlobal);
                 render(productosGlobal);
-
                 return;
 
             }
 
             const filtrados =
-            productosGlobal.filter(p => {
-
-                return (
-
-                    p.nombre
-                    ?.toLowerCase()
-                    .includes(texto)
-
-                    ||
-
-                    p.categoria
-                    ?.toLowerCase()
-                    .includes(texto)
-
-                );
-
-            });
+            productosGlobal.filter(p =>
+                p.nombre?.toLowerCase().includes(texto) ||
+                p.categoria?.toLowerCase().includes(texto)
+            );
 
             mostrarSecciones(filtrados);
-
             render(filtrados);
 
         });
@@ -410,73 +359,3 @@ onchange="cambiarColorImagen(this)">
     }
 
 });
-
-
-// =========================
-// CAMBIAR COLOR IMAGEN
-// =========================
-
-function cambiarColorImagen(select){
-
-    const card =
-    select.closest(".producto") ||
-    select.closest(".card");
-
-    const img =
-    card.querySelector(".img-producto");
-
-    const color = select.value;
-
-    img.style.filter = "none";
-
-    switch(color){
-
-        case "Negro":
-
-            img.style.filter =
-            "brightness(0.4)";
-
-        break;
-
-        case "Blanco":
-
-            img.style.filter =
-            "brightness(1.2) saturate(0.2)";
-
-        break;
-
-        case "Rosado":
-
-            img.style.filter =
-            "hue-rotate(-20deg) saturate(1.5)";
-
-        break;
-
-        case "Azul":
-
-            img.style.filter =
-            "hue-rotate(180deg) saturate(1.4)";
-
-        break;
-
-        case "Rojo":
-
-            img.style.filter =
-            "hue-rotate(320deg) saturate(1.7)";
-
-        break;
-
-        case "Verde":
-
-            img.style.filter =
-            "hue-rotate(90deg) saturate(1.5)";
-
-        break;
-
-        default:
-
-            img.style.filter = "none";
-
-    }
-
-}
