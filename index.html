@@ -27,9 +27,38 @@
         <a href="./admin/admin.html">Admin</a>
 
         <!-- CARRITO -->
-        <a href="#" class="btn-carrito-menu" onclick="toggleCarrito()">
-            🛒 Carrito
-        </a>
+<div id="carrito" class="carrito">
+
+    <div class="carrito-header">
+        <h2>🛒 Mi Carrito</h2>
+
+        <span class="cerrar-carrito" onclick="cerrarCarrito()">
+            ✖
+        </span>
+    </div>
+
+    <!-- ITEMS -->
+    <div id="itemsCarrito"></div>
+
+    <!-- FOOTER -->
+    <div class="carrito-footer">
+
+        <h3>
+            Total: $<span id="totalCarrito">0</span>
+        </h3>
+
+        <button class="btn-pagar" onclick="finalizarCompra()">
+            Finalizar Compra
+        </button>
+
+    </div>
+
+</div>
+
+<!-- CONTADOR FLOTANTE -->
+<div class="contador-carrito" id="contadorCarrito">
+    0
+</div>
 
     </nav>
 
