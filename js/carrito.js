@@ -256,7 +256,20 @@ Precio: $${item.precio}%0A%0A`;
     );
 
 }
+<button onclick="
+agregarAlCarrito(
+    this,
+    '${p.id}',
+    '${p.nombre}',
+    '${p.precio}',
+    '${p.imagen}'
+)">
+    🛒 Agregar al carrito
+</button>
 
+<button onclick="abrirModal('${p.nombre}','${p.precio}','${p.imagen}')">
+    👁 Ver rápido
+</button>
 // =========================
 // INICIAR
 // =========================
