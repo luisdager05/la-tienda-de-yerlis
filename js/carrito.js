@@ -1,12 +1,65 @@
-// =========================
-// CARRITO GLOBAL
-// =========================
-
-let carrito =
-JSON.parse(localStorage.getItem("carrito")) || [];
+let carrito = JSON.parse(
+    localStorage.getItem("carrito")
+) || [];
 
 // =========================
-// GUARDAR CARRITO
+// AGREGAR AL CARRITO
+// =========================
+
+function agregarAlCarrito(
+    btn,
+    id,
+    nombre,
+    precio,
+    imagen
+){
+
+    const card =
+    btn.closest(".producto") ||
+    btn.closest(".card");
+
+    const talla =
+    card.querySelector(".select-talla").value;
+
+    const color =
+    card.querySelector(".select-color").value;
+
+    if(talla === "" || color === ""){
+
+        alert("Selecciona talla y color");
+
+        return;
+
+    }
+
+    // CONVERTIR PRECIO
+    precio = Number(precio);
+
+    // VALIDAR IMAGEN
+    imagen = imagen || "./img/error.png";
+
+    const producto = {
+
+        id,
+        nombre,
+        precio,
+        imagen,
+        talla,
+        color,
+        cantidad:1
+
+    };
+
+    carrito.push(producto);
+
+    guardarCarrito();
+
+    actualizarCarrito();
+
+}
+
+// =========================
+// GUARDAR STORAGE
 // =========================
 
 function guardarCarrito(){
@@ -19,202 +72,119 @@ function guardarCarrito(){
 }
 
 // =========================
-// ABRIR / CERRAR
+// ACTUALIZAR CARRITO
 // =========================
 
-function toggleCarrito(){
-
-    document
-    .getElementById("carrito")
-    .classList
-    .toggle("active");
-
-}
-
-function cerrarCarrito(){
-
-    document
-    .getElementById("carrito")
-    .classList
-    .remove("active");
-
-}
-
-// =========================
-// AGREGAR PRODUCTO
-// =========================
-
-function agregarAlCarrito(
-    id,
-    nombre,
-    precio,
-    imagen
-){
-
-    precio = Number(precio);
-
-    const existe =
-    carrito.find(
-        producto => producto.id == id
-    );
-
-    if(existe){
-
-        existe.cantidad++;
-
-    }else{
-
-        carrito.push({
-
-            id:id,
-            nombre:nombre,
-            precio:precio,
-            imagen:imagen,
-            cantidad:1
-
-        });
-
-    }
-
-    guardarCarrito();
-
-    renderCarrito();
-
-}
-
-// =========================
-// RENDER
-// =========================
-
-function renderCarrito(){
+function actualizarCarrito(){
 
     const items =
     document.getElementById("itemsCarrito");
 
-    const totalHTML =
+    const total =
     document.getElementById("totalCarrito");
 
     const contador =
     document.getElementById("contadorCarrito");
 
+    if(!items) return;
+
     items.innerHTML = "";
 
-    let total = 0;
-    let cantidadTotal = 0;
+    let totalFinal = 0;
 
-    if(carrito.length === 0){
+    carrito.forEach((item, index) => {
 
-        items.innerHTML = `
-
-        <p class="carrito-vacio">
-            Tu carrito está vacío
-        </p>
-
-        `;
-
-    }
-
-    carrito.forEach((producto,index)=>{
-
-        total +=
-        producto.precio * producto.cantidad;
-
-        cantidadTotal +=
-        producto.cantidad;
+        totalFinal +=
+        item.precio * item.cantidad;
 
         items.innerHTML += `
 
-        <div class="item-carrito">
+            <div class="item-carrito">
 
-            <img
-            src="${producto.imagen}"
-            alt="${producto.nombre}">
+                <img
+                src="${item.imagen}"
+                alt="${item.nombre}">
 
-            <div class="item-info">
+                <div class="item-info">
 
-                <h4>${producto.nombre}</h4>
+                    <h4>${item.nombre}</h4>
 
-                <p>
-                    $${producto.precio.toLocaleString()}
-                </p>
+                    <p>
+                        $${Number(item.precio)
+                        .toLocaleString()}
+                    </p>
 
-                <div class="cantidad-box">
+                    <p>
+                        <strong>Talla:</strong>
+                        ${item.talla}
+                    </p>
 
-                    <button
-                    onclick="restarCantidad(${index})">
+                    <p>
+                        <strong>Color:</strong>
+                        ${item.color}
+                    </p>
 
-                        -
+                    <div class="cantidad-box">
 
-                    </button>
+                        <button onclick="
+                        cambiarCantidad(${index}, -1)
+                        ">
+                            -
+                        </button>
 
-                    <span>
-                        ${producto.cantidad}
-                    </span>
+                        <span>
+                            ${item.cantidad}
+                        </span>
 
-                    <button
-                    onclick="sumarCantidad(${index})">
+                        <button onclick="
+                        cambiarCantidad(${index}, 1)
+                        ">
+                            +
+                        </button>
 
-                        +
-
-                    </button>
+                    </div>
 
                 </div>
 
+                <button
+                class="btn-eliminar"
+                onclick="eliminarProducto(${index})">
+
+                    ✖
+
+                </button>
+
             </div>
-
-            <button
-            class="btn-eliminar"
-            onclick="eliminarProducto(${index})">
-
-                ✖
-
-            </button>
-
-        </div>
 
         `;
 
     });
 
-    totalHTML.textContent =
-    total.toLocaleString();
+    total.innerText =
+    totalFinal.toLocaleString();
 
-    contador.textContent =
-    cantidadTotal;
-
-    guardarCarrito();
+    contador.innerText =
+    carrito.length;
 
 }
 
 // =========================
-// SUMAR CANTIDAD
+// CAMBIAR CANTIDAD
 // =========================
 
-function sumarCantidad(index){
+function cambiarCantidad(index, cambio){
 
-    carrito[index].cantidad++;
+    carrito[index].cantidad += cambio;
 
-    renderCarrito();
+    if(carrito[index].cantidad <= 0){
 
-}
-
-// =========================
-// RESTAR CANTIDAD
-// =========================
-
-function restarCantidad(index){
-
-    if(carrito[index].cantidad > 1){
-
-        carrito[index].cantidad--;
-
-    }else{
-
-        carrito.splice(index,1);
+        carrito.splice(index, 1);
 
     }
 
-    renderCarrito();
+    guardarCarrito();
+
+    actualizarCarrito();
 
 }
 
@@ -224,14 +194,36 @@ function restarCantidad(index){
 
 function eliminarProducto(index){
 
-    carrito.splice(index,1);
+    carrito.splice(index, 1);
 
-    renderCarrito();
+    guardarCarrito();
+
+    actualizarCarrito();
 
 }
 
 // =========================
-// WHATSAPP
+// TOGGLE CARRITO
+// =========================
+
+function toggleCarrito(){
+
+    document
+    .getElementById("carrito")
+    .classList.toggle("active");
+
+}
+
+function cerrarCarrito(){
+
+    document
+    .getElementById("carrito")
+    .classList.remove("active");
+
+}
+
+// =========================
+// FINALIZAR COMPRA
 // =========================
 
 function finalizarCompra(){
@@ -245,18 +237,16 @@ function finalizarCompra(){
     }
 
     let mensaje =
-    "🛍️ Hola, quiero comprar:%0A%0A";
+    "🛍️ Pedido La Tienda de Yerlis:%0A%0A";
 
-    carrito.forEach(producto=>{
-
-        mensaje +=
-        `• ${producto.nombre}%0A`;
+    carrito.forEach(item => {
 
         mensaje +=
-        `Cantidad: ${producto.cantidad}%0A`;
-
-        mensaje +=
-        `Precio: $${producto.precio}%0A%0A`;
+        `• ${item.nombre}
+Talla: ${item.talla}
+Color: ${item.color}
+Cantidad: ${item.cantidad}
+Precio: $${item.precio}%0A%0A`;
 
     });
 
@@ -271,7 +261,4 @@ function finalizarCompra(){
 // INICIAR
 // =========================
 
-document.addEventListener(
-    "DOMContentLoaded",
-    renderCarrito
-);
+actualizarCarrito();
