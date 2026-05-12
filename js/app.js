@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let index = 0;
     let intervalo;
-
     let productosGlobal = [];
 
     // =========================
@@ -50,21 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("ERROR:", error);
 
         if (error || !data) {
-
-            slider.innerHTML =
-            "<h2>Error cargando productos</h2>";
-
+            slider.innerHTML = "<h2>Error cargando productos</h2>";
             return;
-
         }
 
         if (data.length === 0) {
-
-            slider.innerHTML =
-            "<h2>No hay productos</h2>";
-
+            slider.innerHTML = "<h2>No hay productos</h2>";
             return;
-
         }
 
         productosGlobal = data;
@@ -93,6 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <img
                     class="img-producto"
                     src="${p.imagen || './img/error.png'}"
+                    data-negro="${p.imagen_negro || p.imagen}"
+                    data-blanco="${p.imagen_blanco || p.imagen}"
+                    data-rosado="${p.imagen_rosado || p.imagen}"
+                    data-azul="${p.imagen_azul || p.imagen}"
                     alt="${p.nombre}">
 
                     <div class="info">
@@ -109,41 +104,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         <!-- TALLAS -->
                         <div class="selector-opciones">
-
                             <label>Talla:</label>
-
                             <select class="select-talla">
-
                                 <option value="">Seleccionar</option>
                                 <option value="S">S</option>
                                 <option value="M">M</option>
                                 <option value="L">L</option>
                                 <option value="XL">XL</option>
-
                             </select>
-
                         </div>
 
                         <!-- COLORES -->
                         <div class="selector-opciones">
-
                             <label>Color:</label>
 
-                           <div class="colores">
+                            <div class="colores">
 
-    <span class="color negro"
-    onclick="cambiarColor('Negro', this)"></span>
+                                <span class="color negro"
+                                onclick="cambiarColor('Negro', this)"></span>
 
-    <span class="color blanco"
-    onclick="cambiarColor('Blanco', this)"></span>
+                                <span class="color blanco"
+                                onclick="cambiarColor('Blanco', this)"></span>
 
-    <span class="color rosado"
-    onclick="cambiarColor('Rosado', this)"></span>
+                                <span class="color rosado"
+                                onclick="cambiarColor('Rosado', this)"></span>
 
-    <span class="color azul"
-    onclick="cambiarColor('Azul', this)"></span>
+                                <span class="color azul"
+                                onclick="cambiarColor('Azul', this)"></span>
 
-</div>
+                            </div>
 
                         </div>
 
@@ -156,9 +145,17 @@ document.addEventListener("DOMContentLoaded", () => {
                             '${p.imagen}'
                         )
                         ">
-
                             🛒 Agregar al carrito
+                        </button>
 
+                        <button onclick="
+                        abrirModal(
+                            '${p.nombre}',
+                            '${p.precio}',
+                            '${p.imagen}'
+                        )
+                        ">
+                            👁 Ver rápido
                         </button>
 
                     </div>
@@ -214,26 +211,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function mostrarSecciones(productos) {
 
-        const mujer =
-        document.getElementById("mujer");
+        const mujer = document.getElementById("mujer");
+        const hombre = document.getElementById("hombre");
+        const accesorios = document.getElementById("accesorios");
+        const destacados = document.getElementById("destacados");
+        const vendidos = document.getElementById("vendidos");
 
-        const hombre =
-        document.getElementById("hombre");
-
-        const accesorios =
-        document.getElementById("accesorios");
-
-        const destacados =
-        document.getElementById("destacados");
-
-        const vendidos =
-        document.getElementById("vendidos");
-
-        if (
-            !mujer || !hombre ||
-            !accesorios ||
-            !destacados || !vendidos
-        ) return;
+        if (!mujer || !hombre || !accesorios || !destacados || !vendidos) return;
 
         mujer.innerHTML = "";
         hombre.innerHTML = "";
@@ -250,6 +234,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <img
                     class="img-producto"
                     src="${p.imagen || './img/error.png'}"
+                    data-negro="${p.imagen_negro || p.imagen}"
+                    data-blanco="${p.imagen_blanco || p.imagen}"
+                    data-rosado="${p.imagen_rosado || p.imagen}"
+                    data-azul="${p.imagen_azul || p.imagen}"
                     alt="${p.nombre}">
 
                     <h3>${p.nombre}</h3>
@@ -258,21 +246,16 @@ document.addEventListener("DOMContentLoaded", () => {
                         $${Number(p.precio).toLocaleString()}
                     </p>
 
-                    <!-- TALLAS -->
+                    <!-- TALLA -->
                     <div class="selector-opciones">
-
                         <label>Talla:</label>
-
                         <select class="select-talla">
-
                             <option value="">Seleccionar</option>
                             <option value="S">S</option>
                             <option value="M">M</option>
                             <option value="L">L</option>
                             <option value="XL">XL</option>
-
                         </select>
-
                     </div>
 
                     <!-- COLORES -->
@@ -280,17 +263,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         <label>Color:</label>
 
-                        <select
-                        class="select-color"
-                        onchange="cambiarColorImagen(this)">
+                        <div class="colores">
 
-                            <option value="">Seleccionar</option>
-                            <option value="Negro">Negro</option>
-                            <option value="Blanco">Blanco</option>
-                            <option value="Rosado">Rosado</option>
-                            <option value="Azul">Azul</option>
+                            <span class="color negro"
+                            onclick="cambiarColor('Negro', this)"></span>
 
-                        </select>
+                            <span class="color blanco"
+                            onclick="cambiarColor('Blanco', this)"></span>
+
+                            <span class="color rosado"
+                            onclick="cambiarColor('Rosado', this)"></span>
+
+                            <span class="color azul"
+                            onclick="cambiarColor('Azul', this)"></span>
+
+                        </div>
 
                     </div>
 
@@ -303,9 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         '${p.imagen}'
                     )
                     ">
-
                         🛒 Agregar al carrito
-
                     </button>
 
                 </div>
@@ -329,26 +314,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function activarBuscador() {
 
-        const buscador =
-        document.getElementById("buscador");
-
+        const buscador = document.getElementById("buscador");
         if (!buscador) return;
 
         buscador.addEventListener("input", () => {
 
-            const texto =
-            buscador.value.toLowerCase().trim();
+            const texto = buscador.value.toLowerCase().trim();
 
             if (texto === "") {
-
                 mostrarSecciones(productosGlobal);
                 render(productosGlobal);
                 return;
-
             }
 
-            const filtrados =
-            productosGlobal.filter(p =>
+            const filtrados = productosGlobal.filter(p =>
                 p.nombre?.toLowerCase().includes(texto) ||
                 p.categoria?.toLowerCase().includes(texto)
             );
@@ -362,9 +341,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+// =========================
+// CAMBIAR COLOR REAL
+// =========================
+
+function cambiarColor(color, el){
+
+    const card =
+    el.closest(".producto") ||
+    el.closest(".card");
+
+    const img =
+    card.querySelector(".img-producto");
+
+    const map = {
+
+        Negro: img.dataset.negro,
+        Blanco: img.dataset.blanco,
+        Rosado: img.dataset.rosado,
+        Azul: img.dataset.azul
+
+    };
+
+    if(map[color]){
+        img.src = map[color];
+    }
+
+}
+
+// =========================
+// MODAL
+// =========================
+
 function abrirModal(nombre, precio, imagen){
 
-    document.getElementById("modal").style.display = "flex";
+    const modal = document.getElementById("modal");
+    if(!modal) return;
+
+    modal.style.display = "flex";
 
     document.getElementById("modal-img").src = imagen;
     document.getElementById("modal-title").innerText = nombre;
@@ -373,9 +387,10 @@ function abrirModal(nombre, precio, imagen){
 }
 
 function cerrarModal(){
-    document.getElementById("modal").style.display = "none";
-}
-if(stock <= 0){
-    alert("Sin stock");
-    return;
+
+    const modal = document.getElementById("modal");
+    if(!modal) return;
+
+    modal.style.display = "none";
+
 }
