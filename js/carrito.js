@@ -1,3 +1,9 @@
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+// =========================
+// ABRIR CARRITO
+// =========================
+
 function toggleCarrito(){
     document.getElementById("carrito").classList.toggle("active");
 }
@@ -10,57 +16,60 @@ function cerrarCarrito(){
 // AGREGAR PRODUCTO
 // =========================
 
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+function agregarAlCarrito(producto){
 
-function agregarCarrito(nombre, precio){
+    const existe = carrito.find(p => p.id === producto.id);
 
-    carrito.push({ nombre, precio });
+    if(existe){
+        existe.cantidad++;
+    }else{
+        carrito.push({
+            ...producto,
+            cantidad:1
+        });
+    }
 
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-
+    guardarCarrito();
     renderCarrito();
 }
 
 // =========================
-// MOSTRAR CARRITO
+// RENDER
 // =========================
 
 function renderCarrito(){
 
     const contenedor = document.getElementById("itemsCarrito");
+    const totalHTML = document.getElementById("totalCarrito");
+    const contador = document.getElementById("contadorCarrito");
 
     contenedor.innerHTML = "";
 
-    carrito.forEach((item, i) => {
+    let total = 0;
+    let totalProductos = 0;
+
+    carrito.forEach(producto => {
+
+        total += producto.precio * producto.cantidad;
+        totalProductos += producto.cantidad;
 
         contenedor.innerHTML += `
+
             <div class="item-carrito">
 
-                <p>${item.nombre}</p>
+                <img src="${producto.imagen}" alt="">
 
-                <strong>$${Number(item.precio).toLocaleString()}</strong>
+                <div class="item-info">
 
-                <button onclick="eliminarItem(${i})">Eliminar</button>
+                    <h4>${producto.nombre}</h4>
 
-            </div>
-        `;
+                    <p>$${producto.precio}</p>
 
-    });
+                    <div class="controles">
 
-}
+                        <button onclick="restarCantidad(${producto.id})">-</button>
 
-// =========================
-// ELIMINAR
-// =========================
+                        <span>${producto.cantidad}</span>
 
-function eliminarItem(index){
-
-    carrito.splice(index, 1);
-
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-
-    renderCarrito();
-}
-
-// inicial
+                        <button onclick="sumarCantidad(${producto.id})">+</button>
 renderCarrito();
