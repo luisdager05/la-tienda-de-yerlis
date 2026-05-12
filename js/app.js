@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let index = 0;
     let intervalo;
 
-    let productosGlobal = []; // 🔥 guardamos productos para buscador
+    let productosGlobal = [];
 
     // =========================
     // ESPERAR SUPABASE
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-        productosGlobal = data; // 🔥 guardamos global
+        productosGlobal = data;
 
         render(data);
         mostrarSecciones(data);
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================
-    // SLIDER
+    // RENDER SLIDER
     // =========================
 
     function render(productos) {
@@ -82,32 +82,53 @@ document.addEventListener("DOMContentLoaded", () => {
         productos.forEach((p, i) => {
 
             slider.innerHTML += `
+
                 <div class="card">
 
-                    <img src="${p.imagen || './img/error.png'}">
+                    <img
+                    src="${p.imagen || './img/error.png'}"
+                    alt="${p.nombre}">
 
                     <div class="info">
 
                         <h3>${p.nombre}</h3>
 
                         <p class="precio">
+
                             $${Number(p.precio).toLocaleString()}
+
                         </p>
 
                         <p class="cantidad">
+
                             ${p.categoria || "Sin categoría"}
+
                         </p>
 
-                        <button onclick="agregarCarrito('${p.nombre}', ${p.precio})">
+                        <button onclick="
+                        agregarAlCarrito(
+                            '${p.id}',
+                            '${p.nombre}',
+                            '${p.precio}',
+                            '${p.imagen}'
+                        )
+                        ">
+
                             🛒 Agregar
+
                         </button>
 
                     </div>
 
                 </div>
+
             `;
 
-            dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
+            dots.innerHTML += `
+
+                <span class="${i === 0 ? "active" : ""}"></span>
+
+            `;
 
         });
 
@@ -131,32 +152,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
             index++;
 
-            if (index >= cards.length) index = 0;
+            if (index >= cards.length) {
 
-            const width = cards[0].offsetWidth + 20;
+                index = 0;
+
+            }
+
+            const width =
+            cards[0].offsetWidth + 20;
 
             slider.scrollTo({
+
                 left: index * width,
                 behavior: "smooth"
+
             });
 
-        }, 2000);
+        }, 2500);
 
     }
 
     // =========================
-    // SECCIONES
+    // MOSTRAR SECCIONES
     // =========================
 
     function mostrarSecciones(productos) {
 
-        const mujer = document.getElementById("mujer");
-        const hombre = document.getElementById("hombre");
-        const accesorios = document.getElementById("accesorios");
-        const destacados = document.getElementById("destacados");
-        const vendidos = document.getElementById("vendidos");
+        const mujer =
+        document.getElementById("mujer");
 
-        if (!mujer || !hombre || !accesorios || !destacados || !vendidos) return;
+        const hombre =
+        document.getElementById("hombre");
+
+        const accesorios =
+        document.getElementById("accesorios");
+
+        const destacados =
+        document.getElementById("destacados");
+
+        const vendidos =
+        document.getElementById("vendidos");
+
+        if (
+            !mujer ||
+            !hombre ||
+            !accesorios ||
+            !destacados ||
+            !vendidos
+        ) return;
 
         mujer.innerHTML = "";
         hombre.innerHTML = "";
@@ -167,64 +210,111 @@ document.addEventListener("DOMContentLoaded", () => {
         productos.forEach(producto => {
 
             const card = `
+
                 <div class="producto">
 
-                    <img src="${producto.imagen || './img/error.png'}">
+                    <img
+                    src="${producto.imagen || './img/error.png'}"
+                    alt="${producto.nombre}">
 
                     <h3>${producto.nombre}</h3>
 
-                    <p>$${Number(producto.precio).toLocaleString()}</p>
+                    <p>
 
-                    <button onclick="agregarCarrito('${producto.nombre}', ${producto.precio})">
+                        $${Number(producto.precio).toLocaleString()}
+
+                    </p>
+
+                    <button onclick="
+                    agregarAlCarrito(
+                        '${producto.id}',
+                        '${producto.nombre}',
+                        '${producto.precio}',
+                        '${producto.imagen}'
+                    )
+                    ">
+
                         🛒 Agregar
+
                     </button>
 
                 </div>
+
             `;
 
             destacados.innerHTML += card;
+
             vendidos.innerHTML += card;
 
-            if (producto.categoria === "mujer") mujer.innerHTML += card;
-            if (producto.categoria === "hombre") hombre.innerHTML += card;
-            if (producto.categoria === "accesorios") accesorios.innerHTML += card;
+            if (producto.categoria === "mujer") {
+
+                mujer.innerHTML += card;
+
+            }
+
+            if (producto.categoria === "hombre") {
+
+                hombre.innerHTML += card;
+
+            }
+
+            if (producto.categoria === "accesorios") {
+
+                accesorios.innerHTML += card;
+
+            }
 
         });
 
     }
 
     // =========================
-    // BUSCADOR FUNCIONAL
+    // BUSCADOR
     // =========================
 
     function activarBuscador() {
 
-        const buscador = document.getElementById("buscador");
+        const buscador =
+        document.getElementById("buscador");
 
         if (!buscador) return;
 
         buscador.addEventListener("input", () => {
 
-            const texto = buscador.value.toLowerCase().trim();
+            const texto =
+            buscador.value.toLowerCase().trim();
 
             if (texto === "") {
 
                 mostrarSecciones(productosGlobal);
                 render(productosGlobal);
+
                 return;
 
             }
 
-            const filtrados = productosGlobal.filter(p => {
+            const filtrados =
+            productosGlobal.filter(p => {
 
                 return (
-                    p.nombre?.toLowerCase().includes(texto) ||
-                    p.categoria?.toLowerCase().includes(texto)
+
+                    p.nombre
+                    ?.toLowerCase()
+                    .includes(texto)
+
+                    ||
+
+                    p.categoria
+                    ?.toLowerCase()
+                    .includes(texto)
+
                 );
 
             });
 
             mostrarSecciones(filtrados);
+
+            render(filtrados);
 
         });
 
