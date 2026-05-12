@@ -17,38 +17,57 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <body>
 
-<!-- HEADER PRINCIPAL -->
+<!-- =========================
+     HEADER PRINCIPAL
+========================= -->
 <header class="header-principal">
 
     <!-- LOGO -->
     <div class="logo">
-        <img src="./img/1001669605.png" alt="La Tienda de Yerlis">
+
+        <img
+        src="./img/1001669605.png"
+        alt="La Tienda de Yerlis">
+
     </div>
 
     <!-- MENU -->
     <nav class="menu">
 
-        <a href="index.html">Inicio</a>
-        <a href="#productos">Productos</a>
-        <a href="#contacto">Contacto</a>
-        <a href="./admin/admin.html">Admin</a>
+        <a href="index.html">
+            Inicio
+        </a>
+
+        <a href="#productos">
+            Productos
+        </a>
+
+        <a href="#contacto">
+            Contacto
+        </a>
+
+        <a href="./admin/admin.html">
+            Admin
+        </a>
 
         <!-- BOTON CARRITO -->
-        <a href="#"
-class="btn-carrito-menu"
-onclick="toggleCarrito()">
+        <a
+        href="#"
+        class="btn-carrito-menu"
+        onclick="toggleCarrito()">
 
-    🛒 Carrito
+            🛒 Carrito
 
-    <span
-    class="contador-carrito"
-    id="contadorCarrito">
+            <!-- CONTADOR -->
+            <span
+            class="contador-carrito"
+            id="contadorCarrito">
 
-        0
+                0
 
-    </span>
+            </span>
 
-</a>
+        </a>
 
     </nav>
 
@@ -64,12 +83,17 @@ onclick="toggleCarrito()">
 
 </header>
 
-<!-- CARRITO -->
+<!-- =========================
+     CARRITO LATERAL
+========================= -->
 <div id="carrito" class="carrito">
 
+    <!-- HEADER -->
     <div class="carrito-header">
 
-        <h2>🛒 Mi Carrito</h2>
+        <h2>
+            🛒 Mi Carrito
+        </h2>
 
         <span
         class="cerrar-carrito"
@@ -88,8 +112,14 @@ onclick="toggleCarrito()">
     <div class="carrito-footer">
 
         <h3>
+
             Total:
-            $<span id="totalCarrito">0</span>
+            $<span id="totalCarrito">
+
+                0
+
+            </span>
+
         </h3>
 
         <button
@@ -104,139 +134,211 @@ onclick="toggleCarrito()">
 
 </div>
 
-<!-- CONTADOR -->
-<div
-class="contador-carrito"
-id="contadorCarrito">
-
-</div>
-
-<!-- HERO -->
+<!-- =========================
+     HERO
+========================= -->
 <header class="hero">
 
     <div class="hero-text">
 
-        <h1>🔥 La Tienda de Yerlis</h1>
+        <h1>
+            🔥 La Tienda de Yerlis
+        </h1>
 
         <p>
+
             Elegancia, estilo y moda
             pensada para realzar tu esencia
+
         </p>
 
-        <a href="#productos" class="btn-hero">
+        <a
+        href="#productos"
+        class="btn-hero">
+
             Ver productos
+
         </a>
 
     </div>
 
 </header>
 
-<!-- CARRUSEL -->
-<div class="contenedor-slider" id="productos">
+<!-- =========================
+     CARRUSEL
+========================= -->
+<div
+class="contenedor-slider"
+id="productos">
 
-    <button id="prev">❮</button>
+    <button id="prev">
+
+        ❮
+
+    </button>
 
     <div class="slider-container">
+
         <div id="slider"></div>
+
     </div>
 
-    <button id="next">❯</button>
+    <button id="next">
+
+        ❯
+
+    </button>
 
 </div>
 
-<div id="dots" class="dots"></div>
+<!-- DOTS -->
+<div
+id="dots"
+class="dots">
 
-<!-- PRODUCTOS -->
+</div>
+
+<!-- =========================
+     PRODUCTOS DESTACADOS
+========================= -->
 <section class="seccion-productos">
 
-    <h2>🔥 Productos Destacados</h2>
+    <h2>
+        🔥 Productos Destacados
+    </h2>
 
     <div
     class="contenedor-productos"
-    id="destacados"></div>
+    id="destacados">
+
+    </div>
 
 </section>
 
+<!-- =========================
+     MUJER
+========================= -->
 <section class="seccion-productos">
 
-    <h2>👗 Moda Mujer</h2>
+    <h2>
+        👗 Moda Mujer
+    </h2>
 
     <div
     class="contenedor-productos"
-    id="mujer"></div>
+    id="mujer">
+
+    </div>
 
 </section>
 
+<!-- =========================
+     HOMBRE
+========================= -->
 <section class="seccion-productos">
 
-    <h2>👕 Moda Hombre</h2>
+    <h2>
+        👕 Moda Hombre
+    </h2>
 
     <div
     class="contenedor-productos"
-    id="hombre"></div>
+    id="hombre">
+
+    </div>
 
 </section>
 
+<!-- =========================
+     ACCESORIOS
+========================= -->
 <section class="seccion-productos">
 
-    <h2>👜 Accesorios</h2>
+    <h2>
+        👜 Accesorios
+    </h2>
 
     <div
     class="contenedor-productos"
-    id="accesorios"></div>
+    id="accesorios">
+
+    </div>
 
 </section>
 
+<!-- =========================
+     MÁS VENDIDOS
+========================= -->
 <section class="seccion-productos">
 
-    <h2>⭐ Más Vendidos</h2>
+    <h2>
+        ⭐ Más Vendidos
+    </h2>
 
     <div
     class="contenedor-productos"
-    id="vendidos"></div>
+    id="vendidos">
+
+    </div>
 
 </section>
 
-<!-- FOOTER -->
+<!-- =========================
+     FOOTER
+========================= -->
 <footer id="contacto">
 
     <div class="footer-contenido">
 
-        <h2>Contáctanos</h2>
+        <h2>
+
+            Contáctanos
+
+        </h2>
 
         <div class="footer-info">
 
+            <!-- WHATSAPP -->
             <a
             href="https://wa.me/573148471107"
             target="_blank">
 
                 <i class="fa-brands fa-whatsapp"></i>
+
                 WhatsApp
 
             </a>
 
+            <!-- INSTAGRAM -->
             <a
             href="https://instagram.com/latiendadeyerlis"
             target="_blank">
 
                 <i class="fa-brands fa-instagram"></i>
+
                 Instagram
 
             </a>
 
-            <a href="mailto:yerlisstore@gmail.com">
+            <!-- EMAIL -->
+            <a
+            href="mailto:yerlisstore@gmail.com">
 
                 <i class="fa-solid fa-envelope"></i>
+
                 Email
 
             </a>
 
         </div>
 
+        <!-- COPYRIGHT -->
         <div class="footer-copy">
 
             <p>
+
                 © 2026 La Tienda de Yerlis
+
             </p>
 
         </div>
@@ -245,11 +347,16 @@ id="contadorCarrito">
 
 </footer>
 
-<!-- SCRIPTS -->
+<!-- =========================
+     SCRIPTS
+========================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <script src="./js/supabase.js"></script>
+
 <script src="./js/carrito.js"></script>
+
 <script src="./js/app.js"></script>
 
 </body>
