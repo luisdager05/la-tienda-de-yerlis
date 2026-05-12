@@ -1371,3 +1371,22 @@ body{
 .img-producto{
     transition:0.4s;
 }
+.colores{
+    display:flex;
+    gap:8px;
+    margin:10px;
+}
+
+.color{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    cursor:pointer;
+    border:2px solid #fff;
+    box-shadow:0 0 5px rgba(0,0,0,0.2);
+}
+
+.negro{ background:black; }
+.blanco{ background:white; border:1px solid #ccc; }
+.rosado{ background:pink; }
+.azul{ background:blue; }
