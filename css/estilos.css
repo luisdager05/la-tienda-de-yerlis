@@ -20,45 +20,63 @@ body{
 }
 
 /* =========================
-   HEADER CORREGIDO
+   HEADER PRINCIPAL
 ========================= */
 
 .header-principal{
     width:100%;
     background:rgba(255,255,255,0.75);
     backdrop-filter:blur(12px);
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:15px 40px;
+
     position:sticky;
     top:0;
     z-index:999;
+
     box-shadow:0 4px 15px rgba(255,105,180,0.12);
     border-bottom:1px solid rgba(255,192,203,0.3);
-    position:relative;
 }
 
-/* LOGO */
+/* =========================
+   LOGO
+========================= */
 
 .logo{
     display:flex;
     align-items:center;
-    z-index:2;
 }
 
 .logo img{
     width:100px;
+    height:auto;
+    object-fit:contain;
     border-radius:50%;
+
+    transition:0.3s;
+
+    filter:drop-shadow(0 0 10px rgba(255,64,129,0.25));
 }
 
-/* MENU */
+.logo img:hover{
+    transform:scale(1.05);
+}
+
+/* =========================
+   MENU
+========================= */
 
 .menu{
     display:flex;
     align-items:center;
+    justify-content:center;
     gap:25px;
-    margin-left:40px;
+
+    flex:1;
 }
 
 .menu a{
@@ -68,97 +86,92 @@ body{
     font-size:15px;
     letter-spacing:1px;
     text-transform:uppercase;
+
     position:relative;
     transition:0.3s;
 }
 
-/* BUSCADOR CENTRO */
+.menu a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-6px;
+
+    width:0%;
+    height:2px;
+
+    background:#ff4d8d;
+
+    transition:0.3s;
+}
+
+.menu a:hover{
+    color:#ff4d8d;
+}
+
+.menu a:hover::after{
+    width:100%;
+}
+
+/* =========================
+   BUSCADOR
+========================= */
 
 .buscador-container{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
 }
 
 #buscador{
-    width:260px;
-    padding:10px 15px;
+    width:240px;
+
+    padding:12px 18px;
+
     border:none;
     outline:none;
+
     border-radius:30px;
+
     font-size:15px;
+
     background:white;
+    color:#333;
+
     border:1px solid #ffc1d6;
+
     box-shadow:0 4px 15px rgba(255,192,203,0.2);
+
+    transition:0.3s;
 }
 
-/* CONTADOR CARRITO */
-
-.contador-carrito{
-    position:fixed;
-    top:18px;
-    right:25px;
-    width:24px;
-    height:24px;
-    background:#ff4081;
-    color:white;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:13px;
-    font-weight:bold;
-    z-index:99999;
-    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+#buscador:focus{
+    transform:scale(1.03);
+    border:1px solid #ff4081;
 }
 
-/* RESPONSIVE */
-
-@media(max-width:768px){
-
-    .header-principal{
-        flex-direction:column;
-        gap:15px;
-        padding:15px 20px;
-    }
-
-    .menu{
-        margin-left:0;
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .buscador-container{
-        position:relative;
-        left:auto;
-        transform:none;
-        width:100%;
-        display:flex;
-        justify-content:center;
-    }
-
-    #buscador{
-        width:90%;
-    }
-
-}
 /* =========================
    HERO
 ========================= */
 
 .hero{
     min-height:28vh;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     background:linear-gradient(to right,#ffdce8,#ffeaf1,#ffdce8);
+
     text-align:center;
+
     padding:30px 20px;
 }
 
 .hero-text h1{
     font-size:38px;
     color:#222;
+
     margin-bottom:10px;
 }
 
@@ -174,41 +187,25 @@ body{
 
 .btn-hero{
     display:inline-block;
+
     padding:12px 25px;
+
     background:linear-gradient(45deg,#ff4d8d,#ff80ab);
+
     color:white;
-    border-radius:30px;
     text-decoration:none;
+
+    border-radius:30px;
+
     transition:0.3s;
+
     font-weight:bold;
+
     box-shadow:0 5px 15px rgba(255,77,141,0.3);
 }
 
 .btn-hero:hover{
     transform:scale(1.05);
-}
-
-/* =========================
-   BUSCADOR
-========================= */
-
-.buscador-container{
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-}
-
-#buscador{
-    width:220px;
-    padding:10px 15px;
-    border:none;
-    outline:none;
-    border-radius:30px;
-    font-size:15px;
-    background:white;
-    color:#333;
-    border:1px solid #ffc1d6;
-    box-shadow:0 4px 15px rgba(255,192,203,0.2);
 }
 
 /* =========================
@@ -229,9 +226,13 @@ body{
 #slider{
     display:flex;
     gap:20px;
+
     overflow-x:auto;
+
     scroll-behavior:smooth;
+
     padding:20px 10px 40px;
+
     scroll-snap-type:x mandatory;
 }
 
@@ -246,24 +247,34 @@ body{
 .card{
     min-width:230px;
     max-width:230px;
+
     background:white;
+
     border-radius:20px;
+
     overflow:hidden;
+
     flex-shrink:0;
+
     transition:0.3s;
+
     border:1px solid #ffd1df;
+
     scroll-snap-align:center;
+
     box-shadow:0 5px 15px rgba(255,182,193,0.15);
 }
 
 .card:hover{
     transform:translateY(-10px);
+
     box-shadow:0 10px 25px rgba(255,64,129,0.25);
 }
 
 .card img{
     width:100%;
     height:300px;
+
     object-fit:cover;
 }
 
@@ -277,14 +288,18 @@ body{
 
 .info h3{
     font-size:18px;
+
     margin-bottom:10px;
+
     color:#333;
 }
 
 .precio{
     font-size:22px;
     font-weight:bold;
+
     color:#ff4081;
+
     margin-bottom:8px;
 }
 
@@ -300,18 +315,28 @@ body{
 #prev,
 #next{
     position:absolute;
+
     top:45%;
     transform:translateY(-50%);
+
     width:45px;
     height:45px;
+
     border:none;
     border-radius:50%;
+
     background:rgba(255,255,255,0.9);
+
     color:#ff4081;
+
     font-size:20px;
+
     cursor:pointer;
+
     z-index:10;
+
     transition:0.3s;
+
     box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
@@ -341,9 +366,13 @@ body{
 .dots span{
     width:10px;
     height:10px;
+
     background:#ffb6c1;
+
     display:inline-block;
+
     border-radius:50%;
+
     margin:5px;
 }
 
@@ -361,7 +390,9 @@ body{
 
 .seccion-productos h2{
     color:#333;
+
     margin-bottom:20px;
+
     font-size:28px;
 }
 
@@ -371,7 +402,10 @@ body{
 
 .contenedor-productos{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
     gap:20px;
 }
 
@@ -381,21 +415,28 @@ body{
 
 .producto{
     background:white;
+
     border-radius:20px;
+
     overflow:hidden;
+
     transition:0.4s;
+
     box-shadow:0 5px 15px rgba(255,182,193,0.15);
 }
 
 .producto:hover{
     transform:translateY(-8px);
+
     box-shadow:0 10px 30px rgba(255,64,129,0.3);
 }
 
 .producto img{
     width:100%;
     height:250px;
+
     object-fit:cover;
+
     transition:0.4s;
 }
 
@@ -410,20 +451,30 @@ body{
 
 .producto p{
     color:#ff4081;
+
     padding:0 10px 10px;
+
     font-weight:bold;
 }
 
 .producto button{
     width:calc(100% - 20px);
+
     margin:10px;
+
     padding:12px;
+
     border:none;
     border-radius:10px;
+
     background:linear-gradient(45deg,#ff4d8d,#ff80ab);
+
     color:white;
+
     cursor:pointer;
+
     font-weight:bold;
+
     transition:0.3s;
 }
 
@@ -432,21 +483,23 @@ body{
 }
 
 /* =========================
-   CARRITO
-========================= */
-
-/* =========================
    BOTON CARRITO
 ========================= */
 
 .btn-carrito-menu{
     position:relative;
+
     color:#444;
     text-decoration:none;
+
     font-weight:bold;
+
     cursor:pointer;
+
     padding:10px 15px;
+
     border-radius:30px;
+
     transition:0.3s;
 }
 
@@ -461,6 +514,7 @@ body{
 
 .contador-carrito{
     position:absolute;
+
     top:-8px;
     right:-8px;
 
@@ -482,16 +536,27 @@ body{
     box-shadow:0 3px 10px rgba(0,0,0,0.2);
 }
 
+/* =========================
+   CARRITO LATERAL
+========================= */
+
 .carrito{
     position:fixed;
+
     top:0;
     right:-400px;
+
     width:360px;
     height:100vh;
+
     background:white;
+
     z-index:9999;
+
     transition:0.4s;
+
     box-shadow:-10px 0 30px rgba(0,0,0,0.15);
+
     display:flex;
     flex-direction:column;
 }
@@ -506,7 +571,9 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
+
     padding:20px;
+
     border-bottom:1px solid #eee;
 }
 
@@ -524,23 +591,31 @@ body{
 #itemsCarrito{
     flex:1;
     overflow-y:auto;
+
     padding:15px;
 }
 
 .item-carrito{
     display:flex;
-    gap:15px;
-    background:#fff5f8;
-    padding:10px;
-    border-radius:15px;
-    margin-bottom:15px;
     align-items:center;
+
+    gap:15px;
+
+    background:#fff5f8;
+
+    padding:10px;
+
+    border-radius:15px;
+
+    margin-bottom:15px;
 }
 
 .item-carrito img{
     width:80px;
     height:80px;
+
     object-fit:cover;
+
     border-radius:10px;
 }
 
@@ -550,8 +625,63 @@ body{
 
 .item-info h4{
     font-size:15px;
+
     margin-bottom:5px;
+
     color:#333;
+}
+
+/* CANTIDAD */
+
+.cantidad-box{
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    margin-top:10px;
+}
+
+.cantidad-box button{
+    width:28px;
+    height:28px;
+
+    border:none;
+
+    background:#ff4081;
+
+    color:white;
+
+    border-radius:50%;
+
+    cursor:pointer;
+}
+
+/* ELIMINAR */
+
+.btn-eliminar{
+    background:red;
+
+    color:white;
+
+    border:none;
+
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    cursor:pointer;
+}
+
+/* CARRITO VACIO */
+
+.carrito-vacio{
+    text-align:center;
+
+    padding:30px;
+
+    color:#777;
 }
 
 /* =========================
@@ -559,10 +689,15 @@ body{
 ========================= */
 
 #contacto{
-    background:linear-gradient(to right,#ffcad4,#ffdce8);
+    background:
+    linear-gradient(to right,#ffcad4,#ffdce8);
+
     color:#333;
+
     padding:60px 20px;
+
     text-align:center;
+
     margin-top:70px;
 }
 
@@ -573,37 +708,55 @@ body{
 
 #contacto h2{
     font-size:38px;
+
     margin-bottom:35px;
+
     color:#ff4081;
+
     letter-spacing:1px;
 }
 
 .footer-info{
     display:flex;
+
     justify-content:center;
     align-items:center;
+
     gap:25px;
+
     flex-wrap:wrap;
+
     margin-bottom:35px;
 }
 
 .footer-info a{
     text-decoration:none;
+
     color:#444;
+
     background:white;
+
     padding:15px 25px;
+
     border-radius:15px;
+
     font-size:18px;
+
     transition:0.4s;
+
     display:flex;
     align-items:center;
+
     gap:10px;
+
     box-shadow:0 5px 15px rgba(255,182,193,0.15);
 }
 
 .footer-info a:hover{
     transform:translateY(-8px) scale(1.05);
+
     background:#ff4081;
+
     color:white;
 }
 
@@ -613,8 +766,11 @@ body{
 
 .footer-copy{
     border-top:1px solid rgba(255,105,180,0.2);
+
     padding-top:20px;
+
     font-size:14px;
+
     opacity:0.8;
 }
 
@@ -626,22 +782,37 @@ body{
 
     .header-principal{
         flex-direction:column;
+        gap:15px;
+
         padding:15px 20px;
     }
 
     .logo img{
         width:130px;
-        margin-bottom:15px;
     }
 
     .menu{
         width:100%;
+
+        flex-wrap:wrap;
+
         justify-content:center;
+
         gap:18px;
     }
 
     .menu a{
         font-size:14px;
+    }
+
+    .buscador-container{
+        width:100%;
+
+        justify-content:center;
+    }
+
+    #buscador{
+        width:90%;
     }
 
     .hero-text h1{
@@ -650,16 +821,6 @@ body{
 
     .hero-text p{
         font-size:14px;
-    }
-
-    .buscador-container{
-        width:100%;
-        justify-content:center;
-        margin-top:10px;
-    }
-
-    #buscador{
-        width:90%;
     }
 
     #contacto h2{
@@ -679,37 +840,4 @@ body{
         width:100%;
     }
 
-}
-
-.cantidad-box{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-top:10px;
-}
-
-.cantidad-box button{
-    width:28px;
-    height:28px;
-    border:none;
-    background:#ff4081;
-    color:white;
-    border-radius:50%;
-    cursor:pointer;
-}
-
-.btn-eliminar{
-    background:red;
-    color:white;
-    border:none;
-    width:30px;
-    height:30px;
-    border-radius:50%;
-    cursor:pointer;
-}
-
-.carrito-vacio{
-    text-align:center;
-    padding:30px;
-    color:#777;
 }
