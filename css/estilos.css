@@ -1390,3 +1390,12 @@ body{
 .blanco{ background:white; border:1px solid #ccc; }
 .rosado{ background:pink; }
 .azul{ background:blue; }
+
+.img-producto{
+    transition:0.3s;
+    cursor:zoom-in;
+}
+
+.img-producto:hover{
+    transform:scale(1.2);
+}
