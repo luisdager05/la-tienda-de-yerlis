@@ -19,23 +19,19 @@ function agregarAlCarrito(
     btn.closest(".card");
 
     const talla =
-    card.querySelector(".select-talla").value;
+    card.querySelector(".select-talla")?.value || "";
 
     const color =
-    card.querySelector(".select-color").value;
+    card.querySelector(".select-color")?.value || "";
 
     if(talla === "" || color === ""){
 
         alert("Selecciona talla y color");
-
         return;
 
     }
 
-    // CONVERTIR PRECIO
     precio = Number(precio);
-
-    // VALIDAR IMAGEN
     imagen = imagen || "./img/error.png";
 
     const producto = {
@@ -46,14 +42,13 @@ function agregarAlCarrito(
         imagen,
         talla,
         color,
-        cantidad:1
+        cantidad: 1
 
     };
 
     carrito.push(producto);
 
     guardarCarrito();
-
     actualizarCarrito();
 
 }
@@ -94,64 +89,39 @@ function actualizarCarrito(){
 
     carrito.forEach((item, index) => {
 
-        totalFinal +=
-        item.precio * item.cantidad;
+        totalFinal += item.precio * item.cantidad;
 
         items.innerHTML += `
 
             <div class="item-carrito">
 
-                <img
-                src="${item.imagen}"
-                alt="${item.nombre}">
+                <img src="${item.imagen}" alt="${item.nombre}">
 
                 <div class="item-info">
 
                     <h4>${item.nombre}</h4>
 
-                    <p>
-                        $${Number(item.precio)
-                        .toLocaleString()}
-                    </p>
+                    <p>$${Number(item.precio).toLocaleString()}</p>
 
-                    <p>
-                        <strong>Talla:</strong>
-                        ${item.talla}
-                    </p>
+                    <p><strong>Talla:</strong> ${item.talla}</p>
 
-                    <p>
-                        <strong>Color:</strong>
-                        ${item.color}
-                    </p>
+                    <p><strong>Color:</strong> ${item.color}</p>
 
                     <div class="cantidad-box">
 
-                        <button onclick="
-                        cambiarCantidad(${index}, -1)
-                        ">
-                            -
-                        </button>
+                        <button onclick="cambiarCantidad(${index}, -1)">-</button>
 
-                        <span>
-                            ${item.cantidad}
-                        </span>
+                        <span>${item.cantidad}</span>
 
-                        <button onclick="
-                        cambiarCantidad(${index}, 1)
-                        ">
-                            +
-                        </button>
+                        <button onclick="cambiarCantidad(${index}, 1)">+</button>
 
                     </div>
 
                 </div>
 
-                <button
-                class="btn-eliminar"
+                <button class="btn-eliminar"
                 onclick="eliminarProducto(${index})">
-
                     ✖
-
                 </button>
 
             </div>
@@ -160,11 +130,8 @@ function actualizarCarrito(){
 
     });
 
-    total.innerText =
-    totalFinal.toLocaleString();
-
-    contador.innerText =
-    carrito.length;
+    total.innerText = totalFinal.toLocaleString();
+    contador.innerText = carrito.length;
 
 }
 
@@ -177,13 +144,10 @@ function cambiarCantidad(index, cambio){
     carrito[index].cantidad += cambio;
 
     if(carrito[index].cantidad <= 0){
-
         carrito.splice(index, 1);
-
     }
 
     guardarCarrito();
-
     actualizarCarrito();
 
 }
@@ -197,27 +161,24 @@ function eliminarProducto(index){
     carrito.splice(index, 1);
 
     guardarCarrito();
-
     actualizarCarrito();
 
 }
 
 // =========================
-// TOGGLE CARRITO
+// CARRITO UI
 // =========================
 
 function toggleCarrito(){
 
-    document
-    .getElementById("carrito")
+    document.getElementById("carrito")
     .classList.toggle("active");
 
 }
 
 function cerrarCarrito(){
 
-    document
-    .getElementById("carrito")
+    document.getElementById("carrito")
     .classList.remove("active");
 
 }
@@ -229,20 +190,16 @@ function cerrarCarrito(){
 function finalizarCompra(){
 
     if(carrito.length === 0){
-
         alert("Tu carrito está vacío");
-
         return;
-
     }
 
-    let mensaje =
-    "🛍️ Pedido La Tienda de Yerlis:%0A%0A";
+    let mensaje = "🛍️ Pedido La Tienda de Yerlis:%0A%0A";
 
     carrito.forEach(item => {
 
-        mensaje +=
-        `• ${item.nombre}
+        mensaje += `
+• ${item.nombre}
 Talla: ${item.talla}
 Color: ${item.color}
 Cantidad: ${item.cantidad}
@@ -256,20 +213,7 @@ Precio: $${item.precio}%0A%0A`;
     );
 
 }
-<button onclick="
-agregarAlCarrito(
-    this,
-    '${p.id}',
-    '${p.nombre}',
-    '${p.precio}',
-    '${p.imagen}'
-)">
-    🛒 Agregar al carrito
-</button>
 
-<button onclick="abrirModal('${p.nombre}','${p.precio}','${p.imagen}')">
-    👁 Ver rápido
-</button>
 // =========================
 // INICIAR
 // =========================
