@@ -435,15 +435,51 @@ body{
    CARRITO
 ========================= */
 
+/* =========================
+   BOTON CARRITO
+========================= */
+
 .btn-carrito-menu{
+    position:relative;
     color:#444;
     text-decoration:none;
     font-weight:bold;
     cursor:pointer;
+    padding:10px 15px;
+    border-radius:30px;
+    transition:0.3s;
 }
 
 .btn-carrito-menu:hover{
     color:#ff4081;
+    background:rgba(255,192,203,0.15);
+}
+
+/* =========================
+   CONTADOR CARRITO
+========================= */
+
+.contador-carrito{
+    position:absolute;
+    top:-8px;
+    right:-8px;
+
+    width:22px;
+    height:22px;
+
+    background:#ff4081;
+    color:white;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:12px;
+    font-weight:bold;
+
+    box-shadow:0 3px 10px rgba(0,0,0,0.2);
 }
 
 .carrito{
