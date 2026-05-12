@@ -1,73 +1,41 @@
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
+// =========================
+// AGREGAR AL CARRITO
+// =========================
+
 function agregarAlCarrito(btn, id, nombre, precio, imagen){
 
     const card = btn.closest(".producto") || btn.closest(".card");
 
-    const talla = card.querySelector(".select-talla").value;
-    const color = card.dataset.color || "";
+    if(!card) return;
+
+    const tallaEl = card.querySelector(".select-talla");
+    const talla = tallaEl ? tallaEl.value : "";
+
+    // COLOR (soporta chips o select)
+    let color = "";
+
+    // si usas dataset (chips)
+    if(card.dataset.color){
+        color = card.dataset.color;
+    }
+
+    // si usas select clásico
+    const colorSelect = card.querySelector(".select-color");
+    if(colorSelect){
+        color = colorSelect.value || color;
+    }
 
     if(!talla || !color){
         alert("Selecciona talla y color");
         return;
     }
 
-    const producto = {
-        id,
-        nombre,
-        precio: Number(precio),
-        imagen,
-        talla,
-        color,
-        cantidad: 1
-    };
-
-    carrito.push(producto);
-
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-
-    actualizarCarrito();
-}
-
-
-let carrito = JSON.parse(
-    localStorage.getItem("carrito")
-) || [];
-
-// =========================
-// AGREGAR AL CARRITO
-// =========================
-
-function agregarAlCarrito(
-    btn,
-    id,
-    nombre,
-    precio,
-    imagen
-){
-
-    const card =
-    btn.closest(".producto") ||
-    btn.closest(".card");
-
-    const talla =
-    card.querySelector(".select-talla")?.value || "";
-
-    const color =
-    card.querySelector(".select-color")?.value || "";
-
-    if(talla === "" || color === ""){
-
-        alert("Selecciona talla y color");
-        return;
-
-    }
-
-    precio = Number(precio);
+    precio = Number(precio) || 0;
     imagen = imagen || "./img/error.png";
 
     const producto = {
-
         id,
         nombre,
         precio,
@@ -75,7 +43,6 @@ function agregarAlCarrito(
         talla,
         color,
         cantidad: 1
-
     };
 
     carrito.push(producto);
@@ -104,14 +71,9 @@ function guardarCarrito(){
 
 function actualizarCarrito(){
 
-    const items =
-    document.getElementById("itemsCarrito");
-
-    const total =
-    document.getElementById("totalCarrito");
-
-    const contador =
-    document.getElementById("contadorCarrito");
+    const items = document.getElementById("itemsCarrito");
+    const total = document.getElementById("totalCarrito");
+    const contador = document.getElementById("contadorCarrito");
 
     if(!items) return;
 
@@ -121,7 +83,9 @@ function actualizarCarrito(){
 
     carrito.forEach((item, index) => {
 
-        totalFinal += item.precio * item.cantidad;
+        const precio = Number(item.precio) || 0;
+
+        totalFinal += precio * item.cantidad;
 
         items.innerHTML += `
 
@@ -133,7 +97,7 @@ function actualizarCarrito(){
 
                     <h4>${item.nombre}</h4>
 
-                    <p>$${Number(item.precio).toLocaleString()}</p>
+                    <p>$${precio.toLocaleString()}</p>
 
                     <p><strong>Talla:</strong> ${item.talla}</p>
 
@@ -185,7 +149,7 @@ function cambiarCantidad(index, cambio){
 }
 
 // =========================
-// ELIMINAR
+// ELIMINAR PRODUCTO
 // =========================
 
 function eliminarProducto(index){
@@ -198,7 +162,7 @@ function eliminarProducto(index){
 }
 
 // =========================
-// CARRITO UI
+// UI CARRITO
 // =========================
 
 function toggleCarrito(){
