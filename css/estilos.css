@@ -25,7 +25,7 @@ body{
 }
 
 .logo img{
-    width: 180px;
+    width: 100px;
     height: auto;
     object-fit: contain;
     transition: 0.3s;
