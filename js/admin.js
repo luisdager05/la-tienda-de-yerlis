@@ -235,3 +235,12 @@ function limpiarFormulario() {
 
     document.getElementById("imagen").value = "";
 }
+
+
+function cerrarSesion(){
+
+    localStorage.removeItem("adminLogueado");
+
+    window.location.href = "../login/login.html";
+
+}
