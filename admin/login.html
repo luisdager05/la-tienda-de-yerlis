@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
@@ -7,7 +8,7 @@
 
 <title>Login Admin</title>
 
-<link rel="stylesheet" href="./css/login.css">
+<link rel="stylesheet" href="../css/login.css">
 
 </head>
 
@@ -17,9 +18,15 @@
 
     <h1>Administrador</h1>
 
-    <input type="text" id="usuario" placeholder="Usuario">
+    <input
+    type="text"
+    id="usuario"
+    placeholder="Usuario">
 
-    <input type="password" id="password" placeholder="Contraseña">
+    <input
+    type="password"
+    id="password"
+    placeholder="Contraseña">
 
     <button onclick="iniciarSesion()">
         Ingresar
@@ -29,7 +36,40 @@
 
 </div>
 
-<script src="js/login.js"></script>
+<script>
+
+function iniciarSesion() {
+
+    const usuario =
+    document.getElementById("usuario").value;
+
+    const password =
+    document.getElementById("password").value;
+
+    const adminUsuario = "admin";
+    const adminPassword = "12345";
+
+    if(usuario === adminUsuario &&
+       password === adminPassword){
+
+        localStorage.setItem(
+            "adminLogueado",
+            "true"
+        );
+
+        // ENTRAR AL PANEL
+        window.location.href =
+        "./admin.html";
+
+    } else {
+
+        document.getElementById("mensaje")
+        .innerText =
+        "Usuario o contraseña incorrectos";
+    }
+}
+
+</script>
 
 </body>
 </html>
