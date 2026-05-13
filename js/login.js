@@ -6,21 +6,21 @@ function iniciarSesion() {
     const password =
     document.getElementById("password").value;
 
-    // DATOS ADMIN
     const adminUsuario = "admin";
     const adminPassword = "12345";
 
     if(usuario === adminUsuario &&
        password === adminPassword){
 
+        // GUARDAR LOGIN
         localStorage.setItem(
             "adminLogueado",
             "true"
         );
 
-        // ENTRAR AL PANEL
-         window.location.href =
-        "admin.html";
+        // IR AL PANEL
+        window.location.href =
+        "./admin.html";
 
     } else {
 
