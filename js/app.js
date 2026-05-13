@@ -56,10 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
             slider.innerHTML += `
                 <div class="card">
 
-                    <img
-                    class="img-producto"
-                    src="${p.imagen || './img/error.png'}"
-                    alt="${p.nombre}">
+                   <img
+class="img-producto"
+src="${p.imagen || './img/error.png'}"
+alt="${p.nombre}"
+onclick='abrirModalProducto(${JSON.stringify(p)})'>
 
                     <div class="info">
 
@@ -182,10 +183,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const card = `
                 <div class="producto">
 
-                    <img
-                    class="img-producto"
-                    src="${p.imagen || './img/error.png'}"
-                    alt="${p.nombre}">
+                   <img
+class="img-producto"
+src="${p.imagen || './img/error.png'}"
+alt="${p.nombre}"
+onclick='abrirModalProducto(${JSON.stringify(p)})'>
 
                     <h3>${p.nombre}</h3>
 
