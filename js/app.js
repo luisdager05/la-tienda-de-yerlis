@@ -330,3 +330,46 @@ function cerrarModal(){
     if(modal) modal.style.display = "none";
 
 }
+
+
+// =========================
+// MODAL PRODUCTO
+// =========================
+
+function abrirModalProducto(producto){
+
+    document.getElementById("modalProducto")
+    .classList.add("active");
+
+    document.getElementById("modalImagen")
+    .src = producto.imagen;
+
+    document.getElementById("modalNombre")
+    .innerText = producto.nombre;
+
+    document.getElementById("modalDescripcion")
+    .innerText = producto.descripcion;
+
+    document.getElementById("modalPrecio")
+    .innerText =
+    "$ " + Number(producto.precio)
+    .toLocaleString();
+
+    document.getElementById("modalCategoria")
+    .innerText = producto.categoria;
+
+    // BOTON CARRITO
+    document.getElementById("btnAgregarModal")
+    .onclick = () => {
+
+        agregarAlCarrito(producto);
+
+        cerrarModalProducto();
+    }
+}
+
+function cerrarModalProducto(){
+
+    document.getElementById("modalProducto")
+    .classList.remove("active");
+}
