@@ -162,104 +162,7 @@ onclick='abrirModalProducto(${JSON.stringify(p)})'>
 
     }
 
-    function mostrarSecciones(productos) {
-
-        const mujer = document.getElementById("mujer");
-        const hombre = document.getElementById("hombre");
-        const accesorios = document.getElementById("accesorios");
-        const destacados = document.getElementById("destacados");
-        const vendidos = document.getElementById("vendidos");
-
-        if (!mujer || !hombre || !accesorios || !destacados || !vendidos) return;
-
-        mujer.innerHTML = "";
-        hombre.innerHTML = "";
-        accesorios.innerHTML = "";
-        destacados.innerHTML = "";
-        vendidos.innerHTML = "";
-
-        productos.forEach(p => {
-
-            const card = `
-                <div class="producto">
-
-                   <img
-class="img-producto"
-src="${p.imagen || './img/error.png'}"
-alt="${p.nombre}"
-onclick='abrirModalProducto(${JSON.stringify(p)})'>
-
-                    <h3>${p.nombre}</h3>
-
-                    <p class="precio">
-                        $${Number(p.precio).toLocaleString()}
-                    </p>
-
-                    <div class="selector-opciones">
-                        <label>Talla:</label>
-                        <select class="select-talla">
-                            <option value="">Seleccionar</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        </select>
-                    </div>
-
-                    <div class="selector-opciones">
-                        <label>Color:</label>
-
-                        <div class="colores">
-
-                            <span class="color negro"
-                            onclick="seleccionarColor('Negro', this)"></span>
-
-                            <span class="color blanco"
-                            onclick="seleccionarColor('Blanco', this)"></span>
-
-                            <span class="color rosado"
-                            onclick="seleccionarColor('Rosado', this)"></span>
-
-                            <span class="color azul"
-                            onclick="seleccionarColor('Azul', this)"></span>
-
-                        </div>
-                    </div>
-
-                    <button onclick="
-                    abrirModal(
-                        '${p.nombre}',
-                        '${p.precio}',
-                        '${p.imagen}'
-                    )">
-                        👁 Ver rápido
-                    </button>
-
-                    <button onclick="
-                    agregarAlCarrito(
-                        this,
-                        '${p.id}',
-                        '${p.nombre}',
-                        '${p.precio}',
-                        '${p.imagen}'
-                    )">
-                        🛒 Agregar al carrito
-                    </button>
-
-                </div>
-            `;
-
-            destacados.innerHTML += card;
-            vendidos.innerHTML += card;
-
-            if (p.categoria === "mujer") mujer.innerHTML += card;
-            if (p.categoria === "hombre") hombre.innerHTML += card;
-            if (p.categoria === "accesorios") accesorios.innerHTML += card;
-
-        });
-
-    }
-
+    
     function activarBuscador() {
 
         const buscador = document.getElementById("buscador");
@@ -399,3 +302,102 @@ function filtrarCategoria(categoria){
 
     mostrarSecciones(filtrados);
 }
+
+function mostrarSecciones(productos) {
+
+        const mujer = document.getElementById("mujer");
+        const hombre = document.getElementById("hombre");
+        const accesorios = document.getElementById("accesorios");
+        const destacados = document.getElementById("destacados");
+        const vendidos = document.getElementById("vendidos");
+
+        if (!mujer || !hombre || !accesorios || !destacados || !vendidos) return;
+
+        mujer.innerHTML = "";
+        hombre.innerHTML = "";
+        accesorios.innerHTML = "";
+        destacados.innerHTML = "";
+        vendidos.innerHTML = "";
+
+        productos.forEach(p => {
+
+            const card = `
+                <div class="producto">
+
+                   <img
+class="img-producto"
+src="${p.imagen || './img/error.png'}"
+alt="${p.nombre}"
+onclick='abrirModalProducto(${JSON.stringify(p)})'>
+
+                    <h3>${p.nombre}</h3>
+
+                    <p class="precio">
+                        $${Number(p.precio).toLocaleString()}
+                    </p>
+
+                    <div class="selector-opciones">
+                        <label>Talla:</label>
+                        <select class="select-talla">
+                            <option value="">Seleccionar</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
+
+                    <div class="selector-opciones">
+                        <label>Color:</label>
+
+                        <div class="colores">
+
+                            <span class="color negro"
+                            onclick="seleccionarColor('Negro', this)"></span>
+
+                            <span class="color blanco"
+                            onclick="seleccionarColor('Blanco', this)"></span>
+
+                            <span class="color rosado"
+                            onclick="seleccionarColor('Rosado', this)"></span>
+
+                            <span class="color azul"
+                            onclick="seleccionarColor('Azul', this)"></span>
+
+                        </div>
+                    </div>
+
+                    <button onclick="
+                    abrirModal(
+                        '${p.nombre}',
+                        '${p.precio}',
+                        '${p.imagen}'
+                    )">
+                        👁 Ver rápido
+                    </button>
+
+                    <button onclick="
+                    agregarAlCarrito(
+                        this,
+                        '${p.id}',
+                        '${p.nombre}',
+                        '${p.precio}',
+                        '${p.imagen}'
+                    )">
+                        🛒 Agregar al carrito
+                    </button>
+
+                </div>
+            `;
+
+            destacados.innerHTML += card;
+            vendidos.innerHTML += card;
+
+            if (p.categoria === "mujer") mujer.innerHTML += card;
+            if (p.categoria === "hombre") hombre.innerHTML += card;
+            if (p.categoria === "accesorios") accesorios.innerHTML += card;
+
+        });
+
+    }
+
