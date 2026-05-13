@@ -1659,58 +1659,49 @@ body{
 
 /* =========================
    IMAGENES UNIFORMES PRODUCTOS
+   ESTA PARTE CONTROLA:
+   - tamaño de tarjetas
+   - tamaño de imágenes
+   - alineación de productos
+   - sección accesorios
 ========================= */
 
-/* IMAGENES DEL FILTRADO */
-.producto .img-producto{
+/* =========================
+   CONTENEDOR PRODUCTOS
+   (GRID GENERAL)
+========================= */
+
+.contenedor-productos{
+
+    display:grid;
+
+    /* COLUMNAS AUTOMATICAS */
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,260px));
+
+    /* CENTRAR PRODUCTOS */
+    justify-content:center;
+
+    gap:25px;
 
     width:100%;
 
-    height:260px;
-
-    object-fit:cover;
-
-    display:block;
-
-    border-radius:20px 20px 0 0;
-
-    transition:.3s;
-
-    cursor:pointer;
-
 }
 
-/* IMAGENES CARRUSEL */
-.card .img-producto{
+/* =========================
+   TARJETA PRODUCTO
+   (TODOS MISMOS TAMAÑOS)
+========================= */
 
-    width:100%;
-
-    height:300px;
-
-    object-fit:cover;
-
-    display:block;
-
-    transition:.3s;
-
-    cursor:pointer;
-
-}
-
-/* HOVER */
-.producto .img-producto:hover,
-.card .img-producto:hover{
-
-    transform:scale(1.03);
-
-}
-
-/* TARJETAS PRODUCTOS */
 .producto{
+
+    width:260px;
+
+    min-height:480px;
 
     background:white;
 
-    border-radius:20px;
+    border-radius:22px;
 
     overflow:hidden;
 
@@ -1720,28 +1711,231 @@ body{
 
     justify-content:space-between;
 
+    transition:.4s;
+
+    box-shadow:
+    0 8px 20px rgba(255,182,193,.18);
+
 }
 
-/* CONTENIDO */
+/* HOVER TARJETA */
+
+.producto:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 15px 30px rgba(255,64,129,.25);
+
+}
+
+/* =========================
+   IMAGENES PRODUCTOS
+   TODAS MISMA MEDIDA
+========================= */
+
+.producto .img-producto{
+
+    width:100%;
+
+    height:320px;
+
+    object-fit:cover;
+
+    display:block;
+
+    border-radius:22px 22px 0 0;
+
+    transition:.4s;
+
+    cursor:pointer;
+
+}
+
+/* HOVER IMAGEN */
+
+.producto .img-producto:hover{
+
+    transform:scale(1.03);
+
+}
+
+/* =========================
+   TITULO PRODUCTO
+========================= */
+
 .producto h3{
 
-    padding:12px 12px 5px;
-
-    min-height:60px;
+    padding:15px 15px 5px;
 
     font-size:18px;
 
+    color:#333;
+
+    min-height:60px;
+
+    text-align:center;
+
 }
+
+/* =========================
+   PRECIO PRODUCTO
+========================= */
 
 .producto .precio{
 
-    padding:0 12px 12px;
+    padding:0 15px 10px;
+
+    text-align:center;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    color:#ff4081;
 
 }
 
-/* BOTON */
+/* =========================
+   BOTON PRODUCTO
+========================= */
+
 .producto button{
 
+    width:calc(100% - 24px);
+
+    margin:12px;
+
     margin-top:auto;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+    linear-gradient(45deg,#ff4081,#ff80ab);
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+/* HOVER BOTON */
+
+.producto button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 8px 20px rgba(255,64,129,.3);
+
+}
+
+/* =========================
+   CARRUSEL PRODUCTOS
+========================= */
+
+.card{
+
+    min-width:230px;
+
+    max-width:230px;
+
+}
+
+/* IMAGENES CARRUSEL */
+
+.card .img-producto{
+
+    width:100%;
+
+    height:300px;
+
+    object-fit:cover;
+
+}
+
+/* =========================
+   RESPONSIVE TABLET
+========================= */
+
+@media(max-width:768px){
+
+    .contenedor-productos{
+
+        grid-template-columns:
+        repeat(auto-fit,minmax(180px,180px));
+
+        gap:18px;
+
+    }
+
+    .producto{
+
+        width:180px;
+
+        min-height:390px;
+
+    }
+
+    .producto .img-producto{
+
+        height:220px;
+
+    }
+
+}
+
+/* =========================
+   RESPONSIVE CELULAR
+========================= */
+
+@media(max-width:480px){
+
+    .contenedor-productos{
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+        justify-items:center;
+
+        gap:15px;
+
+    }
+
+    .producto{
+
+        width:100%;
+
+        min-height:360px;
+
+    }
+
+    .producto .img-producto{
+
+        height:200px;
+
+    }
+
+    .producto h3{
+
+        font-size:15px;
+
+    }
+
+    .producto .precio{
+
+        font-size:20px;
+
+    }
 
 }
