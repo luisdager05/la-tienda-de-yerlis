@@ -303,101 +303,56 @@ function filtrarCategoria(categoria){
     mostrarSecciones(filtrados);
 }
 
+// =========================
+// MOSTRAR PRODUCTOS
+// =========================
+
 function mostrarSecciones(productos) {
 
-        const mujer = document.getElementById("mujer");
-        const hombre = document.getElementById("hombre");
-        const accesorios = document.getElementById("accesorios");
-        const destacados = document.getElementById("destacados");
-        const vendidos = document.getElementById("vendidos");
+    const destacados =
+    document.getElementById("destacados");
 
-        if (!mujer || !hombre || !accesorios || !destacados || !vendidos) return;
+    if (!destacados) return;
 
-        mujer.innerHTML = "";
-        hombre.innerHTML = "";
-        accesorios.innerHTML = "";
-        destacados.innerHTML = "";
-        vendidos.innerHTML = "";
+    destacados.innerHTML = "";
 
-        productos.forEach(p => {
+    productos.forEach(p => {
 
-            const card = `
-                <div class="producto">
+        const card = `
 
-                   <img
-class="img-producto"
-src="${p.imagen || './img/error.png'}"
-alt="${p.nombre}"
-onclick='abrirModalProducto(${JSON.stringify(p)})'>
+            <div class="producto">
 
-                    <h3>${p.nombre}</h3>
+                <img
+                class="img-producto"
+                src="${p.imagen || './img/error.png'}"
+                alt="${p.nombre}"
+                onclick="abrirModalProductoPorId(${p.id})">
 
-                    <p class="precio">
-                        $${Number(p.precio).toLocaleString()}
-                    </p>
+                <h3>${p.nombre}</h3>
 
-                    <div class="selector-opciones">
-                        <label>Talla:</label>
-                        <select class="select-talla">
-                            <option value="">Seleccionar</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        </select>
-                    </div>
+                <p class="precio">
+                    $${Number(p.precio).toLocaleString()}
+                </p>
 
-                    <div class="selector-opciones">
-                        <label>Color:</label>
+                <button onclick="
+                agregarAlCarrito(
+                    this,
+                    '${p.id}',
+                    '${p.nombre}',
+                    '${p.precio}',
+                    '${p.imagen}'
+                )">
 
-                        <div class="colores">
+                    🛒 Agregar al carrito
 
-                            <span class="color negro"
-                            onclick="seleccionarColor('Negro', this)"></span>
+                </button>
 
-                            <span class="color blanco"
-                            onclick="seleccionarColor('Blanco', this)"></span>
+            </div>
 
-                            <span class="color rosado"
-                            onclick="seleccionarColor('Rosado', this)"></span>
+        `;
 
-                            <span class="color azul"
-                            onclick="seleccionarColor('Azul', this)"></span>
+        destacados.innerHTML += card;
 
-                        </div>
-                    </div>
+    });
 
-                    <button onclick="
-                    abrirModal(
-                        '${p.nombre}',
-                        '${p.precio}',
-                        '${p.imagen}'
-                    )">
-                        👁 Ver rápido
-                    </button>
-
-                    <button onclick="
-                    agregarAlCarrito(
-                        this,
-                        '${p.id}',
-                        '${p.nombre}',
-                        '${p.precio}',
-                        '${p.imagen}'
-                    )">
-                        🛒 Agregar al carrito
-                    </button>
-
-                </div>
-            `;
-
-            destacados.innerHTML += card;
-            vendidos.innerHTML += card;
-
-            if (p.categoria === "mujer") mujer.innerHTML += card;
-            if (p.categoria === "hombre") hombre.innerHTML += card;
-            if (p.categoria === "accesorios") accesorios.innerHTML += card;
-
-        });
-
-    }
-
+}
