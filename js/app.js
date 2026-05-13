@@ -283,11 +283,23 @@ function cerrarModalProducto(){
 // FILTRAR CATEGORIAS
 // =========================
 
+// =========================
+// FILTRAR CATEGORIA
+// =========================
+
 function filtrarCategoria(categoria){
+
+    const titulo =
+    document.getElementById("tituloCategoria");
 
     if(categoria === "todos"){
 
-        mostrarSecciones(window.productosGlobalData);
+        titulo.innerText =
+        "🔥 Todos los productos";
+
+        mostrarSecciones(
+            window.productosGlobalData
+        );
 
         return;
     }
@@ -300,9 +312,12 @@ function filtrarCategoria(categoria){
 
     );
 
+    titulo.innerText =
+    categoria.charAt(0).toUpperCase() +
+    categoria.slice(1);
+
     mostrarSecciones(filtrados);
 }
-
 // =========================
 // MOSTRAR PRODUCTOS
 // =========================
