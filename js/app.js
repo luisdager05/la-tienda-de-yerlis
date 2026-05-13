@@ -375,3 +375,27 @@ function cerrarModalProducto(){
     document.getElementById("modalProducto")
     .classList.remove("active");
 }
+
+// =========================
+// FILTRAR CATEGORIAS
+// =========================
+
+function filtrarCategoria(categoria){
+
+    if(categoria === "todos"){
+
+        mostrarSecciones(window.productosGlobalData);
+
+        return;
+    }
+
+    const filtrados =
+    window.productosGlobalData.filter(p =>
+
+        p.categoria &&
+        p.categoria.toLowerCase() === categoria
+
+    );
+
+    mostrarSecciones(filtrados);
+}
