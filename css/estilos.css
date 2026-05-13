@@ -1602,3 +1602,57 @@ body{
     transform:scale(.98);
 
 }
+
+/* =========================
+   MENU CATEGORIAS
+========================= */
+
+.menu-categorias{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    padding:30px 20px;
+
+}
+
+.menu-categorias button{
+
+    border:none;
+
+    padding:14px 25px;
+
+    border-radius:50px;
+
+    background:white;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.menu-categorias button:hover{
+
+    background:#ff4d88;
+
+    color:white;
+
+    transform:translateY(-3px);
+
+}
