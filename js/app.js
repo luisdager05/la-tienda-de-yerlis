@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        productosGlobal = data;
+        window.productosGlobalData = data;
 
         render(data);
         mostrarSecciones(data);
