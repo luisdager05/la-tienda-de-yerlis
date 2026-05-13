@@ -2,15 +2,29 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Panel Admin</title>
 
-    <link rel="stylesheet" href="../css/admin.css">
+<meta charset="UTF-8">
+
+<title>Panel Admin</title>
+
+<link rel="stylesheet" href="../css/admin.css">
+
 </head>
 
 <body>
 
+<!-- PROTEGER PANEL -->
+<script>
 
+if(localStorage.getItem("adminLogueado") !== "true"){
+
+    window.location.href = "../login.html";
+
+}
+
+</script>
+
+<!-- TOP BAR -->
 <div class="top-bar">
 
     <a href="../index.html" class="btn-volver">
@@ -23,96 +37,76 @@
 
 </div>
 
-<!-- RESTO DEL PANEL ADMIN -->
+<h1>📦 Panel Administrador</h1>
 
+<div class="panel">
 
-    <script>
+    <input
+        type="text"
+        id="nombre"
+        placeholder="Nombre producto"
+    >
 
-if(localStorage.getItem("adminLogueado") !== "true"){
+    <input
+        type="number"
+        id="precio"
+        placeholder="Precio"
+    >
 
-    window.location.href = "../login.html";
+    <textarea
+        id="descripcion"
+        class="input-admin"
+        placeholder="Descripción del producto"
+    ></textarea>
 
-}
+    <select id="categoria" class="input-admin">
 
-</script>
-<div class="top-bar">
+        <option value="">
+            Seleccionar categoría
+        </option>
 
-    <a href="../index.html" class="btn-volver">
-        ← Volver a la tienda
-    </a>
+        <option value="mujer">
+            👗 Mujer
+        </option>
+
+        <option value="hombre">
+            👕 Hombre
+        </option>
+
+        <option value="niño">
+            🧒 Niño
+        </option>
+
+        <option value="accesorios">
+            👜 Accesorios
+        </option>
+
+    </select>
+
+    <input
+        type="text"
+        id="imagen"
+        class="input-admin"
+        placeholder="./img/imagen1.png"
+    >
+
+    <button onclick="guardarProducto()">
+        Guardar Producto
+    </button>
 
 </div>
-    <h1>📦 Panel Administrador</h1>
 
-    <div class="panel">
+<h2 class="titulo-productos">
+    📋 Productos
+</h2>
 
-        <input
-            type="text"
-            id="nombre"
-            placeholder="Nombre producto"
-        >
+<div id="listaProductos"></div>
 
-      
-        <input
-            type="number"
-            id="precio"
-            placeholder="Precio"
-        >
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-        <textarea
-    id="descripcion"
-    class="input-admin"
-    placeholder="Descripción del producto"
-></textarea>
-     
+<script src="../js/supabase.js"></script>
 
-        <select id="categoria" class="input-admin">
-
-            <option value="">
-                Seleccionar categoría
-            </option>
-
-            <option value="mujer">
-                👗 Mujer
-            </option>
-
-            <option value="hombre">
-                👕 Hombre
-            </option>
-
-            <option value="niño">
-                🧒 Niño
-            </option>
-
-            <option value="accesorios">
-                👜 Accesorios
-            </option>
-
-        </select>
-
-        <input
-    type="text"
-    id="imagen"
-    class="input-admin"
-    placeholder="./img/imagen1.png"
->
-
-        <button onclick="guardarProducto()">
-            Guardar Producto
-        </button>
-
-    </div>
-
-    <h2 class="titulo-productos">
-        📋 Productos
-    </h2>
-
-    <div id="listaProductos"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
-    <script src="../js/supabase.js"></script>
-    <script src="../js/admin.js"></script>
+<script src="../js/admin.js"></script>
 
 </body>
 </html>
