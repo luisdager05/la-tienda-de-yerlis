@@ -11,7 +11,7 @@ function iniciarSesion() {
 
         localStorage.setItem("adminLogueado", "true");
 
-        window.location.href = "../admin/admin.html";
+       window.location.href = "admin/admin.html";
 
     } else {
 
