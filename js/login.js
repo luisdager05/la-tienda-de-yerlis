@@ -1,23 +1,31 @@
 function iniciarSesion() {
 
-    const usuario = document.getElementById("usuario").value;
-    const password = document.getElementById("password").value;
+    const usuario =
+    document.getElementById("usuario").value;
 
-    // DATOS DEL ADMIN
+    const password =
+    document.getElementById("password").value;
+
+    // DATOS ADMIN
     const adminUsuario = "admin";
     const adminPassword = "12345";
 
-    if(usuario === adminUsuario && password === adminPassword){
+    if(usuario === adminUsuario &&
+       password === adminPassword){
 
-        localStorage.setItem("adminLogueado", "true");
+        localStorage.setItem(
+            "adminLogueado",
+            "true"
+        );
 
-       window.location.href = "admin/admin.html";
+        // ENTRAR AL PANEL
+        window.location.href =
+        "admin/admin.html";
 
     } else {
 
-        document.getElementById("mensaje").innerText =
+        document.getElementById("mensaje")
+        .innerText =
         "Usuario o contraseña incorrectos";
-
     }
-
 }
