@@ -279,8 +279,9 @@ function cerrarModalProducto(){
     .classList.remove("active");
 }
 
+
 // =========================
-// FILTRAR CATEGORIAS
+// FILTRAR CATEGORIA
 // =========================
 
 // =========================
@@ -292,6 +293,7 @@ function filtrarCategoria(categoria){
     const titulo =
     document.getElementById("tituloCategoria");
 
+    // TODOS
     if(categoria === "todos"){
 
         titulo.innerText =
@@ -304,19 +306,24 @@ function filtrarCategoria(categoria){
         return;
     }
 
+    // FILTRAR
     const filtrados =
     window.productosGlobalData.filter(p =>
 
         p.categoria &&
-        p.categoria.toLowerCase() === categoria
+        p.categoria.toLowerCase().trim() ===
+        categoria.toLowerCase().trim()
 
     );
 
+    // TITULO
     titulo.innerText =
     categoria.charAt(0).toUpperCase() +
     categoria.slice(1);
 
+    // MOSTRAR
     mostrarSecciones(filtrados);
+
 }
 // =========================
 // MOSTRAR PRODUCTOS
