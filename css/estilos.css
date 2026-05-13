@@ -1552,3 +1552,53 @@ body{
 .modal-info h3{
     color:#ff4d88;
 }
+
+/* =========================
+   BOTON MODAL CARRITO
+========================= */
+
+.btn-modal-carrito{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:linear-gradient(
+        to right,
+        #ff4d88,
+        #ff7aa2
+    );
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    margin-top:10px;
+
+    box-shadow:0 5px 15px rgba(255,77,136,.3);
+
+}
+
+.btn-modal-carrito:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 20px rgba(255,77,136,.4);
+
+}
+
+.btn-modal-carrito:active{
+
+    transform:scale(.98);
+
+}
