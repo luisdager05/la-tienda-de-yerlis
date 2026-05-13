@@ -237,10 +237,13 @@ function limpiarFormulario() {
 }
 
 
+// =========================
+// CERRAR SESION
+// =========================
+
 function cerrarSesion(){
 
     localStorage.removeItem("adminLogueado");
 
-   window.location.href = "../login.html";
-
+    window.location.href = "../login.html";
 }
