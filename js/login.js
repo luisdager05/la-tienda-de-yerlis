@@ -19,8 +19,8 @@ function iniciarSesion() {
         );
 
         // ENTRAR AL PANEL
-        window.location.href =
-        "admin/admin.html";
+         window.location.href =
+        "admin.html";
 
     } else {
 
