@@ -5,33 +5,47 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 // =========================
 function agregarAlCarrito(btn, id, nombre, precio, imagen) {
 
-    const card = btn.closest(".producto") || btn.closest(".card");
+    let talla = "Única";
+    let color = "Predeterminado";
 
-    const talla = card.querySelector(".select-talla")?.value || "";
-    const color = card.dataset.color || "";
+    const card =
+    btn?.closest(".producto")
+    ||
+    btn?.closest(".card");
 
-  if(!talla){
-    talla = "Única";
-}
+    if(card){
 
-if(!color){
-    color = "Predeterminado";
-}
+        talla =
+        card.querySelector(".select-talla")?.value
+        || "Única";
+
+        color =
+        card.dataset.color
+        || "Predeterminado";
+
+    }
 
     const producto = {
+
         id,
         nombre,
         precio: Number(precio),
-        imagen: imagen || "./img/error.png",
+
+        imagen:
+        imagen || "./img/error.png",
+
         talla,
         color,
+
         cantidad: 1
+
     };
 
     carrito.push(producto);
 
     guardarCarrito();
     actualizarCarrito();
+
 }
 
 // =========================
