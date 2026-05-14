@@ -73,7 +73,7 @@ function actualizarCarrito() {
                 <h4>${item.nombre}</h4>
                 <p>$${Number(item.precio).toLocaleString()}</p>
                 <p><b>Talla:</b> ${item.talla}</p>
-                <p><b>Color:</b> ${item.color}</p>
+               <p><b>Color:</b> <span class="color-badge">${item.color}</span></p>
 
                 <div class="cantidad-box">
 
