@@ -219,6 +219,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 2500);
 
     }
+    // =========================
+// PAUSAR SLIDER CON HOVER
+// =========================
+
+slider.addEventListener("mouseenter", () => {
+
+    clearInterval(intervalo);
+
+});
+
+// REANUDAR
+slider.addEventListener("mouseleave", () => {
+
+    intervalo = setInterval(() => {
+
+        moverSlider();
+
+    }, 3000);
+
+});
 
     // =========================
     // BUSCADOR
