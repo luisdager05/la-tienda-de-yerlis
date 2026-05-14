@@ -266,12 +266,17 @@ function abrirModalProducto(producto){
 
     // BOTON CARRITO
     document.getElementById("btnAgregarModal")
-    .onclick = () => {
+.onclick = function () {
 
-        agregarAlCarrito(producto);
+    agregarAlCarrito(
+        this,
+        producto.id,
+        producto.nombre,
+        producto.precio,
+        producto.imagen
+    );
 
-        cerrarModalProducto();
-    }
+    cerrarModalProducto();
 }
 
 function cerrarModalProducto(){
