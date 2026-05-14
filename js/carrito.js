@@ -142,3 +142,28 @@ function finalizarCompra() {
 }
 
 actualizarCarrito();
+
+
+
+// =========================
+// NOTIFICACION
+// =========================
+
+function mostrarNotificacion(texto){
+
+    const noti =
+    document.getElementById("notificacion");
+
+    if(!noti) return;
+
+    noti.innerText = texto;
+
+    noti.classList.add("active");
+
+    setTimeout(() => {
+
+        noti.classList.remove("active");
+
+    }, 2500);
+
+}
