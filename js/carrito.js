@@ -3,49 +3,42 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 // =========================
 // AGREGAR AL CARRITO
 // =========================
-function agregarAlCarrito(btn, id, nombre, precio, imagen) {
-
-    let talla = "Única";
-    let color = "Predeterminado";
+function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
 
     const card =
-    btn?.closest(".producto")
-    ||
-    btn?.closest(".card");
+        btn?.closest(".producto") ||
+        btn?.closest(".card");
 
-    if(card){
+    const talla =
+        extra.talla ||
+        card?.querySelector(".select-talla")?.value ||
+        "Única";
 
-        talla =
-        card.querySelector(".select-talla")?.value
-        || "Única";
+    const color =
+        extra.color ||
+        card?.dataset.color ||
+        "Predeterminado";
 
-        color =
-        card.dataset.color
-        || "Predeterminado";
-
-    }
+    const imgFinal =
+        imagen ||
+        extra.imagen ||
+        card?.querySelector("img")?.src ||
+        "./img/error.png";
 
     const producto = {
-
         id,
         nombre,
         precio: Number(precio),
-
-        imagen:
-        imagen || "./img/error.png",
-
+        imagen: imgFinal,
         talla,
         color,
-
         cantidad: 1
-
     };
 
     carrito.push(producto);
 
     guardarCarrito();
     actualizarCarrito();
-
 }
 
 // =========================
