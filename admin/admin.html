@@ -102,6 +102,26 @@ if(localStorage.getItem("adminLogueado") !== "true"){
 
 <div id="listaProductos"></div>
 
+    <script>
+
+async function cerrarSesion(){
+
+    // cerrar sesión Supabase
+    await window.supabaseClient.auth.signOut();
+
+    // eliminar sesión local
+    localStorage.removeItem(
+        "adminLogueado"
+    );
+
+    // volver al login
+    window.location.href =
+    "./login.html";
+
+}
+
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <script src="../js/supabase.js"></script>
