@@ -74,6 +74,8 @@ const password = document.getElementById("password").value.trim();
 
 </script> -->
 
+<!-- 
+    SEGUNDO SCRIPT DE LA CLAVE 
 
     <script>
 
@@ -110,6 +112,57 @@ function iniciarSesion() {
         .innerText =
         "Usuario o contraseña incorrectos";
     }
+}
+
+</script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script src="../js/supabase.js"></script>
+
+<script>
+
+async function iniciarSesion() {
+
+    const usuario =
+    document.getElementById("usuario")
+    .value.trim();
+
+    const password =
+    document.getElementById("password")
+    .value.trim();
+
+    const mensaje =
+    document.getElementById("mensaje");
+
+    mensaje.innerText = "Ingresando...";
+
+    const { data, error } =
+    await window.supabaseClient.auth
+    .signInWithPassword({
+
+        email: usuario,
+        password: password
+
+    });
+
+    if(error){
+
+        mensaje.innerText =
+        "Correo o contraseña incorrectos";
+
+        return;
+    }
+
+    // GUARDAR SESION
+    localStorage.setItem(
+        "adminLogueado",
+        "true"
+    );
+
+    // REDIRECCIONAR
+    window.location.href =
+    "./admin.html";
 }
 
 </script>
