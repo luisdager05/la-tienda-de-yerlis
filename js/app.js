@@ -345,10 +345,10 @@ function mostrarSecciones(productos) {
             <div class="producto">
 
                 <img
-                class="img-producto"
-                src="${p.imagen || './img/error.png'}"
-                alt="${p.nombre}"
-                onclick="abrirModalProductoPorId(${p.id})">
+class="img-producto"
+src="${p.imagen || './img/error.png'}"
+alt="${p.nombre}"
+onclick='abrirModalProducto(${JSON.stringify(p)})'>
 
                 <h3>${p.nombre}</h3>
 
