@@ -236,7 +236,7 @@ slider.addEventListener("mouseleave", () => {
 
         moverSlider();
 
-    }, 3000);
+    }, 2500);
 
 });
 
