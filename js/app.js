@@ -222,6 +222,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================
 // PAUSAR SLIDER CON HOVER
 // =========================
+    // =========================
+// PAUSAR SLIDER CON HOVER
+// =========================
 
 slider.addEventListener("mouseenter", () => {
 
@@ -229,16 +232,32 @@ slider.addEventListener("mouseenter", () => {
 
 });
 
-// REANUDAR
+// =========================
+// REANUDAR SLIDER
+// =========================
+
 slider.addEventListener("mouseleave", () => {
 
-    intervalo = setInterval(() => {
-
-        moverSlider();
-
-    }, 2000);
+    iniciarCarrusel();
 
 });
+
+// slider.addEventListener("mouseenter", () => {
+
+//     clearInterval(intervalo);
+
+// });
+
+// // REANUDAR
+// slider.addEventListener("mouseleave", () => {
+
+//     intervalo = setInterval(() => {
+
+//         moverSlider();
+
+//     }, 2000);
+
+// });
 
     // =========================
     // BUSCADOR
