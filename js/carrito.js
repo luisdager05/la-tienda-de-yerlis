@@ -10,10 +10,13 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen) {
     const talla = card.querySelector(".select-talla")?.value || "";
     const color = card.dataset.color || "";
 
-    if (!talla || !color) {
-        alert("Selecciona talla y color");
-        return;
-    }
+  if(!talla){
+    talla = "Única";
+}
+
+if(!color){
+    color = "Predeterminado";
+}
 
     const producto = {
         id,
