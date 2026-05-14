@@ -148,21 +148,24 @@ document.addEventListener("DOMContentLoaded", () => {
                         </button>
 
                         <!-- BOTON CARRITO -->
-                        agregarAlCarrito(
-    this,
-    '${p.id}',
-    '${p.nombre}',
-    '${p.precio}',
-    '${p.imagen}',
-    {
-        talla: this.closest(".card")?.querySelector(".select-talla")?.value,
-        color: this.closest(".card")?.dataset.color
-    }
-)
+                        <!-- BOTON CARRITO -->
+<button onclick="
+    agregarAlCarrito(
+        this,
+        '${p.id}',
+        '${p.nombre}',
+        '${p.precio}',
+        '${p.imagen}',
+        {
+            talla: this.closest('.card')?.querySelector('.select-talla')?.value || '',
+            color: this.closest('.card')?.dataset.color || ''
+        }
+    )
+">
 
-                            🛒 Agregar al carrito
+    🛒 Agregar al carrito
 
-                        </button>
+</button>
 
                     </div>
 
