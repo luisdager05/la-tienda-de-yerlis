@@ -148,12 +148,23 @@ async function registrarUsuario(){
     // ERROR
     if(error){
 
+    // MENSAJE MAS AMIGABLE
+    if(
+        error.message.includes("Password should contain")
+    ){
+
+        mensaje.innerText =
+        "⚠ La contraseña debe tener mínimo: una mayúscula, una minúscula, un número y un símbolo.";
+
+    } else {
+
         mensaje.innerText =
         error.message;
 
-        return;
     }
 
+    return;
+}
     // EXITO
     mensaje.innerText =
     "✅ Cuenta creada correctamente. Revisa tu correo.";
