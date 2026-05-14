@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <!-- BOTON CARRITO -->
                         <button onclick="
                         agregarAlCarrito(
-                            null,
+                            this,
                             '${p.id}',
                             '${p.nombre}',
                             '${p.precio}',
@@ -334,7 +334,7 @@ function abrirModalProducto(producto){
     .onclick = function () {
 
         agregarAlCarrito(
-            null,
+            this,
             producto.id,
             producto.nombre,
             producto.precio,
@@ -433,7 +433,7 @@ function mostrarSecciones(productos) {
 
                 <button onclick="
                 agregarAlCarrito(
-                    null,
+                    this,
                     '${p.id}',
                     '${p.nombre}',
                     '${p.precio}',
