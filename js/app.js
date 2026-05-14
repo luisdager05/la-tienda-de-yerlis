@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             });
 
-        }, 2500);
+        }, 2000);
 
     }
     // =========================
@@ -236,7 +236,7 @@ slider.addEventListener("mouseleave", () => {
 
         moverSlider();
 
-    }, 2500);
+    }, 2000);
 
 });
 
