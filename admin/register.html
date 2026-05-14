@@ -45,10 +45,27 @@
 async function registrarUsuario(){
 
     const email =
-    document.getElementById("email").value;
+    document.getElementById("email")
+    .value.trim();
 
     const password =
-    document.getElementById("password").value;
+    document.getElementById("password")
+    .value.trim();
+
+    const mensaje =
+    document.getElementById("mensaje");
+
+    // VALIDAR CAMPOS
+    if(email === "" || password === ""){
+
+        mensaje.innerText =
+        "⚠ Completa todos los campos";
+
+        return;
+    }
+
+    mensaje.innerText =
+    "Creando cuenta...";
 
     const { data, error } =
     await window.supabaseClient.auth.signUp({
@@ -60,19 +77,21 @@ async function registrarUsuario(){
 
     if(error){
 
-        document.getElementById("mensaje")
-        .innerText = error.message;
+        mensaje.innerText =
+        error.message;
 
         return;
     }
 
-    document.getElementById("mensaje")
-    .innerText =
-    "✅ Revisa tu correo para confirmar la cuenta";
+    mensaje.innerText =
+    "✅ Cuenta creada correctamente. Revisa tu correo.";
+
+    // LIMPIAR INPUTS
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
 
 }
 
 </script>
-
 </body>
 </html>
