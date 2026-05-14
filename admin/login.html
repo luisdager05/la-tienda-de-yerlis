@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -86,6 +86,156 @@ async function iniciarSesion() {
     // REDIRECCIONAR
     window.location.href =
     "./admin.html";
+}
+
+</script>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Iniciar Sesión</title>
+
+<link rel="stylesheet" href="../css/login.css">
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <!-- LOGO -->
+    <img
+    src="../img/1001669605.png"
+    class="logo-login"
+    alt="Logo">
+
+    <!-- TITULO -->
+    <h1>Iniciar Sesión</h1>
+
+    <p class="subtitulo">
+        Accede a tu cuenta en La Tienda de Yerlis
+    </p>
+
+    <!-- FORMULARIO -->
+    <form
+    onsubmit="event.preventDefault(); iniciarSesion();">
+
+        <!-- EMAIL -->
+        <div class="grupo-input">
+
+            <label>Correo electrónico</label>
+
+            <input
+            type="email"
+            id="usuario"
+            placeholder="ejemplo@gmail.com">
+
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="grupo-input">
+
+            <label>Contraseña</label>
+
+            <input
+            type="password"
+            id="password"
+            placeholder="Ingresa tu contraseña">
+
+        </div>
+
+        <!-- BOTON -->
+        <button type="submit">
+            🔐 Ingresar
+        </button>
+
+    </form>
+
+    <!-- MENSAJE -->
+    <p id="mensaje"></p>
+
+    <!-- REGISTRO -->
+    <p class="texto-login">
+
+        ¿No tienes cuenta?
+
+        <a href="./registro.html">
+            Crear cuenta
+        </a>
+
+    </p>
+
+</div>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script src="../js/supabase.js"></script>
+
+<script>
+
+async function iniciarSesion() {
+
+    const usuario =
+    document.getElementById("usuario")
+    .value.trim();
+
+    const password =
+    document.getElementById("password")
+    .value.trim();
+
+    const mensaje =
+    document.getElementById("mensaje");
+
+    // VALIDAR
+    if(usuario === "" || password === ""){
+
+        mensaje.innerText =
+        "⚠ Completa todos los campos";
+
+        return;
+    }
+
+    mensaje.innerText =
+    "Ingresando...";
+
+    // LOGIN
+    const { data, error } =
+    await window.supabaseClient.auth
+    .signInWithPassword({
+
+        email: usuario,
+        password: password
+
+    });
+
+    // ERROR
+    if(error){
+
+        mensaje.innerText =
+        "❌ Correo o contraseña incorrectos";
+
+        return;
+    }
+
+    // GUARDAR SESION
+    localStorage.setItem(
+        "adminLogueado",
+        "true"
+    );
+
+    // REDIRECCIONAR
+    window.location.href =
+    "./admin.html";
+
 }
 
 </script>
