@@ -36,15 +36,18 @@
 
 </div>
 
-<script>
+<!-- <script>
 
-function iniciarSesion() {
+ function iniciarSesion() {
 
     const usuario =
     document.getElementById("usuario").value;
 
     const password =
     document.getElementById("password").value;
+
+    const usuario = document.getElementById("usuario").value.trim();
+const password = document.getElementById("password").value.trim();
 
     const adminUsuario = "admin";
     const adminPassword = "12345";
@@ -58,6 +61,46 @@ function iniciarSesion() {
         );
 
         // ENTRAR AL PANEL
+        window.location.href =
+        "./admin.html";
+
+    } else {
+
+        document.getElementById("mensaje")
+        .innerText =
+        "Usuario o contraseña incorrectos";
+    }
+}
+
+</script> -->
+
+
+    <script>
+
+function iniciarSesion() {
+
+    const usuario =
+    document.getElementById("usuario").value.trim();
+
+    const password =
+    document.getElementById("password").value.trim();
+
+    const adminUsuario = "admin";
+
+    // CONTRASEÑA OCULTA
+    const adminPassword =
+    btoa("Koki2026+");
+
+    if(
+        usuario === adminUsuario &&
+        password === atob(adminPassword)
+    ){
+
+        localStorage.setItem(
+            "adminLogueado",
+            "true"
+        );
+
         window.location.href =
         "./admin.html";
 
