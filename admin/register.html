@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Registro</title>
+
+<link rel="stylesheet" href="./css/login.css">
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <h1>Crear Cuenta</h1>
+
+    <input
+    type="email"
+    id="email"
+    placeholder="Correo electrónico">
+
+    <input
+    type="password"
+    id="password"
+    placeholder="Contraseña">
+
+    <button onclick="registrarUsuario()">
+        Registrarse
+    </button>
+
+    <p id="mensaje"></p>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script src="./js/supabase.js"></script>
+
+<script>
+
+async function registrarUsuario(){
+
+    const email =
+    document.getElementById("email").value;
+
+    const password =
+    document.getElementById("password").value;
+
+    const { data, error } =
+    await window.supabaseClient.auth.signUp({
+
+        email,
+        password
+
+    });
+
+    if(error){
+
+        document.getElementById("mensaje")
+        .innerText = error.message;
+
+        return;
+    }
+
+    document.getElementById("mensaje")
+    .innerText =
+    "✅ Revisa tu correo para confirmar la cuenta";
+
+}
+
+</script>
+
+</body>
+</html>
