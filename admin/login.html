@@ -16,12 +16,12 @@
 
 <div class="login-container">
 
-    <h1>Administrador</h1>
+    <h1>🔐 Iniciar Sesión</h1>
 
     <input
-    type="text"
+    type="email"
     id="usuario"
-    placeholder="Usuario">
+    placeholder="Correo electrónico">
 
     <input
     type="password"
@@ -36,85 +36,8 @@
 
 </div>
 
-<!-- <script>
 
- function iniciarSesion() {
 
-    const usuario =
-    document.getElementById("usuario").value;
-
-    const password =
-    document.getElementById("password").value;
-
-    const usuario = document.getElementById("usuario").value.trim();
-const password = document.getElementById("password").value.trim();
-
-    const adminUsuario = "admin";
-    const adminPassword = "12345";
-
-    if(usuario === adminUsuario &&
-       password === adminPassword){
-
-        localStorage.setItem(
-            "adminLogueado",
-            "true"
-        );
-
-        // ENTRAR AL PANEL
-        window.location.href =
-        "./admin.html";
-
-    } else {
-
-        document.getElementById("mensaje")
-        .innerText =
-        "Usuario o contraseña incorrectos";
-    }
-}
-
-</script> -->
-
-<!-- 
-    SEGUNDO SCRIPT DE LA CLAVE 
-
-    <script>
-
-function iniciarSesion() {
-
-    const usuario =
-    document.getElementById("usuario").value.trim();
-
-    const password =
-    document.getElementById("password").value.trim();
-
-    const adminUsuario = "admin";
-
-    // CONTRASEÑA OCULTA
-    const adminPassword =
-    btoa("Koki2026+");
-
-    if(
-        usuario === adminUsuario &&
-        password === atob(adminPassword)
-    ){
-
-        localStorage.setItem(
-            "adminLogueado",
-            "true"
-        );
-
-        window.location.href =
-        "./admin.html";
-
-    } else {
-
-        document.getElementById("mensaje")
-        .innerText =
-        "Usuario o contraseña incorrectos";
-    }
-}
-
-</script> -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
