@@ -39,6 +39,9 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
 
     guardarCarrito();
     actualizarCarrito();
+    mostrarNotificacion(
+    "✅ Producto agregado exitosamente"
+);
 }
 
 // =========================
