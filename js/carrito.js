@@ -172,13 +172,13 @@ function finalizarCompra() {
 
     // DATOS CLIENTE
     const nombre =
-    document.getElementById("clienteNombre").value.trim();
+    document.getElementById("clienteNombre")?.value.trim();
 
     const telefono =
-    document.getElementById("clienteTelefono").value.trim();
+    document.getElementById("clienteTelefono")?.value.trim();
 
     const direccion =
-    document.getElementById("clienteDireccion").value.trim();
+    document.getElementById("clienteDireccion")?.value.trim();
 
     // VALIDACIONES
     if(!nombre){
@@ -202,13 +202,14 @@ function finalizarCompra() {
 
     }
 
-    let msg =
-    "🛍️ *Pedido La Tienda de Yerlis* %0A%0A";
+    let msg = `
+🛍️ Pedido La Tienda de Yerlis
 
-    // CLIENTE
-    msg += `👤 Cliente: ${nombre}%0A`;
-    msg += `📱 Teléfono: ${telefono}%0A`;
-    msg += `📍 Dirección: ${direccion}%0A%0A`;
+👤 Cliente: ${nombre}
+📱 Teléfono: ${telefono}
+📍 Dirección: ${direccion}
+
+`;
 
     let total = 0;
 
@@ -219,30 +220,37 @@ function finalizarCompra() {
 
         total += subtotal;
 
-        msg += `📦 ${i.nombre}%0A`;
-        msg += `📏 Talla: ${i.talla}%0A`;
-        msg += `🎨 Color: ${i.color}%0A`;
-        msg += `🔢 Cantidad: ${i.cantidad}%0A`;
-        msg += `💰 Subtotal: $${subtotal.toLocaleString()}%0A%0A`;
+        msg += `
+📦 ${i.nombre}
+📏 Talla: ${i.talla}
+🎨 Color: ${i.color}
+🔢 Cantidad: ${i.cantidad}
+💰 Subtotal: $${subtotal.toLocaleString()}
+
+`;
 
     });
 
     // TOTAL
-    msg += `🧾 *TOTAL:* $${total.toLocaleString()}%0A%0A`;
+    msg += `
+🧾 TOTAL: $${total.toLocaleString()}
 
-    msg += `💖 Gracias por comprar en La Tienda de Yerlis`;
+💖 Gracias por comprar en La Tienda de Yerlis
+`;
+
+    // CODIFICAR
+    const mensajeCodificado =
+    encodeURIComponent(msg);
 
     // ABRIR WHATSAPP
-    const mensajeCodificado =
-encodeURIComponent(msg);
+    window.open(
 
-window.open(
+        `https://wa.me/573148471107?text=${mensajeCodificado}`,
+        "_blank"
 
-    `https://wa.me/573148471107?text=${mensajeCodificado}`,
-    "_blank"
+    );
 
-);
-
+}
 // =========================
 // NOTIFICACION
 // =========================
