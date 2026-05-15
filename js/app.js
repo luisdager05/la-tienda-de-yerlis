@@ -142,7 +142,7 @@ ${p.colores?.map(color => `
 
                         </button>
 
-                        <!-- BOTON CARRITO -->
+                      
                         <!-- BOTON CARRITO -->
 <button onclick="
     agregarAlCarrito(
@@ -214,9 +214,7 @@ ${p.colores?.map(color => `
         }, 2000);
 
     }
-    // =========================
-// PAUSAR SLIDER CON HOVER
-// =========================
+
     // =========================
 // PAUSAR SLIDER CON HOVER
 // =========================
@@ -508,25 +506,19 @@ ${p.talla?.map(t => `
 
                     <div class="colores">
 
-                        <span
-                        class="color negro"
-                        onclick="seleccionarColor('Negro', this)">
-                        </span>
+                        <div class="colores">
 
-                        <span
-                        class="color blanco"
-                        onclick="seleccionarColor('Blanco', this)">
-                        </span>
+${p.colores?.map(color => `
 
-                        <span
-                        class="color rosado"
-                        onclick="seleccionarColor('Rosado', this)">
-                        </span>
+    <span
+    class="color ${color.toLowerCase()}"
+    onclick="seleccionarColor('${color}', this)"
+    title="${color}">
+    </span>
 
-                        <span
-                        class="color azul"
-                        onclick="seleccionarColor('Azul', this)">
-                        </span>
+`).join("") || ""}
+
+</div>
 
                     </div>
 
