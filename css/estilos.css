@@ -2037,3 +2037,32 @@ body{
 .footer-info a:nth-child(5):hover{
     color:#000;
 }
+
+.checkout-form{
+
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:15px;
+
+}
+
+.checkout-form input,
+.checkout-form textarea{
+
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    outline:none;
+    font-size:14px;
+    background:#f5f5f5;
+
+}
+
+.checkout-form textarea{
+
+    resize:none;
+    height:80px;
+
+}
