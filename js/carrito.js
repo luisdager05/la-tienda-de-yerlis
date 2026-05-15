@@ -12,15 +12,17 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
     const talla =
     extra.talla ||
     card?.querySelector(".select-talla")?.value;
-
+    
+let coloresSeleccionados = {};
 const color =
     extra.color ||
-    card?.dataset.color;
+    coloresSeleccionados[id];
     const imgFinal =
         imagen ||
         extra.imagen ||
         card?.querySelector("img")?.src ||
         "./img/error.png";
+    
 
     const producto = {
         id,
@@ -69,7 +71,9 @@ if(productoExistente){
     "✅ Producto agregado exitosamente"
 );
 }
-
+function seleccionarColor(idProducto, color) {
+    coloresSeleccionados[idProducto] = color;
+}
 // =========================
 function guardarCarrito() {
     localStorage.setItem("carrito", JSON.stringify(carrito));
