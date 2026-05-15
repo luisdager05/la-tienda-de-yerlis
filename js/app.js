@@ -97,12 +97,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             <select class="select-talla">
 
-                                <option value="">Seleccionar</option>
+                                <option value="">
+    Seleccionar
+</option>
 
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
+${p.talla?.map(t => `
+
+    <option value="${t}">
+        ${t}
+    </option>
+
+`).join("") || ""}
 
                             </select>
 
