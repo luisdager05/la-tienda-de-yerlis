@@ -115,27 +115,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             <div class="colores">
 
-                                <span
-                                class="color negro"
-                                onclick="seleccionarColor('Negro', this)">
-                                </span>
+${p.colores?.map(color => `
 
-                                <span
-                                class="color blanco"
-                                onclick="seleccionarColor('Blanco', this)">
-                                </span>
+    <span
+    class="color ${color.toLowerCase()}"
+    onclick="seleccionarColor('${color}', this)"
+    title="${color}">
+    </span>
 
-                                <span
-                                class="color rosado"
-                                onclick="seleccionarColor('Rosado', this)">
-                                </span>
+`).join("") || ""}
 
-                                <span
-                                class="color azul"
-                                onclick="seleccionarColor('Azul', this)">
-                                </span>
-
-                            </div>
+</div>
 
                         </div>
 
