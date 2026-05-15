@@ -31,6 +31,19 @@ const color =
         color,
         cantidad: 1
     };
+    if(!talla){
+
+    mostrarNotificacion("⚠️ Selecciona una talla");
+    return;
+
+}
+
+if(!color){
+
+    mostrarNotificacion("⚠️ Selecciona un color");
+    return;
+
+}
 
     const productoExistente = carrito.find(item =>
 
