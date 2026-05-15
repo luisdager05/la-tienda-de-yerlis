@@ -1,3 +1,4 @@
+```javascript
 console.log("SUPABASE:", window.supabaseClient);
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -51,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // GUARDAR GLOBALMENTE
         window.productosGlobalData = data;
         productosGlobal = data;
 
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             $${Number(p.precio).toLocaleString()}
                         </p>
 
-                        <!-- TALLA -->
+                        <!-- TALLAS -->
                         <div class="selector-opciones">
 
                             <label>Talla:</label>
@@ -98,16 +98,16 @@ document.addEventListener("DOMContentLoaded", () => {
                             <select class="select-talla">
 
                                 <option value="">
-    Seleccionar
-</option>
+                                    Seleccionar
+                                </option>
 
-${p.talla?.map(t => `
+                                ${p.talla?.map(t => `
 
-    <option value="${t}">
-        ${t}
-    </option>
+                                    <option value="${t}">
+                                        ${t}
+                                    </option>
 
-`).join("") || ""}
+                                `).join("") || ""}
 
                             </select>
 
@@ -120,17 +120,17 @@ ${p.talla?.map(t => `
 
                             <div class="colores">
 
-${p.colores?.map(color => `
+                                ${p.colores?.map(color => `
 
-    <span
-    class="color ${color.toLowerCase()}"
-    onclick="seleccionarColor('${color}', this)"
-    title="${color}">
-    </span>
+                                    <span
+                                    class="color ${color.toLowerCase()}"
+                                    onclick="seleccionarColor('${color}', this)"
+                                    title="${color}">
+                                    </span>
 
-`).join("") || ""}
+                                `).join("") || ""}
 
-</div>
+                            </div>
 
                         </div>
 
@@ -142,25 +142,24 @@ ${p.colores?.map(color => `
 
                         </button>
 
-                      
                         <!-- BOTON CARRITO -->
-<button onclick="
-    agregarAlCarrito(
-        this,
-        '${p.id}',
-        '${p.nombre}',
-        '${p.precio}',
-        '${p.imagen}',
-        {
-            talla: this.closest('.card')?.querySelector('.select-talla')?.value || '',
-            color: this.closest('.card')?.dataset.color || ''
-        }
-    )
-">
+                        <button onclick="
+                            agregarAlCarrito(
+                                this,
+                                '${p.id}',
+                                '${p.nombre}',
+                                '${p.precio}',
+                                '${p.imagen}',
+                                {
+                                    talla: this.closest('.card')?.querySelector('.select-talla')?.value || '',
+                                    color: this.closest('.card')?.dataset.color || ''
+                                }
+                            )
+                        ">
 
-    🛒 Agregar al carrito
+                            🛒 Agregar al carrito
 
-</button>
+                        </button>
 
                     </div>
 
@@ -216,41 +215,24 @@ ${p.colores?.map(color => `
     }
 
     // =========================
-// PAUSAR SLIDER CON HOVER
-// =========================
+    // PAUSAR SLIDER
+    // =========================
 
-slider.addEventListener("mouseenter", () => {
+    slider.addEventListener("mouseenter", () => {
 
-    clearInterval(intervalo);
+        clearInterval(intervalo);
 
-});
+    });
 
-// =========================
-// REANUDAR SLIDER
-// =========================
+    // =========================
+    // REANUDAR SLIDER
+    // =========================
 
-slider.addEventListener("mouseleave", () => {
+    slider.addEventListener("mouseleave", () => {
 
-    iniciarCarrusel();
+        iniciarCarrusel();
 
-});
-
-// slider.addEventListener("mouseenter", () => {
-
-//     clearInterval(intervalo);
-
-// });
-
-// // REANUDAR
-// slider.addEventListener("mouseleave", () => {
-
-//     intervalo = setInterval(() => {
-
-//         moverSlider();
-
-//     }, 2000);
-
-// });
+    });
 
     // =========================
     // BUSCADOR
@@ -268,7 +250,6 @@ slider.addEventListener("mouseleave", () => {
             const texto =
             buscador.value.toLowerCase().trim();
 
-            // MOSTRAR TODO
             if (texto === "") {
 
                 mostrarSecciones(productosGlobal);
@@ -277,7 +258,6 @@ slider.addEventListener("mouseleave", () => {
                 return;
             }
 
-            // FILTRAR
             const filtrados =
             productosGlobal.filter(p =>
 
@@ -367,7 +347,6 @@ function abrirModalProducto(producto){
     document.getElementById("modalCategoria")
     .innerText = producto.categoria;
 
-    // BOTON AGREGAR
     document.getElementById("btnAgregarModal")
     .onclick = function () {
 
@@ -376,7 +355,11 @@ function abrirModalProducto(producto){
             producto.id,
             producto.nombre,
             producto.precio,
-            producto.imagen
+            producto.imagen,
+            {
+                talla: document.querySelector("#modalProducto .select-talla")?.value || '',
+                color: document.querySelector("#modalProducto")?.dataset.color || ''
+            }
         );
 
         cerrarModalProducto();
@@ -405,7 +388,6 @@ function filtrarCategoria(categoria){
     const titulo =
     document.getElementById("tituloCategoria");
 
-    // TODOS
     if(categoria === "todos"){
 
         titulo.innerText =
@@ -418,7 +400,6 @@ function filtrarCategoria(categoria){
         return;
     }
 
-    // FILTRAR
     const filtrados =
     window.productosGlobalData.filter(p =>
 
@@ -428,12 +409,10 @@ function filtrarCategoria(categoria){
 
     );
 
-    // TITULO
     titulo.innerText =
     categoria.charAt(0).toUpperCase() +
     categoria.slice(1);
 
-    // MOSTRAR
     mostrarSecciones(filtrados);
 
 }
@@ -457,22 +436,18 @@ function mostrarSecciones(productos) {
 
             <div class="producto">
 
-                <!-- IMAGEN -->
                 <img
                 class="img-producto"
                 src="${p.imagen || './img/error.png'}"
                 alt="${p.nombre}"
                 onclick="abrirModalProductoPorId(${p.id})">
 
-                <!-- NOMBRE -->
                 <h3>${p.nombre}</h3>
 
-                <!-- PRECIO -->
                 <p class="precio">
                     $${Number(p.precio).toLocaleString()}
                 </p>
 
-                <!-- TALLA -->
                 <div class="selector-opciones">
 
                     <label>Talla:</label>
@@ -483,48 +458,38 @@ function mostrarSecciones(productos) {
                             Seleccionar
                         </option>
 
-                        <option value="">
-    Seleccionar
-</option>
+                        ${p.talla?.map(t => `
 
-${p.talla?.map(t => `
+                            <option value="${t}">
+                                ${t}
+                            </option>
 
-    <option value="${t}">
-        ${t}
-    </option>
-
-`).join("") || ""}
+                        `).join("") || ""}
 
                     </select>
 
                 </div>
 
-                <!-- COLORES -->
                 <div class="selector-opciones">
 
                     <label>Color:</label>
 
                     <div class="colores">
 
-                        <div class="colores">
+                        ${p.colores?.map(color => `
 
-${p.colores?.map(color => `
+                            <span
+                            class="color ${color.toLowerCase()}"
+                            onclick="seleccionarColor('${color}', this)"
+                            title="${color}">
+                            </span>
 
-    <span
-    class="color ${color.toLowerCase()}"
-    onclick="seleccionarColor('${color}', this)"
-    title="${color}">
-    </span>
-
-`).join("") || ""}
-
-</div>
+                        `).join("") || ""}
 
                     </div>
 
                 </div>
 
-                <!-- BOTON VER -->
                 <button
                 onclick="abrirModalProductoPorId(${p.id})">
 
@@ -532,7 +497,6 @@ ${p.colores?.map(color => `
 
                 </button>
 
-                <!-- BOTON CARRITO -->
                 <button onclick="
                     agregarAlCarrito(
                         this,
@@ -560,3 +524,5 @@ ${p.colores?.map(color => `
     });
 
 }
+```
+
