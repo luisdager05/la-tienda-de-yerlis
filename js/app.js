@@ -464,26 +464,94 @@ function mostrarSecciones(productos) {
 
             <div class="producto">
 
+                <!-- IMAGEN -->
                 <img
                 class="img-producto"
                 src="${p.imagen || './img/error.png'}"
                 alt="${p.nombre}"
                 onclick="abrirModalProductoPorId(${p.id})">
 
+                <!-- NOMBRE -->
                 <h3>${p.nombre}</h3>
 
+                <!-- PRECIO -->
                 <p class="precio">
                     $${Number(p.precio).toLocaleString()}
                 </p>
 
+                <!-- TALLA -->
+                <div class="selector-opciones">
+
+                    <label>Talla:</label>
+
+                    <select class="select-talla">
+
+                        <option value="">
+                            Seleccionar
+                        </option>
+
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+
+                    </select>
+
+                </div>
+
+                <!-- COLORES -->
+                <div class="selector-opciones">
+
+                    <label>Color:</label>
+
+                    <div class="colores">
+
+                        <span
+                        class="color negro"
+                        onclick="seleccionarColor('Negro', this)">
+                        </span>
+
+                        <span
+                        class="color blanco"
+                        onclick="seleccionarColor('Blanco', this)">
+                        </span>
+
+                        <span
+                        class="color rosado"
+                        onclick="seleccionarColor('Rosado', this)">
+                        </span>
+
+                        <span
+                        class="color azul"
+                        onclick="seleccionarColor('Azul', this)">
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- BOTON VER -->
+                <button
+                onclick="abrirModalProductoPorId(${p.id})">
+
+                    👁 Ver rápido
+
+                </button>
+
+                <!-- BOTON CARRITO -->
                 <button onclick="
-                agregarAlCarrito(
-                    this,
-                    '${p.id}',
-                    '${p.nombre}',
-                    '${p.precio}',
-                    '${p.imagen}'
-                )">
+                    agregarAlCarrito(
+                        this,
+                        '${p.id}',
+                        '${p.nombre}',
+                        '${p.precio}',
+                        '${p.imagen}',
+                        {
+                            talla: this.closest('.producto')?.querySelector('.select-talla')?.value || '',
+                            color: this.closest('.producto')?.dataset.color || ''
+                        }
+                    )
+                ">
 
                     🛒 Agregar al carrito
 
