@@ -121,7 +121,13 @@ function actualizarCarrito() {
     });
 
     total.innerText = totalFinal.toLocaleString();
-    contador.innerText = carrito.length;
+   const totalItems = carrito.reduce((acc, item) => {
+
+    return acc + item.cantidad;
+
+}, 0);
+
+contador.innerText = totalItems;
 }
 
 // =========================
