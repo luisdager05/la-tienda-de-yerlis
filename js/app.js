@@ -1,26 +1,16 @@
 // =========================
 // CARRITO
 // =========================
-
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 // =========================
-// AGREGAR AL CARRITO
+// AGREGAR AL CARTITO
 // =========================
-
 function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
+    const card = btn?.closest(".producto") || btn?.closest(".card");
 
-    const card =
-        btn?.closest(".producto") ||
-        btn?.closest(".card");
-
-    const talla =
-        extra.talla ||
-        card?.querySelector(".select-talla")?.value;
-
-    const color =
-        extra.color ||
-        card?.dataset.color;
+    const talla = extra.talla || card?.querySelector(".select-talla")?.value;
+    const color = extra.color || card?.dataset.color;
 
     const imgFinal =
         imagen ||
@@ -29,21 +19,16 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
         "./img/error.png";
 
     if (!talla) {
-
         mostrarNotificacion("⚠️ Selecciona una talla");
         return;
-
     }
 
     if (!color) {
-
         mostrarNotificacion("⚠️ Selecciona un color");
         return;
-
     }
 
     const producto = {
-
         id,
         nombre,
         precio: Number(precio),
@@ -51,584 +36,272 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
         talla,
         color,
         cantidad: 1
-
     };
 
     const productoExistente = carrito.find(item =>
-
         item.id == producto.id &&
         item.talla == producto.talla &&
         item.color == producto.color
-
     );
 
     if (productoExistente) {
-
         productoExistente.cantidad++;
-
     } else {
-
         carrito.push(producto);
-
     }
 
     guardarCarrito();
     actualizarCarrito();
-
-    mostrarNotificacion(
-        "✅ Producto agregado exitosamente"
-    );
-
+    mostrarNotificacion("✅ Producto agregado exitosamente");
 }
 
 // =========================
 // GUARDAR CARRITO
 // =========================
-
 function guardarCarrito() {
-
-    localStorage.setItem(
-        "carrito",
-        JSON.stringify(carrito)
-    );
-
+    localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
 // =========================
 // ACTUALIZAR CARRITO
 // =========================
-
 function actualizarCarrito() {
-
-    const items =
-        document.getElementById("itemsCarrito");
-
-    const total =
-        document.getElementById("totalCarrito");
-
-    const contador =
-        document.getElementById("contadorCarrito");
+    const items = document.getElementById("itemsCarrito");
+    const total = document.getElementById("totalCarrito");
+    const contador = document.getElementById("contadorCarrito");
 
     if (!items) return;
-
     items.innerHTML = "";
 
     let totalFinal = 0;
 
     carrito.forEach((item, index) => {
-
-        totalFinal +=
-            item.precio * item.cantidad;
+        totalFinal += item.precio * item.cantidad;
 
         items.innerHTML += `
-
         <div class="item-carrito">
-
-            <img
-                src="${item.imagen}"
-                alt="${item.nombre}"
+            <img 
+                src="${item.imagen}" 
+                alt="${item.nombre}" 
                 onerror="this.src='./img/error.png'"
             >
-
             <div class="item-info">
-
                 <h4>${item.nombre}</h4>
-
-                <p>
-                    $${Number(item.precio).toLocaleString()}
-                </p>
-
-                <p>
-                    <b>Talla:</b>
-                    ${item.talla}
-                </p>
-
-                <p>
-                    <b>Color:</b>
-                    ${item.color}
-                </p>
-
+                <p>$${Number(item.precio).toLocaleString()}</p>
+                <p><b>Talla:</b> ${item.talla}</p>
+                <p><b>Color:</b> ${item.color}</p>
                 <div class="cantidad-box">
-
-                    <button onclick="cambiarCantidad(${index}, -1)">
-                        -
-                    </button>
-
-                    <span>
-                        ${item.cantidad}
-                    </span>
-
-                    <button onclick="cambiarCantidad(${index}, 1)">
-                        +
-                    </button>
-
+                    <button onclick="cambiarCantidad(${index}, -1)">-</button>
+                    <span>${item.cantidad}</span>
+                    <button onclick="cambiarCantidad(${index}, 1)">+</button>
                 </div>
-
             </div>
-
-            <button
-                class="btn-eliminar"
-                onclick="eliminarProducto(${index})"
-            >
-                ✖
-            </button>
-
+            <button class="btn-eliminar" onclick="eliminarProducto(${index})">✖</button>
         </div>
-
         `;
-
     });
 
-    total.innerText =
-        totalFinal.toLocaleString();
-
-    contador.innerText =
-        carrito.reduce((acc, item) => {
-
-            return acc + item.cantidad;
-
-        }, 0);
-
+    if (total) total.innerText = totalFinal.toLocaleString();
+    if (contador) {
+        contador.innerText = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+    }
 }
 
 // =========================
 // CAMBIAR CANTIDAD
 // =========================
-
 function cambiarCantidad(index, cambio) {
-
     carrito[index].cantidad += cambio;
-
     if (carrito[index].cantidad <= 0) {
-
         carrito.splice(index, 1);
-
     }
-
     guardarCarrito();
     actualizarCarrito();
-
 }
 
 // =========================
 // ELIMINAR PRODUCTO
 // =========================
-
 function eliminarProducto(index) {
-
     carrito.splice(index, 1);
-
     guardarCarrito();
     actualizarCarrito();
-
 }
 
 // =========================
 // TOGGLE CARRITO
 // =========================
-
 function toggleCarrito() {
-
-    document
-        .getElementById("carrito")
-        .classList.toggle("active");
-
+    document.getElementById("carrito").classList.toggle("active");
 }
 
 function cerrarCarrito() {
-
-    document
-        .getElementById("carrito")
-        .classList.remove("active");
-
+    document.getElementById("carrito").classList.remove("active");
 }
 
 // =========================
 // FINALIZAR COMPRA
 // =========================
-
 function finalizarCompra() {
-
     if (carrito.length === 0) {
-
-        mostrarNotificacion(
-            "⚠️ Carrito vacío"
-        );
-
+        mostrarNotificacion("⚠️ Carrito vacío");
         return;
-
     }
 
-    const nombre =
-        document
-        .getElementById("clienteNombre")
-        ?.value.trim();
+    const nombre = document.getElementById("clienteNombre")?.value.trim();
+    const telefono = document.getElementById("clienteTelefono")?.value.trim();
+    const direccion = document.getElementById("clienteDireccion")?.value.trim();
 
-    const telefono =
-        document
-        .getElementById("clienteTelefono")
-        ?.value.trim();
-
-    const direccion =
-        document
-        .getElementById("clienteDireccion")
-        ?.value.trim();
-
-    if (!nombre) {
-
-        mostrarNotificacion(
-            "⚠️ Ingresa tu nombre"
-        );
-
+    if (!nombre || !telefono || !direccion) {
+        mostrarNotificacion("⚠️ Completa todos los datos de envío");
         return;
-
     }
 
-    if (!telefono) {
-
-        mostrarNotificacion(
-            "⚠️ Ingresa tu teléfono"
-        );
-
-        return;
-
-    }
-
-    if (!direccion) {
-
-        mostrarNotificacion(
-            "⚠️ Ingresa dirección"
-        );
-
-        return;
-
-    }
-
-    let msg = `
-
-🛍️ Pedido La Tienda de Yerlis
-
-👤 Cliente: ${nombre}
-
-📱 Teléfono: ${telefono}
-
-📍 Dirección: ${direccion}
-
-`;
-
+    let msg = `🛍️ Pedido La Tienda de Yerlis\n\n👤 Cliente: ${nombre}\n📱 Teléfono: ${telefono}\n📍 Dirección: ${direccion}\n\n`;
     let total = 0;
 
     carrito.forEach(i => {
-
-        const subtotal =
-            i.precio * i.cantidad;
-
+        const subtotal = i.precio * i.cantidad;
         total += subtotal;
-
-        msg += `
-
-📦 ${i.nombre}
-
-📏 Talla: ${i.talla}
-
-🎨 Color: ${i.color}
-
-🔢 Cantidad: ${i.cantidad}
-
-💰 Subtotal:
-$${subtotal.toLocaleString()}
-
-`;
-
+        msg += `📦 ${i.nombre}\n📏 Talla: ${i.talla}\n🎨 Color: ${i.color}\n🔢 Cantidad: ${i.cantidad}\n💰 Subtotal: $${subtotal.toLocaleString()}\n\n`;
     });
 
-    msg += `
+    msg += `🧾 TOTAL: $${total.toLocaleString()}\n\n💖 Gracias por comprar en La Tienda de Yerlis`;
 
-🧾 TOTAL:
-$${total.toLocaleString()}
-
-💖 Gracias por comprar en
-La Tienda de Yerlis
-
-`;
-
-    const mensajeCodificado =
-        encodeURIComponent(msg);
-
-    window.open(
-
-        `https://wa.me/573148471107?text=${mensajeCodificado}`,
-
-        "_blank"
-
-    );
-
+    const mensajeCodificado = encodeURIComponent(msg);
+    window.open(`https://wa.me/573148471107?text=${mensajeCodificado}`, "_blank");
 }
 
 // =========================
 // NOTIFICACION
 // =========================
-
 function mostrarNotificacion(texto) {
-
-    const noti =
-        document.getElementById("notificacion");
-
+    const noti = document.getElementById("notificacion");
     if (!noti) return;
 
     noti.innerText = texto;
-
     noti.classList.add("active");
 
     setTimeout(() => {
-
         noti.classList.remove("active");
-
     }, 2500);
-
 }
 
 // =========================
 // MOSTRAR PRODUCTOS
 // =========================
-
-// =========================
-// MOSTRAR PRODUCTOS
-// =========================
-
-function mostrarSecciones(productos){
-
-    const destacados =
-    document.getElementById("destacados");
-
-    if(!destacados) return;
+function mostrarSecciones(productos) {
+    const destacados = document.getElementById("destacados");
+    if (!destacados) return;
 
     destacados.innerHTML = "";
 
     productos.forEach(p => {
+        console.log("PRODUCTO CARGADO:", p);
 
-        console.log("PRODUCTO:", p);
-
-        // =========================
-        // IMAGEN
-        // =========================
-
-        const imagenProducto =
-        p.imagen
-        ? p.imagen
-        : "./img/error.png";
-
-        // =========================
-        // TALLAS
-        // =========================
+        // Limpieza de ruta para evitar problemas de espacios
+        const imagenProducto = p.imagen ? p.imagen.trim() : "./img/error.png";
 
         let tallasHTML = "";
-
-        if(Array.isArray(p.talla)){
-
-            tallasHTML =
-            p.talla.map(t => `
-
-                <option value="${t}">
-                    ${t}
-                </option>
-
-            `).join("");
-
+        if (Array.isArray(p.talla)) {
+            tallasHTML = p.talla.map(t => `<option value="${t}">${t}</option>`).join("");
         }
-
-        // =========================
-        // COLORES
-        // =========================
 
         let coloresHTML = "";
-
-        if(Array.isArray(p.colores)){
-
-            coloresHTML =
-            p.colores.map(color => `
-
-                <span
-                    class="color-option"
-                    data-color="${color}"
-                    style="
-                        background:${color};
-                        width:22px;
-                        height:22px;
-                        border-radius:50%;
-                        display:inline-block;
-                        margin:3px;
-                        border:2px solid #ccc;
-                        cursor:pointer;
-                    "
+        if (Array.isArray(p.colores)) {
+            coloresHTML = p.colores.map(color => `
+                <span 
+                    class="color-option" 
+                    data-color="${color}" 
+                    style="background:${color}; width:22px; height:22px; border-radius:50%; display:inline-block; margin:3px; border:2px solid #ccc; cursor:pointer;" 
                     onclick="seleccionarColor(this)"
                 ></span>
-
             `).join("");
-
         }
 
-        // =========================
-        // CARD
-        // =========================
-
         destacados.innerHTML += `
-
             <div class="producto">
-
-                <img
-                    class="img-producto"
-                    src="${imagenProducto}"
-                    alt="${p.nombre}"
+                <img 
+                    class="img-producto" 
+                    src="${imagenProducto}" 
+                    alt="${p.nombre}" 
                     onerror="this.src='./img/error.png'"
                 >
-
                 <h3>${p.nombre}</h3>
-
-                <p class="precio">
-                    $${Number(p.precio).toLocaleString()}
-                </p>
-
+                <p class="precio">$${Number(p.precio).toLocaleString()}</p>
+                
                 <div class="selector-opciones">
-
                     <label>Talla:</label>
-
                     <select class="select-talla">
-
-                        <option value="">
-                            Seleccionar
-                        </option>
-
+                        <option value="">Seleccionar</option>
                         ${tallasHTML}
-
                     </select>
-
                 </div>
 
                 <div class="selector-opciones">
-
                     <label>Color:</label>
-
                     <div class="colores">
-
                         ${coloresHTML}
-
                     </div>
-
                 </div>
 
-                <button
-                    class="btn-carrito"
-                    onclick="agregarProductoDesdeCard(
-                        this,
-                        ${p.id},
-                        '${p.nombre.replace(/'/g, "\\'")}',
-                        ${p.precio},
-                        '${imagenProducto}'
-                    )"
+                <button 
+                    class="btn-carrito" 
+                    onclick="agregarProductoDesdeCard(this, ${p.id}, '${p.nombre.replace(/'/g, "\\'")}', ${p.precio}, '${imagenProducto}')"
                 >
                     Agregar al carrito
                 </button>
-
             </div>
-
         `;
-
     });
-
 }
+
 // =========================
 // FILTRAR CATEGORIA
 // =========================
-
 function filtrarCategoria(categoria) {
-
-    const titulo =
-        document.getElementById("tituloCategoria");
-
+    const titulo = document.getElementById("tituloCategoria");
     if (!window.productosGlobalData) return;
 
     if (categoria === "todos") {
-
-        titulo.innerText =
-            "🔥 Todos los productos";
-
-        mostrarSecciones(
-            window.productosGlobalData
-        );
-
+        if (titulo) titulo.innerText = "🔥 Todos los productos";
+        mostrarSecciones(window.productosGlobalData);
         return;
-
     }
 
-    const filtrados =
-        window.productosGlobalData.filter(p =>
+    const filtrados = window.productosGlobalData.filter(p => 
+        p.categoria && p.categoria.toLowerCase().trim() === categoria.toLowerCase().trim()
+    );
 
-            p.categoria &&
-            p.categoria.toLowerCase().trim() ===
-            categoria.toLowerCase().trim()
-
-        );
-
-    titulo.innerText =
-
-        categoria.charAt(0).toUpperCase() +
-        categoria.slice(1);
-
+    if (titulo) {
+        titulo.innerText = categoria.charAt(0).toUpperCase() + categoria.slice(1);
+    }
     mostrarSecciones(filtrados);
-
 }
 
 // =========================
 // SELECCIONAR COLOR
 // =========================
-
 function seleccionarColor(elemento) {
+    const card = elemento.closest(".producto");
+    if (!card) return;
 
-    const card =
-        elemento.closest(".producto");
+    card.querySelectorAll(".color-option").forEach(c => {
+        c.style.border = "2px solid #ccc";
+    });
 
-    card
-        .querySelectorAll(".color-option")
-        .forEach(c => {
-
-            c.style.border =
-                "2px solid #ccc";
-
-        });
-
-    elemento.style.border =
-        "3px solid black";
-
-    card.dataset.color =
-        elemento.dataset.color;
-
+    elemento.style.border = "3px solid black";
+    card.dataset.color = elemento.dataset.color;
 }
 
 // =========================
 // AGREGAR DESDE CARD
 // =========================
-
-function agregarProductoDesdeCard(
-    btn,
-    id,
-    nombre,
-    precio,
-    imagen
-) {
-
-    agregarAlCarrito(
-        btn,
-        id,
-        nombre,
-        precio,
-        imagen
-    );
-
+function agregarProductoDesdeCard(btn, id, nombre, precio, imagen) {
+    agregarAlCarrito(btn, id, nombre, precio, imagen);
 }
 
 // =========================
 // INICIAR
 // =========================
-
 actualizarCarrito();
