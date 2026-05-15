@@ -44,7 +44,9 @@ colores.split(",").map(c => c.trim().toLowerCase());
                 precio: Number(precio),
                 descripcion,
                 categoria,
-                imagen
+                imagen,
+                talla: tallasArray,
+                colores: coloresArray
             })
             .eq("id", editandoId)
             .select(); // 🔥 IMPORTANTE
@@ -70,12 +72,16 @@ colores.split(",").map(c => c.trim().toLowerCase());
         const { data, error } = await window.supabaseClient
             .from("productos")
             .insert([{
-                nombre,
-                precio: Number(precio),
-                descripcion,
-                categoria,
-                imagen
-            }])
+
+    nombre,
+    precio: Number(precio),
+    descripcion,
+    categoria,
+    imagen,
+    talla: tallasArray,
+    colores: coloresArray
+
+}])
             .select();
 
         console.log("INSERT DATA:", data);
