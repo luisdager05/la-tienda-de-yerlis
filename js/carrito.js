@@ -366,14 +366,25 @@ function finalizarCompra() {
         encodeURIComponent(msg);
 
     // WHATSAPP
-    window.open(
+   // ABRIR WHATSAPP
+window.open(
+    `https://wa.me/573148471107?text=${mensajeCodificado}`,
+    "_blank"
+);
 
-        `https://wa.me/573044568301?text=${mensajeCodificado}`,
-        "_blank"
+// LIMPIAR CARRITO
+carrito = [];
 
-    );
+guardarCarrito();
+actualizarCarrito();
 
-}
+// CERRAR CARRITO
+cerrarCarrito();
+
+// MENSAJE
+mostrarNotificacion(
+    "✅ Pedido enviado a WhatsApp"
+);
 
 
 // =========================
