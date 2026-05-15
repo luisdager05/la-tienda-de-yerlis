@@ -368,7 +368,7 @@ function finalizarCompra() {
     // WHATSAPP
     window.open(
 
-        `https://wa.me/573148471107?text=${mensajeCodificado}`,
+        `https://wa.me/573044568301?text=${mensajeCodificado}`,
         "_blank"
 
     );
