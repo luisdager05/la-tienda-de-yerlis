@@ -588,3 +588,190 @@ function agregarProductoDesdeCard(
     );
 
 }
+// =========================
+// MOSTRAR PRODUCTOS
+// =========================
+
+function mostrarSecciones(productos) {
+
+    const destacados =
+    document.getElementById("destacados");
+
+    if(!destacados) return;
+
+    destacados.innerHTML = "";
+
+    productos.forEach(p => {
+
+        // IMAGEN
+        const imagenProducto =
+
+            p.imagen_url ||
+            p.imagen ||
+            p.image ||
+            "./img/error.png";
+
+        // TALLAS
+        let tallasHTML = "";
+
+        if(Array.isArray(p.talla)){
+
+            tallasHTML =
+            p.talla.map(t => `
+
+                <option value="${t}">
+                    ${t}
+                </option>
+
+            `).join("");
+
+        }
+
+        // COLORES
+        let coloresHTML = "";
+
+        if(Array.isArray(p.colores)){
+
+            coloresHTML =
+            p.colores.map(color => `
+
+                <span
+                    class="color-option"
+                    data-color="${color}"
+                    style="
+                        background:${color};
+                        width:22px;
+                        height:22px;
+                        border-radius:50%;
+                        display:inline-block;
+                        margin:3px;
+                        border:2px solid #ccc;
+                        cursor:pointer;
+                    "
+                    onclick="seleccionarColor(this)"
+                ></span>
+
+            `).join("");
+
+        }
+
+        destacados.innerHTML += `
+
+            <div class="producto">
+
+                <!-- IMAGEN -->
+                <img
+                    class="img-producto"
+                    src="${imagenProducto}"
+                    alt="${p.nombre}"
+                    onerror="this.src='./img/error.png'"
+                    onclick="abrirModalProductoPorId(${p.id})"
+                >
+
+                <!-- NOMBRE -->
+                <h3>${p.nombre}</h3>
+
+                <!-- PRECIO -->
+                <p class="precio">
+                    $${Number(p.precio).toLocaleString()}
+                </p>
+
+                <!-- TALLAS -->
+                <div class="selector-opciones">
+
+                    <label>Talla:</label>
+
+                    <select class="select-talla">
+
+                        <option value="">
+                            Seleccionar
+                        </option>
+
+                        ${tallasHTML}
+
+                    </select>
+
+                </div>
+
+                <!-- COLORES -->
+                <div class="selector-opciones">
+
+                    <label>Color:</label>
+
+                    <div class="colores">
+
+                        ${coloresHTML}
+
+                    </div>
+
+                </div>
+
+                <!-- BOTON -->
+                <button
+                    class="btn-carrito"
+                    onclick="agregarProductoDesdeCard(
+                        this,
+                        ${p.id},
+                        '${p.nombre.replace(/'/g, "\\'")}',
+                        ${p.precio},
+                        '${imagenProducto}'
+                    )"
+                >
+                    Agregar al carrito
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+// =========================
+// SELECCIONAR COLOR
+// =========================
+
+function seleccionarColor(elemento){
+
+    const card =
+    elemento.closest(".producto");
+
+    card
+    .querySelectorAll(".color-option")
+    .forEach(c => {
+
+        c.style.border =
+        "2px solid #ccc";
+
+    });
+
+    elemento.style.border =
+    "3px solid black";
+
+    card.dataset.color =
+    elemento.dataset.color;
+
+}
+
+// =========================
+// AGREGAR DESDE CARD
+// =========================
+
+function agregarProductoDesdeCard(
+    btn,
+    id,
+    nombre,
+    precio,
+    imagen
+){
+
+    agregarAlCarrito(
+        btn,
+        id,
+        nombre,
+        precio,
+        imagen
+    );
+
+}
