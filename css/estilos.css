@@ -2066,3 +2066,66 @@ body{
     height:80px;
 
 }
+
+/* =========================
+   COLORES PRODUCTOS
+========================= */
+
+.color{
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    display:inline-block;
+    cursor:pointer;
+    margin:5px;
+    border:2px solid #ddd;
+    transition:0.3s;
+}
+
+/* ACTIVO */
+.color.activo{
+    transform:scale(1.15);
+    border:2px solid black;
+}
+
+/* COLORES */
+.negro{
+    background:black;
+}
+
+.blanco{
+    background:white;
+    border:1px solid #999;
+}
+
+.azul{
+    background:blue;
+}
+
+.rosado{
+    background:pink;
+}
+
+.rojo{
+    background:red;
+}
+
+.verde{
+    background:green;
+}
+
+.gris{
+    background:gray;
+}
+
+.beige{
+    background:beige;
+}
+
+.morado{
+    background:purple;
+}
+
+.amarillo{
+    background:yellow;
+}
