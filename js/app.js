@@ -1,3 +1,7 @@
+// =========================
+// CARRITO
+// =========================
+
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 // =========================
@@ -7,22 +11,36 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
 
     const card =
-    btn?.closest(".producto") ||
-    btn?.closest(".card");
+        btn?.closest(".producto") ||
+        btn?.closest(".card");
 
     const talla =
-    extra.talla ||
-    card?.querySelector(".select-talla")?.value;
+        extra.talla ||
+        card?.querySelector(".select-talla")?.value;
 
     const color =
-    extra.color ||
-    card?.dataset.color;
+        extra.color ||
+        card?.dataset.color;
 
     const imgFinal =
-    imagen ||
-    extra.imagen ||
-    card?.querySelector("img")?.src ||
-    "./img/error.png";
+        imagen ||
+        extra.imagen ||
+        card?.querySelector("img")?.src ||
+        "./img/error.png";
+
+    if (!talla) {
+
+        mostrarNotificacion("⚠️ Selecciona una talla");
+        return;
+
+    }
+
+    if (!color) {
+
+        mostrarNotificacion("⚠️ Selecciona un color");
+        return;
+
+    }
 
     const producto = {
 
@@ -36,28 +54,7 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
 
     };
 
-    if(!talla){
-
-        mostrarNotificacion(
-            "⚠️ Selecciona una talla"
-        );
-
-        return;
-
-    }
-
-    if(!color){
-
-        mostrarNotificacion(
-            "⚠️ Selecciona un color"
-        );
-
-        return;
-
-    }
-
-    const productoExistente =
-    carrito.find(item =>
+    const productoExistente = carrito.find(item =>
 
         item.id == producto.id &&
         item.talla == producto.talla &&
@@ -65,11 +62,11 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
 
     );
 
-    if(productoExistente){
+    if (productoExistente) {
 
         productoExistente.cantidad++;
 
-    }else{
+    } else {
 
         carrito.push(producto);
 
@@ -88,7 +85,7 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
 // GUARDAR CARRITO
 // =========================
 
-function guardarCarrito(){
+function guardarCarrito() {
 
     localStorage.setItem(
         "carrito",
@@ -101,18 +98,18 @@ function guardarCarrito(){
 // ACTUALIZAR CARRITO
 // =========================
 
-function actualizarCarrito(){
+function actualizarCarrito() {
 
     const items =
-    document.getElementById("itemsCarrito");
+        document.getElementById("itemsCarrito");
 
     const total =
-    document.getElementById("totalCarrito");
+        document.getElementById("totalCarrito");
 
     const contador =
-    document.getElementById("contadorCarrito");
+        document.getElementById("contadorCarrito");
 
-    if(!items) return;
+    if (!items) return;
 
     items.innerHTML = "";
 
@@ -121,84 +118,76 @@ function actualizarCarrito(){
     carrito.forEach((item, index) => {
 
         totalFinal +=
-        item.precio * item.cantidad;
+            item.precio * item.cantidad;
 
         items.innerHTML += `
 
-            <div class="item-carrito">
+        <div class="item-carrito">
 
-                <img
-                    src="${item.imagen}"
-                    alt="${item.nombre}"
-                >
+            <img
+                src="${item.imagen}"
+                alt="${item.nombre}"
+                onerror="this.src='./img/error.png'"
+            >
 
-                <div class="item-info">
+            <div class="item-info">
 
-                    <h4>${item.nombre}</h4>
+                <h4>${item.nombre}</h4>
 
-                    <p>
-                        $${Number(item.precio).toLocaleString()}
-                    </p>
+                <p>
+                    $${Number(item.precio).toLocaleString()}
+                </p>
 
-                    <p>
-                        <b>Talla:</b>
-                        ${item.talla}
-                    </p>
+                <p>
+                    <b>Talla:</b>
+                    ${item.talla}
+                </p>
 
-                    <p>
-                        <b>Color:</b>
-                        <span class="color-badge">
-                            ${item.color}
-                        </span>
-                    </p>
+                <p>
+                    <b>Color:</b>
+                    ${item.color}
+                </p>
 
-                    <div class="cantidad-box">
+                <div class="cantidad-box">
 
-                        <button
-                            onclick="cambiarCantidad(${index}, -1)"
-                        >
-                            -
-                        </button>
+                    <button onclick="cambiarCantidad(${index}, -1)">
+                        -
+                    </button>
 
-                        <span>
-                            ${item.cantidad}
-                        </span>
+                    <span>
+                        ${item.cantidad}
+                    </span>
 
-                        <button
-                            onclick="cambiarCantidad(${index}, 1)"
-                        >
-                            +
-                        </button>
-
-                    </div>
+                    <button onclick="cambiarCantidad(${index}, 1)">
+                        +
+                    </button>
 
                 </div>
 
-                <button
-                    class="btn-eliminar"
-                    onclick="eliminarProducto(${index})"
-                >
-                    ✖
-                </button>
-
             </div>
+
+            <button
+                class="btn-eliminar"
+                onclick="eliminarProducto(${index})"
+            >
+                ✖
+            </button>
+
+        </div>
 
         `;
 
     });
 
     total.innerText =
-    totalFinal.toLocaleString();
-
-    const totalItems =
-    carrito.reduce((acc, item) => {
-
-        return acc + item.cantidad;
-
-    }, 0);
+        totalFinal.toLocaleString();
 
     contador.innerText =
-    totalItems;
+        carrito.reduce((acc, item) => {
+
+            return acc + item.cantidad;
+
+        }, 0);
 
 }
 
@@ -206,11 +195,11 @@ function actualizarCarrito(){
 // CAMBIAR CANTIDAD
 // =========================
 
-function cambiarCantidad(index, cambio){
+function cambiarCantidad(index, cambio) {
 
     carrito[index].cantidad += cambio;
 
-    if(carrito[index].cantidad <= 0){
+    if (carrito[index].cantidad <= 0) {
 
         carrito.splice(index, 1);
 
@@ -225,7 +214,7 @@ function cambiarCantidad(index, cambio){
 // ELIMINAR PRODUCTO
 // =========================
 
-function eliminarProducto(index){
+function eliminarProducto(index) {
 
     carrito.splice(index, 1);
 
@@ -238,19 +227,19 @@ function eliminarProducto(index){
 // TOGGLE CARRITO
 // =========================
 
-function toggleCarrito(){
+function toggleCarrito() {
 
     document
-    .getElementById("carrito")
-    .classList.toggle("active");
+        .getElementById("carrito")
+        .classList.toggle("active");
 
 }
 
-function cerrarCarrito(){
+function cerrarCarrito() {
 
     document
-    .getElementById("carrito")
-    .classList.remove("active");
+        .getElementById("carrito")
+        .classList.remove("active");
 
 }
 
@@ -258,9 +247,9 @@ function cerrarCarrito(){
 // FINALIZAR COMPRA
 // =========================
 
-function finalizarCompra(){
+function finalizarCompra() {
 
-    if(carrito.length === 0){
+    if (carrito.length === 0) {
 
         mostrarNotificacion(
             "⚠️ Carrito vacío"
@@ -271,21 +260,21 @@ function finalizarCompra(){
     }
 
     const nombre =
-    document
-    .getElementById("clienteNombre")
-    ?.value.trim();
+        document
+        .getElementById("clienteNombre")
+        ?.value.trim();
 
     const telefono =
-    document
-    .getElementById("clienteTelefono")
-    ?.value.trim();
+        document
+        .getElementById("clienteTelefono")
+        ?.value.trim();
 
     const direccion =
-    document
-    .getElementById("clienteDireccion")
-    ?.value.trim();
+        document
+        .getElementById("clienteDireccion")
+        ?.value.trim();
 
-    if(!nombre){
+    if (!nombre) {
 
         mostrarNotificacion(
             "⚠️ Ingresa tu nombre"
@@ -295,7 +284,7 @@ function finalizarCompra(){
 
     }
 
-    if(!telefono){
+    if (!telefono) {
 
         mostrarNotificacion(
             "⚠️ Ingresa tu teléfono"
@@ -305,7 +294,7 @@ function finalizarCompra(){
 
     }
 
-    if(!direccion){
+    if (!direccion) {
 
         mostrarNotificacion(
             "⚠️ Ingresa dirección"
@@ -332,7 +321,7 @@ function finalizarCompra(){
     carrito.forEach(i => {
 
         const subtotal =
-        i.precio * i.cantidad;
+            i.precio * i.cantidad;
 
         total += subtotal;
 
@@ -364,7 +353,7 @@ La Tienda de Yerlis
 `;
 
     const mensajeCodificado =
-    encodeURIComponent(msg);
+        encodeURIComponent(msg);
 
     window.open(
 
@@ -380,12 +369,12 @@ La Tienda de Yerlis
 // NOTIFICACION
 // =========================
 
-function mostrarNotificacion(texto){
+function mostrarNotificacion(texto) {
 
     const noti =
-    document.getElementById("notificacion");
+        document.getElementById("notificacion");
 
-    if(!noti) return;
+    if (!noti) return;
 
     noti.innerText = texto;
 
@@ -406,27 +395,29 @@ function mostrarNotificacion(texto){
 function mostrarSecciones(productos) {
 
     const destacados =
-    document.getElementById("destacados");
+        document.getElementById("destacados");
 
-    if(!destacados) return;
+    if (!destacados) return;
 
     destacados.innerHTML = "";
 
     productos.forEach(p => {
 
+        // IMAGEN CORREGIDA
         const imagenProducto =
 
-            p.imagen_url ||
             p.imagen ||
+            p.imagen_url ||
             p.image ||
-            "./img/error.png";
+            "https://placehold.co/400x500?text=Sin+Imagen";
 
+        // TALLAS
         let tallasHTML = "";
 
-        if(Array.isArray(p.talla)){
+        if (Array.isArray(p.talla)) {
 
             tallasHTML =
-            p.talla.map(t => `
+                p.talla.map(t => `
 
                 <option value="${t}">
                     ${t}
@@ -436,12 +427,13 @@ function mostrarSecciones(productos) {
 
         }
 
+        // COLORES
         let coloresHTML = "";
 
-        if(Array.isArray(p.colores)){
+        if (Array.isArray(p.colores)) {
 
             coloresHTML =
-            p.colores.map(color => `
+                p.colores.map(color => `
 
                 <span
                     class="color-option"
@@ -465,64 +457,64 @@ function mostrarSecciones(productos) {
 
         destacados.innerHTML += `
 
-            <div class="producto">
+        <div class="producto">
 
-                <img
-                    class="img-producto"
-                    src="${imagenProducto}"
-                    alt="${p.nombre}"
-                    onerror="this.src='./img/error.png'"
-                    onclick="abrirModalProductoPorId(${p.id})"
-                >
+            <img
+                class="img-producto"
+                src="${imagenProducto}"
+                alt="${p.nombre}"
+                loading="lazy"
+                onerror="this.src='https://placehold.co/400x500?text=Error+Imagen'"
+            >
 
-                <h3>${p.nombre}</h3>
+            <h3>${p.nombre}</h3>
 
-                <p class="precio">
-                    $${Number(p.precio).toLocaleString()}
-                </p>
+            <p class="precio">
+                $${Number(p.precio).toLocaleString()}
+            </p>
 
-                <div class="selector-opciones">
+            <div class="selector-opciones">
 
-                    <label>Talla:</label>
+                <label>Talla:</label>
 
-                    <select class="select-talla">
+                <select class="select-talla">
 
-                        <option value="">
-                            Seleccionar
-                        </option>
+                    <option value="">
+                        Seleccionar
+                    </option>
 
-                        ${tallasHTML}
+                    ${tallasHTML}
 
-                    </select>
-
-                </div>
-
-                <div class="selector-opciones">
-
-                    <label>Color:</label>
-
-                    <div class="colores">
-
-                        ${coloresHTML}
-
-                    </div>
-
-                </div>
-
-                <button
-                    class="btn-carrito"
-                    onclick="agregarProductoDesdeCard(
-                        this,
-                        ${p.id},
-                        '${p.nombre.replace(/'/g, "\\'")}',
-                        ${p.precio},
-                        '${imagenProducto}'
-                    )"
-                >
-                    Agregar al carrito
-                </button>
+                </select>
 
             </div>
+
+            <div class="selector-opciones">
+
+                <label>Color:</label>
+
+                <div class="colores">
+
+                    ${coloresHTML}
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn-carrito"
+                onclick="agregarProductoDesdeCard(
+                    this,
+                    ${p.id},
+                    '${String(p.nombre).replace(/'/g, "\\'")}',
+                    ${p.precio},
+                    '${imagenProducto}'
+                )"
+            >
+                Agregar al carrito
+            </button>
+
+        </div>
 
         `;
 
@@ -534,18 +526,17 @@ function mostrarSecciones(productos) {
 // FILTRAR CATEGORIA
 // =========================
 
-function filtrarCategoria(categoria){
+function filtrarCategoria(categoria) {
 
     const titulo =
-    document.getElementById("tituloCategoria");
+        document.getElementById("tituloCategoria");
 
-    if(!window.productosGlobalData) return;
+    if (!window.productosGlobalData) return;
 
-    // TODOS
-    if(categoria === "todos"){
+    if (categoria === "todos") {
 
         titulo.innerText =
-        "🔥 Todos los productos";
+            "🔥 Todos los productos";
 
         mostrarSecciones(
             window.productosGlobalData
@@ -555,15 +546,14 @@ function filtrarCategoria(categoria){
 
     }
 
-    // FILTRAR
     const filtrados =
-    window.productosGlobalData.filter(p =>
+        window.productosGlobalData.filter(p =>
 
-        p.categoria &&
-        p.categoria.toLowerCase().trim() ===
-        categoria.toLowerCase().trim()
+            p.categoria &&
+            p.categoria.toLowerCase().trim() ===
+            categoria.toLowerCase().trim()
 
-    );
+        );
 
     titulo.innerText =
 
@@ -578,25 +568,25 @@ function filtrarCategoria(categoria){
 // SELECCIONAR COLOR
 // =========================
 
-function seleccionarColor(elemento){
+function seleccionarColor(elemento) {
 
     const card =
-    elemento.closest(".producto");
+        elemento.closest(".producto");
 
     card
-    .querySelectorAll(".color-option")
-    .forEach(c => {
+        .querySelectorAll(".color-option")
+        .forEach(c => {
 
-        c.style.border =
-        "2px solid #ccc";
+            c.style.border =
+                "2px solid #ccc";
 
-    });
+        });
 
     elemento.style.border =
-    "3px solid black";
+        "3px solid black";
 
     card.dataset.color =
-    elemento.dataset.color;
+        elemento.dataset.color;
 
 }
 
@@ -610,7 +600,7 @@ function agregarProductoDesdeCard(
     nombre,
     precio,
     imagen
-){
+) {
 
     agregarAlCarrito(
         btn,
