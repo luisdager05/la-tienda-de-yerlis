@@ -17,6 +17,13 @@ window.guardarProducto = async function () {
     const descripcion = document.getElementById("descripcion").value;
     const categoria = document.getElementById("categoria").value;
     const imagen = document.getElementById("imagen").value;
+    const talla = document.getElementById("talla").value;
+    const colores = document.getElementById("colores").value;
+    const tallasArray =
+talla.split(",").map(t => t.trim());
+
+const coloresArray =
+colores.split(",").map(c => c.trim().toLowerCase());
 
     if (!nombre || !precio || !descripcion || !categoria || !imagen) {
         alert("Completa todos los campos");
