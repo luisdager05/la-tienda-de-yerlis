@@ -172,12 +172,19 @@ function finalizarCompra() {
     carrito.forEach(i => {
         msg += `• ${i.nombre}%0ATalla: ${i.talla}%0AColor: ${i.color}%0ACant: ${i.cantidad}%0A%0A`;
     });
+    let total = 0;
+
+carrito.forEach(i => {
+
+    total += i.precio * i.cantidad;
+
+});
 
     window.open(`https://wa.me/573148471107?text=${msg}`, "_blank");
 }
 
 actualizarCarrito();
-
+msg += `💰 Total: $${total.toLocaleString()}`;
 
 
 // =========================
