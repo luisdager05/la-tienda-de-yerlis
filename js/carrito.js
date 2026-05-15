@@ -2,76 +2,86 @@
 // CARRITO
 // =========================
 
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let carrito =
+JSON.parse(localStorage.getItem("carrito")) || [];
 
-// GUARDAR COLORES SELECCIONADOS
 let coloresSeleccionados = {};
-
 
 // =========================
 // SELECCIONAR COLOR
 // =========================
 
-function seleccionarColor(idProducto, color, btn) {
+function seleccionarColor(elemento){
 
-    // GUARDAR COLOR
-    coloresSeleccionados[idProducto] = color;
+    const card =
+    elemento.closest(".producto");
 
-    // EFECTO VISUAL
-    const contenedor = btn.parentElement;
+    card
+    .querySelectorAll(".color-option")
+    .forEach(c => {
 
-    contenedor.querySelectorAll(".btn-color")
-        .forEach(b => b.classList.remove("activo"));
+        c.style.border =
+        "2px solid #ccc";
 
-    btn.classList.add("activo");
+    });
+
+    elemento.style.border =
+    "3px solid black";
+
+    card.dataset.color =
+    elemento.dataset.color;
 
 }
-
 
 // =========================
 // AGREGAR AL CARRITO
 // =========================
 
-function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
+function agregarAlCarrito(
+    btn,
+    id,
+    nombre,
+    precio,
+    imagen,
+    extra = {}
+){
 
     const card =
-        btn?.closest(".producto") ||
-        btn?.closest(".card");
+    btn?.closest(".producto");
 
-    // TALLA
     const talla =
-        extra.talla ||
-        card?.querySelector(".select-talla")?.value;
+    extra.talla ||
+    card?.querySelector(".select-talla")?.value;
 
-    // COLOR
     const color =
-        extra.color ||
-        coloresSeleccionados[id];
+    extra.color ||
+    card?.dataset.color;
 
-    // IMAGEN
     const imgFinal =
-        imagen ||
-        extra.imagen ||
-        card?.querySelector("img")?.src ||
-        "./img/error.png";
+    imagen ||
+    card?.querySelector("img")?.src ||
+    "./img/error.png";
 
-    // VALIDAR TALLA
-    if (!talla) {
+    if(!talla){
 
-        mostrarNotificacion("⚠️ Selecciona una talla");
+        mostrarNotificacion(
+            "⚠️ Selecciona una talla"
+        );
+
         return;
 
     }
 
-    // VALIDAR COLOR
-    if (!color) {
+    if(!color){
 
-        mostrarNotificacion("⚠️ Selecciona un color");
+        mostrarNotificacion(
+            "⚠️ Selecciona un color"
+        );
+
         return;
 
     }
 
-    // CREAR PRODUCTO
     const producto = {
 
         id,
@@ -84,41 +94,40 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
 
     };
 
-    // VERIFICAR SI YA EXISTE
-    const productoExistente = carrito.find(item =>
+    const existe =
+    carrito.find(item =>
 
-        item.id == producto.id &&
-        item.talla == producto.talla &&
-        item.color == producto.color
+        item.id == id &&
+        item.talla == talla &&
+        item.color == color
 
     );
 
-    // SUMAR CANTIDAD
-    if (productoExistente) {
+    if(existe){
 
-        productoExistente.cantidad++;
+        existe.cantidad++;
 
-    } else {
+    }else{
 
         carrito.push(producto);
 
     }
 
     guardarCarrito();
+
     actualizarCarrito();
 
     mostrarNotificacion(
-        "✅ Producto agregado exitosamente"
+        "✅ Producto agregado"
     );
 
 }
 
-
 // =========================
-// GUARDAR CARRITO
+// GUARDAR
 // =========================
 
-function guardarCarrito() {
+function guardarCarrito(){
 
     localStorage.setItem(
         "carrito",
@@ -127,23 +136,22 @@ function guardarCarrito() {
 
 }
 
-
 // =========================
 // ACTUALIZAR CARRITO
 // =========================
 
-function actualizarCarrito() {
+function actualizarCarrito(){
 
     const items =
-        document.getElementById("itemsCarrito");
+    document.getElementById("itemsCarrito");
 
     const total =
-        document.getElementById("totalCarrito");
+    document.getElementById("totalCarrito");
 
     const contador =
-        document.getElementById("contadorCarrito");
+    document.getElementById("contadorCarrito");
 
-    if (!items) return;
+    if(!items) return;
 
     items.innerHTML = "";
 
@@ -151,179 +159,175 @@ function actualizarCarrito() {
 
     carrito.forEach((item, index) => {
 
-        totalFinal += item.precio * item.cantidad;
+        totalFinal +=
+        item.precio * item.cantidad;
 
         items.innerHTML += `
 
-        <div class="item-carrito">
+            <div class="item-carrito">
 
-            <img src="${item.imagen}" alt="${item.nombre}">
+                <img
+                src="${item.imagen}"
+                alt="${item.nombre}">
 
-            <div class="item-info">
+                <div class="item-info">
 
-                <h4>${item.nombre}</h4>
+                    <h4>${item.nombre}</h4>
 
-                <p>
-                    $${Number(item.precio).toLocaleString()}
-                </p>
+                    <p>
+                        $${item.precio.toLocaleString()}
+                    </p>
 
-                <p>
-                    <b>Talla:</b> ${item.talla}
-                </p>
+                    <p>
+                        Talla:
+                        ${item.talla}
+                    </p>
 
-                <p>
-                    <b>Color:</b>
-                    <span class="color-badge">
+                    <p>
+                        Color:
                         ${item.color}
-                    </span>
-                </p>
+                    </p>
 
-                <div class="cantidad-box">
+                    <div class="cantidad-box">
 
-                    <button onclick="cambiarCantidad(${index}, -1)">
-                        -
-                    </button>
+                        <button onclick="cambiarCantidad(${index}, -1)">
+                            -
+                        </button>
 
-                    <span>${item.cantidad}</span>
+                        <span>
+                            ${item.cantidad}
+                        </span>
 
-                    <button onclick="cambiarCantidad(${index}, 1)">
-                        +
-                    </button>
+                        <button onclick="cambiarCantidad(${index}, 1)">
+                            +
+                        </button>
+
+                    </div>
 
                 </div>
 
-            </div>
-
-            <button
+                <button
                 class="btn-eliminar"
                 onclick="eliminarProducto(${index})">
-                ✖
-            </button>
 
-        </div>
+                    ✖
+
+                </button>
+
+            </div>
 
         `;
 
     });
 
     total.innerText =
-        totalFinal.toLocaleString();
+    totalFinal.toLocaleString();
 
-    const totalItems = carrito.reduce((acc, item) => {
+    contador.innerText =
+    carrito.reduce((acc, item) => {
 
         return acc + item.cantidad;
 
     }, 0);
 
-    contador.innerText = totalItems;
-
 }
-
 
 // =========================
 // CAMBIAR CANTIDAD
 // =========================
 
-function cambiarCantidad(index, cambio) {
+function cambiarCantidad(index, cambio){
 
     carrito[index].cantidad += cambio;
 
-    if (carrito[index].cantidad <= 0) {
+    if(carrito[index].cantidad <= 0){
 
         carrito.splice(index, 1);
 
     }
 
     guardarCarrito();
+
     actualizarCarrito();
 
 }
 
-
 // =========================
-// ELIMINAR PRODUCTO
+// ELIMINAR
 // =========================
 
-function eliminarProducto(index) {
+function eliminarProducto(index){
 
     carrito.splice(index, 1);
 
     guardarCarrito();
+
     actualizarCarrito();
 
 }
-
 
 // =========================
 // TOGGLE CARRITO
 // =========================
 
-function toggleCarrito() {
+function toggleCarrito(){
 
     document
-        .getElementById("carrito")
-        .classList.toggle("active");
+    .getElementById("carrito")
+    .classList.toggle("active");
 
 }
 
-function cerrarCarrito() {
+function cerrarCarrito(){
 
     document
-        .getElementById("carrito")
-        .classList.remove("active");
+    .getElementById("carrito")
+    .classList.remove("active");
 
 }
-
 
 // =========================
 // FINALIZAR COMPRA
 // =========================
 
-function finalizarCompra() {
+function finalizarCompra(){
 
-    if (carrito.length === 0) {
+    if(carrito.length === 0){
 
-        mostrarNotificacion("⚠️ Carrito vacío");
+        mostrarNotificacion(
+            "⚠️ Carrito vacío"
+        );
+
         return;
 
     }
 
-    // DATOS CLIENTE
     const nombre =
-        document.getElementById("clienteNombre")?.value.trim();
+    document
+    .getElementById("clienteNombre")
+    ?.value.trim();
 
     const telefono =
-        document.getElementById("clienteTelefono")?.value.trim();
+    document
+    .getElementById("clienteTelefono")
+    ?.value.trim();
 
     const direccion =
-        document.getElementById("clienteDireccion")?.value.trim();
+    document
+    .getElementById("clienteDireccion")
+    ?.value.trim();
 
-    // VALIDACIONES
-    if (!nombre) {
+    if(!nombre || !telefono || !direccion){
 
-        mostrarNotificacion("⚠️ Ingresa tu nombre");
+        mostrarNotificacion(
+            "⚠️ Completa los datos"
+        );
+
         return;
 
     }
 
-    if (!telefono) {
-
-        mostrarNotificacion("⚠️ Ingresa tu teléfono");
-        return;
-
-    }
-
-    if (!direccion) {
-
-        mostrarNotificacion("⚠️ Ingresa dirección");
-        return;
-
-    }
-
-    // MENSAJE
-    let msg = `
-
-🛍️ Pedido La Tienda de Yerlis
+    let mensaje = `🛍️ Pedido La Tienda de Yerlis
 
 👤 Cliente: ${nombre}
 📱 Teléfono: ${telefono}
@@ -333,70 +337,52 @@ function finalizarCompra() {
 
     let total = 0;
 
-    carrito.forEach(i => {
+    carrito.forEach(item => {
 
         const subtotal =
-            i.precio * i.cantidad;
+        item.precio * item.cantidad;
 
         total += subtotal;
 
-        msg += `
+        mensaje += `
 
-📦 ${i.nombre}
-📏 Talla: ${i.talla}
-🎨 Color: ${i.color}
-🔢 Cantidad: ${i.cantidad}
-💰 Subtotal: $${subtotal.toLocaleString()}
+📦 ${item.nombre}
+📏 Talla: ${item.talla}
+🎨 Color: ${item.color}
+🔢 Cantidad: ${item.cantidad}
+💰 $${subtotal.toLocaleString()}
 
 `;
 
     });
 
-    // TOTAL
-    msg += `
+    mensaje += `
 
-🧾 TOTAL: $${total.toLocaleString()}
+🧾 TOTAL:
+$${total.toLocaleString()}
 
-💖 Gracias por comprar en La Tienda de Yerlis
-
+💖 Gracias por comprar
+en La Tienda de Yerlis
 `;
 
-    // CODIFICAR
-    const mensajeCodificado =
-        encodeURIComponent(msg);
+    const url =
 
-    // WHATSAPP
-   // ABRIR WHATSAPP
-window.open(
-    `https://wa.me/573148471107?text=${mensajeCodificado}`,
-    "_blank"
-);
+    `https://wa.me/573148471107?text=${encodeURIComponent(mensaje)}`;
 
-// LIMPIAR CARRITO
-carrito = [];
+    window.open(url, "_blank");
 
-guardarCarrito();
-actualizarCarrito();
-
-// CERRAR CARRITO
-cerrarCarrito();
-
-// MENSAJE
-mostrarNotificacion(
-    "✅ Pedido enviado a WhatsApp"
-);
-
+}
 
 // =========================
-// NOTIFICACIONES
+// NOTIFICACION
 // =========================
 
-function mostrarNotificacion(texto) {
+function mostrarNotificacion(texto){
 
     const noti =
-        document.getElementById("notificacion");
+    document.getElementById("notificacion");
 
-    if (!noti) return;
+    if(!noti) return;
 
     noti.innerText = texto;
 
@@ -409,3 +395,9 @@ function mostrarNotificacion(texto) {
     }, 2500);
 
 }
+
+// =========================
+// INICIAR
+// =========================
+
+actualizarCarrito();
