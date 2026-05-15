@@ -485,10 +485,17 @@ function mostrarSecciones(productos) {
                             Seleccionar
                         </option>
 
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
+                        <option value="">
+    Seleccionar
+</option>
+
+${p.talla?.map(t => `
+
+    <option value="${t}">
+        ${t}
+    </option>
+
+`).join("") || ""}
 
                     </select>
 
