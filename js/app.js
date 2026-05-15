@@ -531,6 +531,50 @@ function mostrarSecciones(productos) {
 }
 
 // =========================
+// FILTRAR CATEGORIA
+// =========================
+
+function filtrarCategoria(categoria){
+
+    const titulo =
+    document.getElementById("tituloCategoria");
+
+    if(!window.productosGlobalData) return;
+
+    // TODOS
+    if(categoria === "todos"){
+
+        titulo.innerText =
+        "🔥 Todos los productos";
+
+        mostrarSecciones(
+            window.productosGlobalData
+        );
+
+        return;
+
+    }
+
+    // FILTRAR
+    const filtrados =
+    window.productosGlobalData.filter(p =>
+
+        p.categoria &&
+        p.categoria.toLowerCase().trim() ===
+        categoria.toLowerCase().trim()
+
+    );
+
+    titulo.innerText =
+
+        categoria.charAt(0).toUpperCase() +
+        categoria.slice(1);
+
+    mostrarSecciones(filtrados);
+
+}
+
+// =========================
 // SELECCIONAR COLOR
 // =========================
 
