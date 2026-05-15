@@ -159,33 +159,49 @@ function cerrarCarrito() {
     document.getElementById("carrito").classList.remove("active");
 }
 
+// FINALIZAR COMPRA
 // =========================
 function finalizarCompra() {
 
     if (carrito.length === 0) {
+
         alert("Carrito vacío");
         return;
+
     }
 
-    let msg = "🛍️ Pedido:%0A%0A";
+    let msg = "🛍️ *Pedido La Tienda de Yerlis* %0A%0A";
 
-    carrito.forEach(i => {
-        msg += `• ${i.nombre}%0ATalla: ${i.talla}%0AColor: ${i.color}%0ACant: ${i.cantidad}%0A%0A`;
-    });
     let total = 0;
 
-carrito.forEach(i => {
+    carrito.forEach(i => {
 
-    total += i.precio * i.cantidad;
+        const subtotal = i.precio * i.cantidad;
 
-});
+        total += subtotal;
 
-    window.open(`https://wa.me/573148471107?text=${msg}`, "_blank");
+        msg += `📦 ${i.nombre}%0A`;
+        msg += `📏 Talla: ${i.talla}%0A`;
+        msg += `🎨 Color: ${i.color}%0A`;
+        msg += `🔢 Cantidad: ${i.cantidad}%0A`;
+        msg += `💰 Subtotal: $${subtotal.toLocaleString()}%0A%0A`;
+
+    });
+
+    // TOTAL FINAL
+    msg += `🧾 *TOTAL:* $${total.toLocaleString()}%0A%0A`;
+
+    // MENSAJE FINAL
+    msg += `Gracias por comprar en La Tienda de Yerlis 💖`;
+
+    window.open(
+
+        `https://wa.me/573148471107?text=${msg}`,
+        "_blank"
+
+    );
+
 }
-
-actualizarCarrito();
-msg += `💰 Total: $${total.toLocaleString()}`;
-
 
 // =========================
 // NOTIFICACION
