@@ -233,14 +233,15 @@ function finalizarCompra() {
     msg += `💖 Gracias por comprar en La Tienda de Yerlis`;
 
     // ABRIR WHATSAPP
-    window.open(
+    const mensajeCodificado =
+encodeURIComponent(msg);
 
-        `https://wa.me/573148471107?text=${msg}`,
-        "_blank"
+window.open(
 
-    );
+    `https://wa.me/573148471107?text=${mensajeCodificado}`,
+    "_blank"
 
-}
+);
 
 // =========================
 // NOTIFICACION
