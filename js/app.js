@@ -1,137 +1,406 @@
-console.log("SUPABASE:", window.supabaseClient);
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+// =========================
+// AGREGAR AL CARRITO
+// =========================
+
+function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
+
+    const card =
+    btn?.closest(".producto") ||
+    btn?.closest(".card");
+
+    const talla =
+    extra.talla ||
+    card?.querySelector(".select-talla")?.value;
+
+    const color =
+    extra.color ||
+    card?.dataset.color;
+
+    const imgFinal =
+    imagen ||
+    extra.imagen ||
+    card?.querySelector("img")?.src ||
+    "./img/error.png";
+
+    const producto = {
+
+        id,
+        nombre,
+        precio: Number(precio),
+        imagen: imgFinal,
+        talla,
+        color,
+        cantidad: 1
+
+    };
+
+    if(!talla){
+
+        mostrarNotificacion(
+            "⚠️ Selecciona una talla"
+        );
 
         return;
+
     }
 
-    const filtrados =
-    window.productosGlobalData.filter(p =>
+    if(!color){
 
-        p.categoria &&
-        p.categoria.toLowerCase().trim() ===
-        categoria.toLowerCase().trim()
+        mostrarNotificacion(
+            "⚠️ Selecciona un color"
+        );
+
+        return;
+
+    }
+
+    const productoExistente =
+    carrito.find(item =>
+
+        item.id == producto.id &&
+        item.talla == producto.talla &&
+        item.color == producto.color
 
     );
 
-    titulo.innerText =
-    categoria.charAt(0).toUpperCase() +
-    categoria.slice(1);
+    if(productoExistente){
 
-    mostrarSecciones(filtrados);
+        productoExistente.cantidad++;
+
+    }else{
+
+        carrito.push(producto);
+
+    }
+
+    guardarCarrito();
+    actualizarCarrito();
+
+    mostrarNotificacion(
+        "✅ Producto agregado exitosamente"
+    );
 
 }
 
 // =========================
-// MOSTRAR PRODUCTOS
+// GUARDAR CARRITO
 // =========================
 
+function guardarCarrito(){
+
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+
+}
+
 // =========================
-// MOSTRAR PRODUCTOS
+// ACTUALIZAR CARRITO
 // =========================
 
-function mostrarSecciones(productos) {
+function actualizarCarrito(){
 
-    const destacados =
-    document.getElementById("destacados");
+    const items =
+    document.getElementById("itemsCarrito");
 
-    if (!destacados) return;
+    const total =
+    document.getElementById("totalCarrito");
 
-    destacados.innerHTML = "";
+    const contador =
+    document.getElementById("contadorCarrito");
 
-    productos.forEach(p => {
+    if(!items) return;
 
-        const card = `
+    items.innerHTML = "";
 
-            <div class="producto">
+    let totalFinal = 0;
 
-                <!-- IMAGEN PRODUCTO -->
+    carrito.forEach((item, index) => {
+
+        totalFinal +=
+        item.precio * item.cantidad;
+
+        items.innerHTML += `
+
+            <div class="item-carrito">
+
                 <img
-                class="img-producto"
-                src="${p.imagen ? p.imagen : './img/error.png'}"
-                alt="${p.nombre}"
-                onclick="abrirModalProductoPorId(${p.id})">
+                    src="${item.imagen}"
+                    alt="${item.nombre}"
+                >
 
-                <!-- NOMBRE -->
-                <h3>${p.nombre}</h3>
+                <div class="item-info">
 
-                <!-- PRECIO -->
-                <p class="precio">
-                    $${Number(p.precio).toLocaleString()}
-                </p>
+                    <h4>${item.nombre}</h4>
 
-                <!-- TALLAS -->
-                <div class="selector-opciones">
+                    <p>
+                        $${Number(item.precio).toLocaleString()}
+                    </p>
 
-                    <label>Talla:</label>
+                    <p>
+                        <b>Talla:</b>
+                        ${item.talla}
+                    </p>
 
-                    <select class="select-talla">
+                    <p>
+                        <b>Color:</b>
+                        <span class="color-badge">
+                            ${item.color}
+                        </span>
+                    </p>
 
-                        <option value="">
-                            Seleccionar
-                        </option>
+                    <div class="cantidad-box">
 
-                        ${
-                            Array.isArray(p.talla)
-                            ? p.talla.map(t => `
-                                <option value="${t}">
-                                    ${t}
-                                </option>
-                            `).join("")
-                            : ""
-                        }
+                        <button
+                            onclick="cambiarCantidad(${index}, -1)"
+                        >
+                            -
+                        </button>
 
-                    </select>
+                        <span>
+                            ${item.cantidad}
+                        </span>
 
-                </div>
-
-                <!-- COLORES -->
-                <div class="selector-opciones">
-
-                    <label>Color:</label>
-
-                    <div class="colores">
-
-                        ${
-                            Array.isArray(p.colores)
-                            ? p.colores.map(color => `
-
-                                <span
-                                class="color"
-                                title="${color}"
-                                style="
-                                    background:${color};
-                                    display:inline-block;
-                                    width:22px;
-                                    height:22px;
-                                    border-radius:50%;
-                                    margin:3px;
-                                    border:1px solid #ccc;
-                                    cursor:pointer;
-                                ">
-                                </span>
-
-                            `).join("")
-                            : ""
-                        }
+                        <button
+                            onclick="cambiarCantidad(${index}, 1)"
+                        >
+                            +
+                        </button>
 
                     </div>
 
                 </div>
 
-                <!-- BOTON -->
                 <button
-                class="btn-carrito"
-                onclick="agregarAlCarrito(${p.id})">
-
-                    Agregar al carrito
-
+                    class="btn-eliminar"
+                    onclick="eliminarProducto(${index})"
+                >
+                    ✖
                 </button>
 
             </div>
 
         `;
 
-        destacados.innerHTML += card;
+    });
+
+    total.innerText =
+    totalFinal.toLocaleString();
+
+    const totalItems =
+    carrito.reduce((acc, item) => {
+
+        return acc + item.cantidad;
+
+    }, 0);
+
+    contador.innerText =
+    totalItems;
+
+}
+
+// =========================
+// CAMBIAR CANTIDAD
+// =========================
+
+function cambiarCantidad(index, cambio){
+
+    carrito[index].cantidad += cambio;
+
+    if(carrito[index].cantidad <= 0){
+
+        carrito.splice(index, 1);
+
+    }
+
+    guardarCarrito();
+    actualizarCarrito();
+
+}
+
+// =========================
+// ELIMINAR PRODUCTO
+// =========================
+
+function eliminarProducto(index){
+
+    carrito.splice(index, 1);
+
+    guardarCarrito();
+    actualizarCarrito();
+
+}
+
+// =========================
+// TOGGLE CARRITO
+// =========================
+
+function toggleCarrito(){
+
+    document
+    .getElementById("carrito")
+    .classList.toggle("active");
+
+}
+
+function cerrarCarrito(){
+
+    document
+    .getElementById("carrito")
+    .classList.remove("active");
+
+}
+
+// =========================
+// FINALIZAR COMPRA
+// =========================
+
+function finalizarCompra(){
+
+    if(carrito.length === 0){
+
+        mostrarNotificacion(
+            "⚠️ Carrito vacío"
+        );
+
+        return;
+
+    }
+
+    const nombre =
+    document
+    .getElementById("clienteNombre")
+    ?.value.trim();
+
+    const telefono =
+    document
+    .getElementById("clienteTelefono")
+    ?.value.trim();
+
+    const direccion =
+    document
+    .getElementById("clienteDireccion")
+    ?.value.trim();
+
+    if(!nombre){
+
+        mostrarNotificacion(
+            "⚠️ Ingresa tu nombre"
+        );
+
+        return;
+
+    }
+
+    if(!telefono){
+
+        mostrarNotificacion(
+            "⚠️ Ingresa tu teléfono"
+        );
+
+        return;
+
+    }
+
+    if(!direccion){
+
+        mostrarNotificacion(
+            "⚠️ Ingresa dirección"
+        );
+
+        return;
+
+    }
+
+    let msg = `
+
+🛍️ Pedido La Tienda de Yerlis
+
+👤 Cliente: ${nombre}
+
+📱 Teléfono: ${telefono}
+
+📍 Dirección: ${direccion}
+
+`;
+
+    let total = 0;
+
+    carrito.forEach(i => {
+
+        const subtotal =
+        i.precio * i.cantidad;
+
+        total += subtotal;
+
+        msg += `
+
+📦 ${i.nombre}
+
+📏 Talla: ${i.talla}
+
+🎨 Color: ${i.color}
+
+🔢 Cantidad: ${i.cantidad}
+
+💰 Subtotal:
+$${subtotal.toLocaleString()}
+
+`;
 
     });
 
+    msg += `
+
+🧾 TOTAL:
+$${total.toLocaleString()}
+
+💖 Gracias por comprar en
+La Tienda de Yerlis
+
+`;
+
+    const mensajeCodificado =
+    encodeURIComponent(msg);
+
+    window.open(
+
+        `https://wa.me/573148471107?text=${mensajeCodificado}`,
+
+        "_blank"
+
+    );
+
 }
+
+// =========================
+// NOTIFICACION
+// =========================
+
+function mostrarNotificacion(texto){
+
+    const noti =
+    document.getElementById("notificacion");
+
+    if(!noti) return;
+
+    noti.innerText = texto;
+
+    noti.classList.add("active");
+
+    setTimeout(() => {
+
+        noti.classList.remove("active");
+
+    }, 2500);
+
+}
+
+// =========================
+// INICIAR
+// =========================
+
+actualizarCarrito();
