@@ -392,32 +392,42 @@ function mostrarNotificacion(texto) {
 // MOSTRAR PRODUCTOS
 // =========================
 
-function mostrarSecciones(productos) {
+// =========================
+// MOSTRAR PRODUCTOS
+// =========================
+
+function mostrarSecciones(productos){
 
     const destacados =
-        document.getElementById("destacados");
+    document.getElementById("destacados");
 
-    if (!destacados) return;
+    if(!destacados) return;
 
     destacados.innerHTML = "";
 
     productos.forEach(p => {
 
-        // IMAGEN CORREGIDA
+        console.log("PRODUCTO:", p);
+
+        // =========================
+        // IMAGEN
+        // =========================
+
         const imagenProducto =
+        p.imagen
+        ? p.imagen
+        : "./img/error.png";
 
-            p.imagen ||
-            p.imagen_url ||
-            p.image ||
-            "https://placehold.co/400x500?text=Sin+Imagen";
-
+        // =========================
         // TALLAS
+        // =========================
+
         let tallasHTML = "";
 
-        if (Array.isArray(p.talla)) {
+        if(Array.isArray(p.talla)){
 
             tallasHTML =
-                p.talla.map(t => `
+            p.talla.map(t => `
 
                 <option value="${t}">
                     ${t}
@@ -427,13 +437,16 @@ function mostrarSecciones(productos) {
 
         }
 
+        // =========================
         // COLORES
+        // =========================
+
         let coloresHTML = "";
 
-        if (Array.isArray(p.colores)) {
+        if(Array.isArray(p.colores)){
 
             coloresHTML =
-                p.colores.map(color => `
+            p.colores.map(color => `
 
                 <span
                     class="color-option"
@@ -455,73 +468,75 @@ function mostrarSecciones(productos) {
 
         }
 
+        // =========================
+        // CARD
+        // =========================
+
         destacados.innerHTML += `
 
-        <div class="producto">
+            <div class="producto">
 
-            <img
-                class="img-producto"
-                src="${imagenProducto}"
-                alt="${p.nombre}"
-                loading="lazy"
-                onerror="this.src='https://placehold.co/400x500?text=Error+Imagen'"
-            >
+                <img
+                    class="img-producto"
+                    src="${imagenProducto}"
+                    alt="${p.nombre}"
+                    onerror="this.src='./img/error.png'"
+                >
 
-            <h3>${p.nombre}</h3>
+                <h3>${p.nombre}</h3>
 
-            <p class="precio">
-                $${Number(p.precio).toLocaleString()}
-            </p>
+                <p class="precio">
+                    $${Number(p.precio).toLocaleString()}
+                </p>
 
-            <div class="selector-opciones">
+                <div class="selector-opciones">
 
-                <label>Talla:</label>
+                    <label>Talla:</label>
 
-                <select class="select-talla">
+                    <select class="select-talla">
 
-                    <option value="">
-                        Seleccionar
-                    </option>
+                        <option value="">
+                            Seleccionar
+                        </option>
 
-                    ${tallasHTML}
+                        ${tallasHTML}
 
-                </select>
-
-            </div>
-
-            <div class="selector-opciones">
-
-                <label>Color:</label>
-
-                <div class="colores">
-
-                    ${coloresHTML}
+                    </select>
 
                 </div>
 
+                <div class="selector-opciones">
+
+                    <label>Color:</label>
+
+                    <div class="colores">
+
+                        ${coloresHTML}
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="btn-carrito"
+                    onclick="agregarProductoDesdeCard(
+                        this,
+                        ${p.id},
+                        '${p.nombre.replace(/'/g, "\\'")}',
+                        ${p.precio},
+                        '${imagenProducto}'
+                    )"
+                >
+                    Agregar al carrito
+                </button>
+
             </div>
-
-            <button
-                class="btn-carrito"
-                onclick="agregarProductoDesdeCard(
-                    this,
-                    ${p.id},
-                    '${String(p.nombre).replace(/'/g, "\\'")}',
-                    ${p.precio},
-                    '${imagenProducto}'
-                )"
-            >
-                Agregar al carrito
-            </button>
-
-        </div>
 
         `;
 
     });
 
 }
-
 // =========================
 // FILTRAR CATEGORIA
 // =========================
