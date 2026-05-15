@@ -165,18 +165,57 @@ function finalizarCompra() {
 
     if (carrito.length === 0) {
 
-        alert("Carrito vacío");
+        mostrarNotificacion("⚠️ Carrito vacío");
         return;
 
     }
 
-    let msg = "🛍️ *Pedido La Tienda de Yerlis* %0A%0A";
+    // DATOS CLIENTE
+    const nombre =
+    document.getElementById("clienteNombre").value.trim();
+
+    const telefono =
+    document.getElementById("clienteTelefono").value.trim();
+
+    const direccion =
+    document.getElementById("clienteDireccion").value.trim();
+
+    // VALIDACIONES
+    if(!nombre){
+
+        mostrarNotificacion("⚠️ Ingresa tu nombre");
+        return;
+
+    }
+
+    if(!telefono){
+
+        mostrarNotificacion("⚠️ Ingresa tu teléfono");
+        return;
+
+    }
+
+    if(!direccion){
+
+        mostrarNotificacion("⚠️ Ingresa dirección");
+        return;
+
+    }
+
+    let msg =
+    "🛍️ *Pedido La Tienda de Yerlis* %0A%0A";
+
+    // CLIENTE
+    msg += `👤 Cliente: ${nombre}%0A`;
+    msg += `📱 Teléfono: ${telefono}%0A`;
+    msg += `📍 Dirección: ${direccion}%0A%0A`;
 
     let total = 0;
 
     carrito.forEach(i => {
 
-        const subtotal = i.precio * i.cantidad;
+        const subtotal =
+        i.precio * i.cantidad;
 
         total += subtotal;
 
@@ -188,12 +227,12 @@ function finalizarCompra() {
 
     });
 
-    // TOTAL FINAL
+    // TOTAL
     msg += `🧾 *TOTAL:* $${total.toLocaleString()}%0A%0A`;
 
-    // MENSAJE FINAL
-    msg += `Gracias por comprar en La Tienda de Yerlis 💖`;
+    msg += `💖 Gracias por comprar en La Tienda de Yerlis`;
 
+    // ABRIR WHATSAPP
     window.open(
 
         `https://wa.me/573148471107?text=${msg}`,
