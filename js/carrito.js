@@ -10,15 +10,12 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
         btn?.closest(".card");
 
     const talla =
-        extra.talla ||
-        card?.querySelector(".select-talla")?.value ||
-        "Única";
+    extra.talla ||
+    card?.querySelector(".select-talla")?.value;
 
-    const color =
-        extra.color ||
-        card?.dataset.color ||
-        "Predeterminado";
-
+const color =
+    extra.color ||
+    card?.dataset.color;
     const imgFinal =
         imagen ||
         extra.imagen ||
@@ -35,7 +32,23 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
         cantidad: 1
     };
 
+    const productoExistente = carrito.find(item =>
+
+    item.id == producto.id &&
+    item.talla == producto.talla &&
+    item.color == producto.color
+
+);
+
+if(productoExistente){
+
+    productoExistente.cantidad++;
+
+}else{
+
     carrito.push(producto);
+
+}
 
     guardarCarrito();
     actualizarCarrito();
