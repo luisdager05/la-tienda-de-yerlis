@@ -62,57 +62,73 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================
     function render(productos) {
 
-        slider.innerHTML = "";
-        dots.innerHTML = "";
+    slider.innerHTML = "";
+    dots.innerHTML = "";
 
-        productos.forEach((p, i) => {
+    productos.forEach((p, i) => {
 
-            const tallas = parseArray(p.talla);
-            const colores = parseArray(p.colores);
+        const tallas = parseArray(p.talla);
+        const colores = parseArray(p.colores);
 
-            // ✅ TU BD YA TRAE URL COMPLETA
-            const imgFinal = p.imagen || "./img/error.png";
+        // =========================
+        // 🔥 IMAGEN SEGURA (SUPABASE + FALLBACK)
+        // =========================
+        let imgFinal = "./img/error.png";
 
-            slider.innerHTML += `
-                <div class="card">
+        if (p.imagen) {
+            if (p.imagen.startsWith("http")) {
+                imgFinal = p.imagen; // URL Supabase
+            } else {
+                imgFinal = `./img/${p.imagen}`; // imagen local
+            }
+        }
 
-                    <img src="${imgFinal}"
-                        onerror="this.src='./img/error.png'"
-                        onclick="abrirModalProductoPorId(${p.id})">
+        slider.innerHTML += `
+            <div class="card">
 
-                    <h3>${p.nombre}</h3>
+                <img src="${imgFinal}"
+                    onerror="this.src='./img/error.png'"
+                    onclick="abrirModalProductoPorId(${p.id})">
 
-                    <p>$${Number(p.precio).toLocaleString()}</p>
+                <h3>${p.nombre}</h3>
 
-                    <select class="select-talla">
-                        <option value="">Seleccionar</option>
-                        ${tallas.map(t => `<option value="${t}">${t}</option>`).join("")}
-                    </select>
+                <p>$${Number(p.precio).toLocaleString()}</p>
 
-                    <div class="colores">
-                        ${colores.map(c => `
-                            <span class="color ${c.toLowerCase()}"
-                                onclick="seleccionarColor('${c}', this)">
-                            </span>
-                        `).join("")}
-                    </div>
+                <select class="select-talla">
+                    <option value="">Seleccionar</option>
+                    ${tallas.map(t => `<option value="${t}">${t}</option>`).join("")}
+                </select>
 
-                    <button onclick="abrirModalProductoPorId(${p.id})">
-                        👁 Ver
-                    </button>
-
-                    <button onclick="agregarAlCarrito(this, '${p.id}', '${p.nombre}', '${p.precio}', '${imgFinal}')">
-                        🛒 Agregar
-                    </button>
-
+                <div class="colores">
+                    ${colores.map(c => `
+                        <span class="color ${c.toLowerCase()}"
+                            onclick="seleccionarColor('${c}', this)">
+                        </span>
+                    `).join("")}
                 </div>
-            `;
 
-            dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
-        });
+                <button onclick="abrirModalProductoPorId(${p.id})">
+                    👁 Ver
+                </button>
 
-        iniciarCarrusel();
-    }
+                <button onclick="agregarAlCarrito(
+                    this,
+                    '${p.id}',
+                    '${p.nombre}',
+                    '${p.precio}',
+                    '${imgFinal}'
+                )">
+                    🛒 Agregar
+                </button>
+
+            </div>
+        `;
+
+        dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
+    });
+
+    iniciarCarrusel();
+}
 
     function iniciarCarrusel() {
 
