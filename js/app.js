@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
    function render(productos) {
+       console.log("PRODUCTOS:", productos.length);
 
     slider.innerHTML = "";
     dots.innerHTML = "";
