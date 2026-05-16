@@ -1552,3 +1552,111 @@ body{
     }
 
 }
+
+/* =========================
+   COLORES CLICK ACTIVOS
+========================= */
+
+.colores{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:10px 0;
+}
+
+.color{
+    width:22px;
+    height:22px;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    border:2px solid #ddd;
+
+    transition:.3s;
+
+    position:relative;
+}
+
+/* EFECTO HOVER */
+
+.color:hover{
+    transform:scale(1.15);
+}
+
+/* COLOR SELECCIONADO */
+
+.color.activo{
+    border:3px solid #ff4081 !important;
+
+    transform:scale(1.2);
+
+    box-shadow:0 0 10px rgba(255,64,129,.5);
+}
+
+/* COLORES */
+
+.negro{
+    background:black;
+}
+
+.blanco{
+    background:white;
+}
+
+.azul{
+    background:blue;
+}
+
+.rosado{
+    background:pink;
+}
+
+.rojo{
+    background:red;
+}
+
+.verde{
+    background:green;
+}
+
+.gris{
+    background:gray;
+}
+
+.beige{
+    background:beige;
+}
+
+.morado{
+    background:purple;
+}
+
+.amarillo{
+    background:yellow;
+}
+// =========================
+// SELECCIONAR COLORES
+// =========================
+
+document.addEventListener("click", (e)=>{
+
+    if(e.target.classList.contains("color")){
+
+        let contenedor =
+        e.target.parentElement;
+
+        contenedor
+        .querySelectorAll(".color")
+        .forEach(c=>{
+
+            c.classList.remove("activo");
+
+        });
+
+        e.target.classList.add("activo");
+
+    }
+
+});
