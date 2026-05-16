@@ -42,78 +42,113 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarCarrito();
     }
 
-    function render(productos) {
+   function render(productos) {
 
-        slider.innerHTML = "";
-        dots.innerHTML = "";
+    slider.innerHTML = "";
+    dots.innerHTML = "";
 
-        productos.forEach((p, i) => {
+    productos.forEach((p, i) => {
 
-            const tallas = parseArray(p.talla);
-            const colores = parseArray(p.colores);
+        const tallas = parseArray(p.talla);
+        const colores = parseArray(p.colores);
 
-            let imgFinal = "./img/error.png";
+        let imgFinal = "./img/error.png";
 
-if (p.imagen) {
-    if (p.imagen.startsWith("http")) {
-        imgFinal = p.imagen;
-    } else {
-        imgFinal = `https://sgkhlrimsanjeoxjtvnx.supabase.co/storage/v1/object/public/${p.imagen}`;
-    }
-}
-            slider.innerHTML += `
-                <div class="card">
+        if (p.imagen) {
 
-                    <img src="${imgFinal}"
-                        onerror="this.src='./img/error.png'">
+            if (p.imagen.startsWith("http")) {
 
-                    <h3>${p.nombre}</h3>
+                imgFinal = p.imagen;
 
-                    <p>$${Number(p.precio).toLocaleString()}</p>
+            } else {
 
-                    <select class="select-talla">
-                        <option value="">Seleccionar</option>
-                        ${tallas.map(t => `<option value="${t}">${t}</option>`).join("")}
-                    </select>
+                imgFinal =
+                `https://sgkhlrimsanjeoxjtvnx.supabase.co/storage/v1/object/public/${p.imagen}`;
+            }
+        }
 
-                    <div class="colores">
-                        ${colores.map(c => `
-                            <span class="color ${c.toLowerCase()}"
-                                onclick="seleccionarColor('${c}', this)">
-                            </span>
-                        `).join("")}
-                    </div>
+        slider.innerHTML += `
 
-                    <button onclick="agregarAlCarrito(
-                        this,
-                        '${p.id}',
-                        '${p.nombre}',
-                        '${p.precio}',
-                        '${imgFinal}'
-                    )">
-                        🛒 Agregar
-                    </button>
+        <div class="card-producto">
+
+            <!-- IMAGEN -->
+            <div class="img-box">
+
+                <img
+                src="${imgFinal}"
+                class="img-producto"
+                onerror="this.src='./img/error.png'">
+
+            </div>
+
+            <!-- INFO -->
+            <div class="info-producto">
+
+                <h3 class="titulo-producto">
+                    ${p.nombre}
+                </h3>
+
+                <p class="precio-producto">
+                    $${Number(p.precio).toLocaleString()}
+                </p>
+
+                <!-- TALLAS -->
+                <select class="select-talla">
+
+                    <option value="">
+                        Seleccionar
+                    </option>
+
+                    ${tallas.map(t => `
+                        <option value="${t}">
+                            ${t}
+                        </option>
+                    `).join("")}
+
+                </select>
+
+                <!-- COLORES -->
+                <div class="colores">
+
+                    ${colores.map(c => `
+
+                        <span
+                        class="color ${c.toLowerCase()}"
+                        onclick="seleccionarColor('${c}', this)">
+                        </span>
+
+                    `).join("")}
 
                 </div>
-            `;
 
-            dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
-        });
+                <!-- BOTON -->
+                <button
+                class="btn-agregar"
+                onclick="agregarAlCarrito(
+                    this,
+                    '${p.id}',
+                    '${p.nombre}',
+                    '${p.precio}',
+                    '${imgFinal}'
+                )">
 
-        iniciarCarrusel();
-    }
+                    🛒 Agregar
 
-    function parseArray(valor) {
-        if (!valor) return [];
-        if (Array.isArray(valor)) return valor;
+                </button>
 
-        try {
-            return JSON.parse(valor);
-        } catch {
-            return String(valor).replace(/[{}"]/g, "").split(",").map(v => v.trim());
-        }
-    }
+            </div>
 
+        </div>
+        `;
+
+        dots.innerHTML += `
+            <span class="${i === 0 ? "active" : ""}">
+            </span>
+        `;
+    });
+
+    iniciarCarrusel();
+}
     function iniciarCarrusel() {
 
         clearInterval(intervalo);
