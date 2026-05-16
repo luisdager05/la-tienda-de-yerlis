@@ -2129,3 +2129,109 @@ body{
 .amarillo{
     background:yellow;
 }
+
+/* =========================
+   BOTONES CARRITO ELEGANTES
+========================= */
+
+.btn-carrito,
+.btn-modal-carrito,
+.producto button,
+.card button{
+
+    width: calc(100% - 20px);
+
+    margin: 12px auto;
+
+    display: block;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: linear-gradient(45deg,#ff4081,#ff80ab);
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+    box-shadow:
+    0 8px 20px rgba(255,64,129,.25);
+
+}
+
+.btn-carrito:hover,
+.btn-modal-carrito:hover,
+.producto button:hover,
+.card button:hover{
+
+    transform: translateY(-4px);
+
+    background:
+    linear-gradient(45deg,#ff2f75,#ff5f9d);
+
+    box-shadow:
+    0 12px 25px rgba(255,64,129,.35);
+
+}
+
+.btn-carrito:active,
+.producto button:active{
+
+    transform: scale(.97);
+
+}
+
+/* =========================
+   IMAGENES PRODUCTOS
+========================= */
+
+.img-producto{
+
+    width: 100%;
+
+    height: 320px;
+
+    object-fit: cover;
+
+    border-radius: 20px 20px 0 0;
+
+    transition: .4s ease;
+
+    display: block;
+
+    background: #fff;
+
+}
+
+/* EFECTO HOVER */
+
+.producto:hover .img-producto,
+.card:hover .img-producto{
+
+    transform: scale(1.05);
+
+}
+
+/* =========================
+   TARJETAS
+========================= */
+
+.producto,
+.card{
+
+    overflow: hidden;
+
+    background: white;
+
+    border-radius: 20px;
+
+}
