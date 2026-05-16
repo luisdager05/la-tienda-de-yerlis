@@ -150,12 +150,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     clearInterval(intervalo);
 
-    const slides = document.querySelectorAll(".card-producto");
-    if (!slides.length) return;
+    const slides = document.querySelectorAll("#slider .card-producto");
+
+    if (!slides.length) {
+        console.log("No hay productos para carrusel");
+        return;
+    }
 
     index = 0;
 
     intervalo = setInterval(() => {
+
+        const slides = document.querySelectorAll("#slider .card-producto");
+
+        if (!slides.length) return;
 
         index++;
 
@@ -163,8 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
             index = 0;
         }
 
-        const slide = slides[0];
-        const slideWidth = slide.offsetWidth + 20;
+        const slideWidth = slides[0].offsetWidth + 20;
 
         slider.scrollTo({
             left: index * slideWidth,
