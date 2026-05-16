@@ -3,14 +3,17 @@ console.log("SUPABASE:", window.supabaseClient);
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 let productosGlobal = [];
 
+let index = 0;
+let intervalo;
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const slider = document.getElementById("slider");
     const dots = document.getElementById("dots");
 
-    let index = 0;
-    let intervalo;
-
+    // =========================
+    // ESPERAR SUPABASE
+    // =========================
     const waitSupabase = () => {
         return new Promise(resolve => {
             const check = setInterval(() => {
@@ -24,6 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     waitSupabase().then(cargarProductos);
 
+    // =========================
+    // CARGAR PRODUCTOS
+    // =========================
     async function cargarProductos() {
 
         const { data, error } = await window.supabaseClient
@@ -31,8 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
             .select("*");
 
         if (error || !data) {
-            slider.innerHTML = "<h2>Error cargando productos</h2>";
             console.error(error);
+            slider.innerHTML = "<h2>Error cargando productos</h2>";
             return;
         }
 
@@ -42,163 +48,129 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarCarrito();
     }
 
-   function render(productos) {
-       console.log("PRODUCTOS:", productos.length);
+    // =========================
+    // RENDER
+    // =========================
+    function render(productos) {
 
-    slider.innerHTML = "";
-    dots.innerHTML = "";
+        slider.innerHTML = "";
+        dots.innerHTML = "";
 
-    productos.forEach((p, i) => {
+        productos.forEach((p, i) => {
 
-        const tallas = parseArray(p.talla);
-        const colores = parseArray(p.colores);
+            const tallas = parseArray(p.talla);
+            const colores = parseArray(p.colores);
 
-        let imgFinal = "./img/error.png";
+            let imgFinal = "./img/error.png";
 
-        if (p.imagen) {
-
-            if (p.imagen.startsWith("http")) {
-
-                imgFinal = p.imagen;
-
-            } else {
-
-                imgFinal =
-                `https://sgkhlrimsanjeoxjtvnx.supabase.co/storage/v1/object/public/${p.imagen}`;
+            if (p.imagen) {
+                if (p.imagen.startsWith("http")) {
+                    imgFinal = p.imagen;
+                } else {
+                    imgFinal = `https://sgkhlrimsanjeoxjtvnx.supabase.co/storage/v1/object/public/${p.imagen}`;
+                }
             }
-        }
 
-        slider.innerHTML += `
+            slider.innerHTML += `
+            <div class="card-producto">
 
-        <div class="card-producto">
-
-            <!-- IMAGEN -->
-            <div class="img-box">
-
-                <img
-                src="${imgFinal}"
-                class="img-producto"
-                onerror="this.src='./img/error.png'">
-
-            </div>
-
-            <!-- INFO -->
-            <div class="info-producto">
-
-                <h3 class="titulo-producto">
-                    ${p.nombre}
-                </h3>
-
-                <p class="precio-producto">
-                    $${Number(p.precio).toLocaleString()}
-                </p>
-
-                <!-- TALLAS -->
-                <select class="select-talla">
-
-                    <option value="">
-                        Seleccionar
-                    </option>
-
-                    ${tallas.map(t => `
-                        <option value="${t}">
-                            ${t}
-                        </option>
-                    `).join("")}
-
-                </select>
-
-                <!-- COLORES -->
-                <div class="colores">
-
-                    ${colores.map(c => `
-
-                        <span
-                        class="color ${c.toLowerCase()}"
-                        onclick="seleccionarColor('${c}', this)">
-                        </span>
-
-                    `).join("")}
-
+                <div class="img-box">
+                    <img src="${imgFinal}" class="img-producto" onerror="this.src='./img/error.png'">
                 </div>
 
-                <!-- BOTON -->
-                <button
-                class="btn-agregar"
-                onclick="agregarAlCarrito(
-                    this,
-                    '${p.id}',
-                    '${p.nombre}',
-                    '${p.precio}',
-                    '${imgFinal}'
-                )">
+                <div class="info-producto">
 
-                    🛒 Agregar
+                    <h3 class="titulo-producto">${p.nombre}</h3>
 
-                </button>
+                    <p class="precio-producto">$${Number(p.precio).toLocaleString()}</p>
 
+                    <select class="select-talla">
+                        <option value="">Seleccionar</option>
+                        ${tallas.map(t => `<option value="${t}">${t}</option>`).join("")}
+                    </select>
+
+                    <div class="colores">
+                        ${colores.map(c => `
+                            <span class="color ${c.toLowerCase()}"
+                                onclick="seleccionarColor('${c}', this)">
+                            </span>
+                        `).join("")}
+                    </div>
+
+                    <button class="btn-agregar"
+                        onclick="agregarAlCarrito(this,'${p.id}','${p.nombre}','${p.precio}','${imgFinal}')">
+                        🛒 Agregar
+                    </button>
+
+                </div>
             </div>
+            `;
 
-        </div>
-        `;
+            dots.innerHTML += `<span></span>`;
+        });
 
-       dots.innerHTML += `<span></span>`;
-    });
-
-    iniciarCarrusel();
-}
-   function iniciarCarrusel() {
-
-    clearInterval(intervalo);
-
-    const slides = document.querySelectorAll("#slider .card-producto");
-
-    if (!slides.length) {
-        console.log("No hay productos para carrusel");
-        return;
+        iniciarCarrusel();
     }
 
-    index = 0;
+    // =========================
+    // CARRUSEL
+    // =========================
+    function iniciarCarrusel() {
 
-    intervalo = setInterval(() => {
+        clearInterval(intervalo);
 
         const slides = document.querySelectorAll("#slider .card-producto");
 
         if (!slides.length) return;
 
-        index++;
+        index = 0;
 
-        if (index >= slides.length) {
-            index = 0;
-        }
+        intervalo = setInterval(() => {
 
-        const slideWidth = slides[0].offsetWidth + 20;
+            const slides = document.querySelectorAll("#slider .card-producto");
+            if (!slides.length) return;
 
-        slider.scrollTo({
-            left: index * slideWidth,
-            behavior: "smooth"
+            index++;
+
+            if (index >= slides.length) {
+                index = 0;
+            }
+
+            const width = slides[0].offsetWidth + 20;
+
+            slider.scrollTo({
+                left: index * width,
+                behavior: "smooth"
+            });
+
+            actualizarDots();
+
+        }, 2500);
+    }
+
+    function actualizarDots() {
+
+        const dotsEl = document.querySelectorAll("#dots span");
+
+        dotsEl.forEach((d, i) => {
+            d.classList.toggle("active", i === index);
         });
+    }
 
-        actualizarDots();
+    // =========================
+    // DETENER CARRUSEL
+    // =========================
+    slider?.addEventListener("mouseenter", () => clearInterval(intervalo));
+    slider?.addEventListener("mouseleave", iniciarCarrusel);
 
-    }, 2500);
-}
-function actualizarDots() {
-
-    const dotsEl = document.querySelectorAll("#dots span");
-
-    dotsEl.forEach((d, i) => {
-        d.classList.toggle("active", i === index);
-    });
-
-}
+});
 
 // =========================
-// COLOR
+// COLOR (CORREGIDO)
 // =========================
 function seleccionarColor(color, el) {
 
-    const card = el.closest(".card");
+    const card = el.closest(".card-producto");
     if (!card) return;
 
     card.dataset.color = color;
@@ -210,13 +182,12 @@ function seleccionarColor(color, el) {
     el.classList.add("activo");
 }
 
-
 // =========================
-// CARRITO (UN SOLO BLOQUE)
+// AGREGAR AL CARRITO (CORREGIDO)
 // =========================
 function agregarAlCarrito(btn, id, nombre, precio, imagen) {
 
-    const card = btn.closest(".card");
+    const card = btn.closest(".card-producto");
 
     const talla = card?.querySelector(".select-talla")?.value;
     const color = card?.dataset.color;
@@ -245,9 +216,8 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen) {
     actualizarCarrito();
 }
 
-
 // =========================
-// ACTUALIZAR CARRITO
+// CARRITO
 // =========================
 function actualizarCarrito() {
 
@@ -258,6 +228,7 @@ function actualizarCarrito() {
     if (!items) return;
 
     items.innerHTML = "";
+
     let totalFinal = 0;
 
     carrito.forEach((item, i) => {
@@ -288,7 +259,6 @@ function actualizarCarrito() {
     contador.innerText = carrito.reduce((a, b) => a + b.cantidad, 0);
 }
 
-
 // =========================
 // CONTROL CARRITO
 // =========================
@@ -302,10 +272,14 @@ function cambiarCantidad(i, c) {
 
 function eliminarProducto(i) {
     carrito.splice(i, 1);
+
     localStorage.setItem("carrito", JSON.stringify(carrito));
     actualizarCarrito();
 }
 
+// =========================
+// UI CARRITO
+// =========================
 function toggleCarrito() {
     document.getElementById("carrito")?.classList.toggle("active");
 }
@@ -314,6 +288,9 @@ function cerrarCarrito() {
     document.getElementById("carrito")?.classList.remove("active");
 }
 
+// =========================
+// UTILIDAD
+// =========================
 function mostrarNotificacion(texto) {
     const noti = document.getElementById("notificacion");
     if (!noti) return;
@@ -324,3 +301,16 @@ function mostrarNotificacion(texto) {
     setTimeout(() => noti.classList.remove("active"), 2500);
 }
 
+// =========================
+// PARSE ARRAY
+// =========================
+function parseArray(value) {
+    if (!value) return [];
+    if (Array.isArray(value)) return value;
+    return value.split(",").map(v => v.trim());
+}
+
+// =========================
+// INICIAR CARRITO
+// =========================
+actualizarCarrito();
