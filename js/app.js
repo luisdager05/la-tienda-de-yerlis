@@ -39,8 +39,61 @@ document.addEventListener("DOMContentLoaded", () => {
         productosGlobal = data;
 
         render(data);
-        mostrarSecciones(data);
-        activarBuscador();
+        actualizarCarrito();
+    }
+
+    function render(productos) {
+
+        slider.innerHTML = "";
+        dots.innerHTML = "";
+
+        productos.forEach((p, i) => {
+
+            const tallas = parseArray(p.talla);
+            const colores = parseArray(p.colores);
+
+            const imgFinal = p.imagen || "./img/error.png";
+
+            slider.innerHTML += `
+                <div class="card">
+
+                    <img src="${imgFinal}"
+                        onerror="this.src='./img/error.png'">
+
+                    <h3>${p.nombre}</h3>
+
+                    <p>$${Number(p.precio).toLocaleString()}</p>
+
+                    <select class="select-talla">
+                        <option value="">Seleccionar</option>
+                        ${tallas.map(t => `<option value="${t}">${t}</option>`).join("")}
+                    </select>
+
+                    <div class="colores">
+                        ${colores.map(c => `
+                            <span class="color ${c.toLowerCase()}"
+                                onclick="seleccionarColor('${c}', this)">
+                            </span>
+                        `).join("")}
+                    </div>
+
+                    <button onclick="agregarAlCarrito(
+                        this,
+                        '${p.id}',
+                        '${p.nombre}',
+                        '${p.precio}',
+                        '${imgFinal}'
+                    )">
+                        🛒 Agregar
+                    </button>
+
+                </div>
+            `;
+
+            dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
+        });
+
+        iniciarCarrusel();
     }
 
     function parseArray(valor) {
@@ -50,95 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             return JSON.parse(valor);
         } catch {
-            return String(valor)
-                .replace(/[{}"]/g, "")
-                .split(",")
-                .map(v => v.trim());
+            return String(valor).replace(/[{}"]/g, "").split(",").map(v => v.trim());
         }
     }
-
-    // =========================
-    // 🔥 AQUÍ ESTÁ LA CORRECCIÓN CLAVE
-    // =========================
-    function render(productos) {
-
-    slider.innerHTML = "";
-    dots.innerHTML = "";
-
-    productos.forEach((p, i) => {
-
-        const tallas = parseArray(p.talla);
-        const colores = parseArray(p.colores);
-
-        // =========================
-        // 🔥 IMAGEN SEGURA (SUPABASE + FALLBACK)
-        // =========================
-        
-        let imgFinal = "./img/error.png";
-
-if (p.imagen) {
-
-    // URL externa (Supabase o internet)
-    if (p.imagen.startsWith("http")) {
-        imgFinal = p.imagen;
-    }
-
-    // ruta local ya completa
-    else if (p.imagen.startsWith("./img/")) {
-        imgFinal = p.imagen;
-    }
-
-    // solo nombre de archivo
-    else {
-        imgFinal = `./img/${p.imagen}`;
-    }
-}
-        slider.innerHTML += `
-            <div class="card">
-
-                <img src="${imgFinal}"
-                    onerror="this.src='./img/error.png'"
-                    onclick="abrirModalProductoPorId(${p.id})">
-
-                <h3>${p.nombre}</h3>
-
-                <p>$${Number(p.precio).toLocaleString()}</p>
-
-                <select class="select-talla">
-                    <option value="">Seleccionar</option>
-                    ${tallas.map(t => `<option value="${t}">${t}</option>`).join("")}
-                </select>
-
-                <div class="colores">
-                    ${colores.map(c => `
-                        <span class="color ${c.toLowerCase()}"
-                            onclick="seleccionarColor('${c}', this)">
-                        </span>
-                    `).join("")}
-                </div>
-
-                <button onclick="abrirModalProductoPorId(${p.id})">
-                    👁 Ver
-                </button>
-
-                <button onclick="agregarAlCarrito(
-                    this,
-                    '${p.id}',
-                    '${p.nombre}',
-                    '${p.precio}',
-                    '${imgFinal}'
-                )">
-                    🛒 Agregar
-                </button>
-
-            </div>
-        `;
-
-        dots.innerHTML += `<span class="${i === 0 ? "active" : ""}"></span>`;
-    });
-
-    iniciarCarrusel();
-}
 
     function iniciarCarrusel() {
 
@@ -161,47 +128,19 @@ if (p.imagen) {
 
         }, 2000);
     }
-});
 
     slider?.addEventListener("mouseenter", () => clearInterval(intervalo));
     slider?.addEventListener("mouseleave", iniciarCarrusel);
 
-    // =========================
-    // BUSCADOR
-    // =========================
-    function activarBuscador() {
-
-        const buscador = document.getElementById("buscador");
-        if (!buscador) return;
-
-        buscador.addEventListener("input", () => {
-
-            const texto = buscador.value.toLowerCase();
-
-            if (!texto) {
-                mostrarSecciones(productosGlobal);
-                render(productosGlobal);
-                return;
-            }
-
-            const filtrados = productosGlobal.filter(p =>
-                p.nombre?.toLowerCase().includes(texto) ||
-                p.categoria?.toLowerCase().includes(texto)
-            );
-
-            mostrarSecciones(filtrados);
-            render(filtrados);
-        });
-    }
-
 });
+
 
 // =========================
 // COLOR
 // =========================
 function seleccionarColor(color, el) {
 
-    const card = el.closest(".card") || el.closest(".producto");
+    const card = el.closest(".card");
     if (!card) return;
 
     card.dataset.color = color;
@@ -213,18 +152,19 @@ function seleccionarColor(color, el) {
     el.classList.add("activo");
 }
 
+
 // =========================
-// CARRITO
+// CARRITO (UN SOLO BLOQUE)
 // =========================
 function agregarAlCarrito(btn, id, nombre, precio, imagen) {
 
-    const card = btn.closest(".card") || btn.closest(".producto");
+    const card = btn.closest(".card");
 
     const talla = card?.querySelector(".select-talla")?.value;
     const color = card?.dataset.color;
 
-    if (!talla) return mostrarNotificacion("⚠️ Selecciona talla");
-    if (!color) return mostrarNotificacion("⚠️ Selecciona color");
+    if (!talla) return alert("Selecciona talla");
+    if (!color) return alert("Selecciona color");
 
     const producto = {
         id,
@@ -243,16 +183,14 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen) {
     if (existe) existe.cantidad++;
     else carrito.push(producto);
 
-    guardarCarrito();
-    actualizarCarrito();
-
-    mostrarNotificacion("✅ Agregado al carrito");
-}
-
-function guardarCarrito() {
     localStorage.setItem("carrito", JSON.stringify(carrito));
+    actualizarCarrito();
 }
 
+
+// =========================
+// ACTUALIZAR CARRITO
+// =========================
 function actualizarCarrito() {
 
     const items = document.getElementById("itemsCarrito");
@@ -292,23 +230,24 @@ function actualizarCarrito() {
     contador.innerText = carrito.reduce((a, b) => a + b.cantidad, 0);
 }
 
+
+// =========================
+// CONTROL CARRITO
+// =========================
 function cambiarCantidad(i, c) {
     carrito[i].cantidad += c;
     if (carrito[i].cantidad <= 0) carrito.splice(i, 1);
 
-    guardarCarrito();
+    localStorage.setItem("carrito", JSON.stringify(carrito));
     actualizarCarrito();
 }
 
 function eliminarProducto(i) {
     carrito.splice(i, 1);
-    guardarCarrito();
+    localStorage.setItem("carrito", JSON.stringify(carrito));
     actualizarCarrito();
 }
 
-// =========================
-// UI CARRITO
-// =========================
 function toggleCarrito() {
     document.getElementById("carrito")?.classList.toggle("active");
 }
@@ -317,19 +256,13 @@ function cerrarCarrito() {
     document.getElementById("carrito")?.classList.remove("active");
 }
 
-// =========================
-// NOTIFICACION
-// =========================
 function mostrarNotificacion(texto) {
-
     const noti = document.getElementById("notificacion");
     if (!noti) return;
 
     noti.innerText = texto;
     noti.classList.add("active");
 
-    setTimeout(() => {
-        noti.classList.remove("active");
-    }, 2500);
+    setTimeout(() => noti.classList.remove("active"), 2500);
 }
 
