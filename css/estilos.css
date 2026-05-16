@@ -1899,3 +1899,26 @@ document.addEventListener("click", (e)=>{
 .amarillo{
     background:yellow;
 }
+/* =========================
+   SLIDER
+========================= */
+
+#slider{
+
+    display:flex;
+
+    gap:20px;
+
+    overflow-x:auto;
+
+    scroll-behavior:smooth;
+
+    padding:20px;
+
+}
+
+#slider::-webkit-scrollbar{
+
+    display:none;
+
+}
