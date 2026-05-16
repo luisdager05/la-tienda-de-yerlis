@@ -149,33 +149,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
     iniciarCarrusel();
 }
-    function iniciarCarrusel() {
+   function iniciarCarrusel() {
 
-        clearInterval(intervalo);
+    clearInterval(intervalo);
 
-        intervalo = setInterval(() => {
+    const slides = document.querySelectorAll(".card-producto");
+    if (!slides.length) return;
 
-            const cards = document.querySelectorAll(".card");
-            if (!cards.length) return;
+    index = 0;
 
-            index++;
-            if (index >= cards.length) index = 0;
+    intervalo = setInterval(() => {
 
-            const width = cards[0].offsetWidth + 20;
+        index++;
 
-            slider.scrollTo({
-                left: index * width,
-                behavior: "smooth"
-            });
+        if (index >= slides.length) {
+            index = 0;
+        }
 
-        }, 2000);
-    }
+        const slide = slides[0];
+        const slideWidth = slide.offsetWidth + 20;
 
-    slider?.addEventListener("mouseenter", () => clearInterval(intervalo));
-    slider?.addEventListener("mouseleave", iniciarCarrusel);
+        slider.scrollTo({
+            left: index * slideWidth,
+            behavior: "smooth"
+        });
 
-});
+        actualizarDots();
 
+    }, 2500);
+}
+function actualizarDots() {
+
+    const dotsEl = document.querySelectorAll("#dots span");
+
+    dotsEl.forEach((d, i) => {
+        d.classList.toggle("active", i === index);
+    });
+
+}
 
 // =========================
 // COLOR
