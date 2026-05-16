@@ -52,8 +52,15 @@ document.addEventListener("DOMContentLoaded", () => {
             const tallas = parseArray(p.talla);
             const colores = parseArray(p.colores);
 
-            const imgFinal = p.imagen || "./img/error.png";
+            let imgFinal = "./img/error.png";
 
+if (p.imagen) {
+    if (p.imagen.startsWith("http")) {
+        imgFinal = p.imagen;
+    } else {
+        imgFinal = `https://sgkhlrimsanjeoxjtvnx.supabase.co/storage/v1/object/public/${p.imagen}`;
+    }
+}
             slider.innerHTML += `
                 <div class="card">
 
