@@ -4,6 +4,7 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 let productosGlobal = [];
 
 document.addEventListener("DOMContentLoaded", () => {
+
     const slider = document.getElementById("slider");
     const dots = document.getElementById("dots");
 
@@ -37,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (error || !data) {
             slider.innerHTML = "<h2>Error cargando productos</h2>";
+            console.error(error);
             return;
         }
 
@@ -49,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================
-    // NORMALIZAR ARRAYS SUPABASE
+    // NORMALIZAR ARRAYS
     // =========================
     function parseArray(valor) {
         if (!valor) return [];
@@ -58,8 +60,32 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             return JSON.parse(valor);
         } catch {
-            return String(valor).replace(/[{}"]/g, "").split(",").map(v => v.trim());
+            return String(valor)
+                .replace(/[{}"]/g, "")
+                .split(",")
+                .map(v => v.trim());
         }
+    }
+
+    // =========================
+    // OBTENER URL IMAGEN SUPABASE
+    // =========================
+    function getImageUrl(nombreImagen) {
+
+        if (!nombreImagen) return "./img/error.png";
+
+        // Si ya es URL completa
+        if (nombreImagen.startsWith("http")) {
+            return nombreImagen;
+        }
+
+        // Supabase Storage
+        const { data } = window.supabaseClient
+            .storage
+            .from("imagenes") // 🔥 CAMBIA ESTO si tu bucket tiene otro nombre
+            .getPublicUrl(nombreImagen);
+
+        return data?.publicUrl || "./img/error.png";
     }
 
     // =========================
@@ -72,26 +98,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
         productos.forEach((p, i) => {
 
+            console.log("PRODUCTO:", p); // 🔥 DEBUG IMPORTANTE
+
             const tallas = parseArray(p.talla);
             const colores = parseArray(p.colores);
+
+            const imgFinal = getImageUrl(p.imagen);
 
             slider.innerHTML += `
                 <div class="card">
 
-                    <img src="${p.imagen || './img/error.png'}"
+                    <img src="${imgFinal}"
+                        onerror="this.src='./img/error.png'"
                         onclick="abrirModalProductoPorId(${p.id})">
 
                     <h3>${p.nombre}</h3>
 
                     <p>$${Number(p.precio).toLocaleString()}</p>
 
-                    <!-- TALLA -->
                     <select class="select-talla">
                         <option value="">Seleccionar</option>
                         ${tallas.map(t => `<option value="${t}">${t}</option>`).join("")}
                     </select>
 
-                    <!-- COLORES -->
                     <div class="colores">
                         ${colores.map(c => `
                             <span class="color ${c.toLowerCase()}"
@@ -104,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         👁 Ver
                     </button>
 
-                    <button onclick="agregarAlCarrito(this, '${p.id}', '${p.nombre}', '${p.precio}', '${p.imagen}')">
+                    <button onclick="agregarAlCarrito(this, '${p.id}', '${p.nombre}', '${p.precio}', '${imgFinal}')">
                         🛒 Agregar
                     </button>
 
@@ -176,12 +205,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // =========================
-// SELECCIONAR COLOR
+// COLOR
 // =========================
 function seleccionarColor(color, el) {
 
     const card = el.closest(".card") || el.closest(".producto");
-
     if (!card) return;
 
     card.dataset.color = color;
@@ -194,7 +222,7 @@ function seleccionarColor(color, el) {
 }
 
 // =========================
-// AGREGAR AL CARRITO
+// CARRITO
 // =========================
 function agregarAlCarrito(btn, id, nombre, precio, imagen) {
 
@@ -229,9 +257,6 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen) {
     mostrarNotificacion("✅ Agregado al carrito");
 }
 
-// =========================
-// CARRITO
-// =========================
 function guardarCarrito() {
     localStorage.setItem("carrito", JSON.stringify(carrito));
 }
@@ -290,7 +315,7 @@ function eliminarProducto(i) {
 }
 
 // =========================
-// CARRITO UI
+// UI CARRITO
 // =========================
 function toggleCarrito() {
     document.getElementById("carrito")?.classList.toggle("active");
