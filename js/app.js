@@ -11,9 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let index = 0;
     let intervalo;
 
-    // =========================
-    // ESPERAR SUPABASE
-    // =========================
     const waitSupabase = () => {
         return new Promise(resolve => {
             const check = setInterval(() => {
@@ -27,9 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     waitSupabase().then(cargarProductos);
 
-    // =========================
-    // CARGAR PRODUCTOS
-    // =========================
     async function cargarProductos() {
 
         const { data, error } = await window.supabaseClient
@@ -43,16 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         productosGlobal = data;
-        window.productosGlobalData = data;
 
         render(data);
         mostrarSecciones(data);
         activarBuscador();
     }
 
-    // =========================
-    // NORMALIZAR ARRAYS
-    // =========================
     function parseArray(valor) {
         if (!valor) return [];
         if (Array.isArray(valor)) return valor;
@@ -68,28 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================
-    // OBTENER URL IMAGEN SUPABASE
-    // =========================
-    function getImageUrl(nombreImagen) {
-
-        if (!nombreImagen) return "./img/error.png";
-
-        // Si ya es URL completa
-        if (nombreImagen.startsWith("http")) {
-            return nombreImagen;
-        }
-
-        // Supabase Storage
-        const { data } = window.supabaseClient
-            .storage
-            .from("imagenes") // 🔥 CAMBIA ESTO si tu bucket tiene otro nombre
-            .getPublicUrl(nombreImagen);
-
-        return data?.publicUrl || "./img/error.png";
-    }
-
-    // =========================
-    // RENDER SLIDER
+    // 🔥 AQUÍ ESTÁ LA CORRECCIÓN CLAVE
     // =========================
     function render(productos) {
 
@@ -98,12 +67,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         productos.forEach((p, i) => {
 
-            console.log("PRODUCTO:", p); // 🔥 DEBUG IMPORTANTE
-
             const tallas = parseArray(p.talla);
             const colores = parseArray(p.colores);
 
-            const imgFinal = getImageUrl(p.imagen);
+            // ✅ TU BD YA TRAE URL COMPLETA
+            const imgFinal = p.imagen || "./img/error.png";
 
             slider.innerHTML += `
                 <div class="card">
@@ -146,9 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
         iniciarCarrusel();
     }
 
-    // =========================
-    // CARRUSEL
-    // =========================
     function iniciarCarrusel() {
 
         clearInterval(intervalo);
@@ -170,6 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }, 2000);
     }
+});
 
     slider?.addEventListener("mouseenter", () => clearInterval(intervalo));
     slider?.addEventListener("mouseleave", iniciarCarrusel);
