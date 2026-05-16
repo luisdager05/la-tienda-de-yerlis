@@ -73,16 +73,26 @@ document.addEventListener("DOMContentLoaded", () => {
         // =========================
         // 🔥 IMAGEN SEGURA (SUPABASE + FALLBACK)
         // =========================
+        
         let imgFinal = "./img/error.png";
 
-        if (p.imagen) {
-            if (p.imagen.startsWith("http")) {
-                imgFinal = p.imagen; // URL Supabase
-            } else {
-                imgFinal = `./img/${p.imagen}`; // imagen local
-            }
-        }
+if (p.imagen) {
 
+    // URL externa (Supabase o internet)
+    if (p.imagen.startsWith("http")) {
+        imgFinal = p.imagen;
+    }
+
+    // ruta local ya completa
+    else if (p.imagen.startsWith("./img/")) {
+        imgFinal = p.imagen;
+    }
+
+    // solo nombre de archivo
+    else {
+        imgFinal = `./img/${p.imagen}`;
+    }
+}
         slider.innerHTML += `
             <div class="card">
 
