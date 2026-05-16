@@ -1922,3 +1922,13 @@ document.addEventListener("click", (e)=>{
     display:none;
 
 }
+
+   #slider{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+}
+
+.card-producto{
+    scroll-snap-align:center;
+}
