@@ -141,10 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         `;
 
-        dots.innerHTML += `
-            <span class="${i === 0 ? "active" : ""}">
-            </span>
-        `;
+       dots.innerHTML += `<span></span>`;
     });
 
     iniciarCarrusel();
