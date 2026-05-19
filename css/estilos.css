@@ -233,48 +233,33 @@ body{
 /* =========================
    CARRUSEL
 ========================= */
-.slider-container{
-    width:100%;
-    overflow:hidden;
-    position:relative;
-}
-
-#slider{
-    display:flex;
-    gap:20px;
-    overflow-x:auto;
-    scroll-behavior:smooth;
-    scrollbar-width:none;
-    padding:20px;
-}
-
-#slider::-webkit-scrollbar{
-    display:none;
-}
-
-.card-producto{
-    min-width:300px;
-    flex-shrink:0;
-}
+/* =========================
+   CARRUSEL
+========================= */
 
 .contenedor-slider{
     width:95%;
     margin:auto;
     position:relative;
+    overflow:hidden;
 }
 
 .slider-container{
-    overflow:hidden;
     width:100%;
+    overflow:hidden;
+    position:relative;
 }
+
+/* SLIDER */
 
 #slider{
     display:flex;
     gap:20px;
 
     overflow-x:auto;
-
     scroll-behavior:smooth;
+
+    scrollbar-width:none;
 
     padding:20px 10px 40px;
 
@@ -286,71 +271,217 @@ body{
 }
 
 /* =========================
-   CARD SLIDER
+   CARD PRODUCTO
 ========================= */
 
-.card{
+.card-producto{
     min-width:230px;
     max-width:230px;
 
     background:white;
 
-    border-radius:20px;
+    border-radius:22px;
 
     overflow:hidden;
 
     flex-shrink:0;
 
-    transition:0.3s;
-
-    border:1px solid #ffd1df;
-
     scroll-snap-align:center;
 
-    box-shadow:0 5px 15px rgba(255,182,193,0.15);
+    border:1px solid rgba(255,192,203,0.4);
+
+    transition:0.4s;
+
+    box-shadow:
+    0 8px 25px rgba(255,182,193,0.18);
+
+    position:relative;
 }
 
-.card:hover{
+.card-producto::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:5px;
+
+    background:linear-gradient(
+        to right,
+        #ff4081,
+        #ff80ab
+    );
+}
+
+.card-producto:hover{
     transform:translateY(-10px);
 
-    box-shadow:0 10px 25px rgba(255,64,129,0.25);
-}
-
-.card img{
-    width:100%;
-    height:300px;
-
-    object-fit:cover;
+    box-shadow:
+    0 12px 30px rgba(255,64,129,0.28);
 }
 
 /* =========================
-   INFO CARD
+   IMAGEN
 ========================= */
 
-.info{
+.img-box{
+    width:100%;
+    height:300px;
+    overflow:hidden;
+}
+
+.card-producto img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:0.5s;
+}
+
+.card-producto:hover img{
+    transform:scale(1.06);
+}
+
+/* =========================
+   INFO
+========================= */
+
+.info-producto{
     padding:15px;
 }
 
-.info h3{
+.titulo-producto{
     font-size:18px;
-
     margin-bottom:10px;
-
     color:#333;
 }
 
-.precio{
-    font-size:22px;
-    font-weight:bold;
+.precio-producto{
+    font-size:24px;
+    font-weight:800;
 
     color:#ff4081;
 
-    margin-bottom:8px;
+    margin-bottom:12px;
 }
 
-.cantidad{
-    color:#777;
+/* =========================
+   SELECT TALLA
+========================= */
+
+.select-talla{
+    width:100%;
+
+    padding:10px;
+
+    border-radius:12px;
+
+    border:1px solid #ffd1df;
+
+    background:#fff5f8;
+
+    margin-bottom:12px;
+
+    outline:none;
+}
+
+/* =========================
+   COLORES
+========================= */
+
+.colores{
+    display:flex;
+    gap:8px;
+
     margin-bottom:15px;
+}
+
+.color{
+    width:20px;
+    height:20px;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    border:2px solid white;
+
+    box-shadow:0 0 5px rgba(0,0,0,0.2);
+
+    transition:0.3s;
+}
+
+.color.activo{
+    border:3px solid #ff4081;
+
+    transform:scale(1.2);
+}
+
+/* COLORES */
+
+.negro{ background:black; }
+
+.blanco{
+    background:white;
+    border:1px solid #ccc;
+}
+
+.rosado{ background:pink; }
+
+.azul{ background:blue; }
+
+.rojo{ background:red; }
+
+.verde{ background:green; }
+
+.beige{ background:beige; }
+
+.amarillo{ background:gold; }
+
+/* =========================
+   BOTON
+========================= */
+
+.btn-agregar{
+    width:100%;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+        45deg,
+        #ff4081,
+        #ff80ab
+    );
+
+    color:white;
+
+    font-size:15px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.35s;
+
+    box-shadow:
+    0 5px 15px rgba(255,64,129,0.25);
+}
+
+.btn-agregar:hover{
+    transform:translateY(-4px);
+
+    background:linear-gradient(
+        45deg,
+        #ff2f75,
+        #ff5f9d
+    );
 }
 
 /* =========================
@@ -382,15 +513,16 @@ body{
 
     transition:0.3s;
 
-    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    box-shadow:
+    0 4px 15px rgba(0,0,0,0.1);
 }
 
 #prev{
-    left:-10px;
+    left:5px;
 }
 
 #next{
-    right:-10px;
+    right:5px;
 }
 
 #prev:hover,
@@ -419,10 +551,42 @@ body{
     border-radius:50%;
 
     margin:5px;
+
+    transition:0.3s;
 }
 
 .dots .active{
     background:#ff4081;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .card-producto{
+        min-width:180px;
+        max-width:180px;
+    }
+
+    .img-box{
+        height:240px;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .card-producto{
+        min-width:160px;
+        max-width:160px;
+    }
+
+    .img-box{
+        height:210px;
+    }
+
 }
 
 /* =========================
