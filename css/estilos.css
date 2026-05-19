@@ -45,6 +45,160 @@ body{
 
     box-shadow:0 4px 15px rgba(255,105,180,0.12);
 }
+/* HEADER */
+
+.carrito-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 20px;
+
+    border-bottom: 1px solid #eee;
+
+    background: #000;
+
+    color: #fff;
+
+}
+/* BOTON CERRAR */
+
+.cerrar-carrito {
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+}
+
+/* ITEMS */
+
+#itemsCarrito {
+
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 15px;
+
+}
+
+/* ITEM */
+
+.item-carrito {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+
+    border-bottom: 1px solid #eee;
+
+    padding-bottom: 10px;
+
+}
+
+/* IMAGEN */
+
+.item-carrito img {
+
+    width: 80px;
+
+    height: 80px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+}
+
+/* INFO */
+
+.item-info {
+
+    flex: 1;
+
+}
+
+/* FOOTER */
+
+.carrito-footer {
+
+    padding: 20px;
+
+    border-top: 1px solid #eee;
+
+    background: #fff;
+
+}
+
+/* BOTON PAGAR */
+
+.btn-pagar {
+
+    width: 100%;
+
+    background: #000;
+
+    color: white;
+
+    border: none;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+}
+
+/* BOTON CARRITO MENU */
+
+.btn-carrito-menu {
+
+    position: relative;
+
+    font-size: 22px;
+
+    color: #000;
+
+}
+
+/* CONTADOR */
+
+.contador-carrito {
+
+    position: absolute;
+
+    top: -8px;
+
+    right: -10px;
+
+    background: red;
+
+    color: white;
+
+    border-radius: 50%;
+
+    width: 20px;
+
+    height: 20px;
+
+    font-size: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
 
 /* =========================================
    LOGO
