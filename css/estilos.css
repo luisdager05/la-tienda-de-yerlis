@@ -1229,3 +1229,282 @@ body{
     z-index: 999999999;
 
 }
+
+/* =========================================
+   RESPONSIVE TABLET
+========================================= */
+
+@media screen and (max-width: 992px){
+
+    .header-principal{
+        flex-wrap:wrap;
+        gap:15px;
+        padding:15px;
+    }
+
+    .logo{
+        width:100%;
+        justify-content:center;
+    }
+
+    .buscador-container{
+        width:100%;
+        order:3;
+        padding:0;
+    }
+
+    #buscador{
+        width:100%;
+    }
+
+    .menu{
+        width:100%;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:12px;
+    }
+
+    .hero-text h1{
+        font-size:32px;
+    }
+
+    .hero-text p{
+        font-size:15px;
+    }
+
+    .contenedor-slider{
+        width:100%;
+    }
+
+    .card-producto{
+        min-width:200px;
+        max-width:200px;
+    }
+
+    .img-box{
+        height:260px;
+    }
+
+}
+
+/* =========================================
+   RESPONSIVE MOVIL
+========================================= */
+
+@media screen and (max-width: 768px){
+
+    body{
+        overflow-x:hidden;
+    }
+
+    .header-principal{
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:15px;
+        padding:15px;
+    }
+
+    .logo img{
+        width:90px;
+    }
+
+    .buscador-container{
+        width:100%;
+    }
+
+    #buscador{
+        width:100%;
+        font-size:14px;
+    }
+
+    .menu{
+        width:100%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-wrap:wrap;
+        gap:10px;
+    }
+
+    .menu a{
+        font-size:13px;
+    }
+
+    .btn-carrito-menu{
+        width:48px;
+        height:48px;
+        font-size:20px;
+    }
+
+    .hero{
+        padding:40px 15px;
+    }
+
+    .hero-text h1{
+        font-size:26px;
+    }
+
+    .hero-text p{
+        font-size:14px;
+    }
+
+    .contenedor-slider{
+        width:100%;
+        padding:0 5px;
+    }
+
+    #slider{
+        gap:15px;
+        padding:15px 10px 30px;
+    }
+
+    .card-producto{
+        min-width:170px;
+        max-width:170px;
+    }
+
+    .img-box{
+        height:220px;
+    }
+
+    .titulo-producto{
+        font-size:15px;
+    }
+
+    .precio-producto{
+        font-size:20px;
+    }
+
+    .btn-agregar{
+        font-size:14px;
+        padding:12px;
+    }
+
+    #prev,
+    #next{
+        width:38px;
+        height:38px;
+        font-size:16px;
+    }
+
+    .carrito{
+        width:100%;
+        right:-100%;
+    }
+
+    .carrito.active{
+        right:0;
+    }
+
+    .item-carrito{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .item-carrito img{
+        width:100%;
+        height:200px;
+    }
+
+    .carrito-footer{
+        padding:15px;
+    }
+
+    .checkout-form input,
+    .checkout-form textarea{
+        width:100%;
+    }
+
+    .footer-info{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .footer-info a{
+        width:100%;
+        justify-content:center;
+    }
+
+}
+
+/* =========================================
+   RESPONSIVE CELULARES PEQUEÑOS
+========================================= */
+
+@media screen and (max-width: 480px){
+
+    .header-principal{
+        padding:12px;
+    }
+
+    .logo img{
+        width:75px;
+    }
+
+    .hero-text h1{
+        font-size:22px;
+    }
+
+    .hero-text p{
+        font-size:13px;
+    }
+
+    .menu{
+        gap:8px;
+    }
+
+    .menu a{
+        font-size:11px;
+    }
+
+    .card-producto{
+        min-width:150px;
+        max-width:150px;
+    }
+
+    .img-box{
+        height:190px;
+    }
+
+    .info-producto{
+        padding:10px;
+    }
+
+    .titulo-producto{
+        font-size:14px;
+    }
+
+    .precio-producto{
+        font-size:18px;
+    }
+
+    .select-talla{
+        font-size:12px;
+    }
+
+    .btn-agregar{
+        font-size:13px;
+        padding:10px;
+    }
+
+    .btn-carrito-menu{
+        width:44px;
+        height:44px;
+    }
+
+    .contador-carrito{
+        width:18px;
+        height:18px;
+        font-size:10px;
+    }
+
+    .carrito-header h2{
+        font-size:20px;
+    }
+
+    .btn-pagar{
+        font-size:15px;
+    }
+
+}
