@@ -233,6 +233,29 @@ body{
 /* =========================
    CARRUSEL
 ========================= */
+.slider-container{
+    width:100%;
+    overflow:hidden;
+    position:relative;
+}
+
+#slider{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    scroll-behavior:smooth;
+    scrollbar-width:none;
+    padding:20px;
+}
+
+#slider::-webkit-scrollbar{
+    display:none;
+}
+
+.card-producto{
+    min-width:300px;
+    flex-shrink:0;
+}
 
 .contenedor-slider{
     width:95%;
