@@ -148,14 +148,82 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 2500);
     }
 
-    function actualizarDots() {
+   // =========================
+// ACTUALIZAR CARRITO
+// =========================
+function actualizarCarrito() {
 
-        const dotsEl = document.querySelectorAll("#dots span");
+    const items = document.getElementById("itemsCarrito");
+    const total = document.getElementById("totalCarrito");
+    const contador = document.getElementById("contadorCarrito");
 
-        dotsEl.forEach((d, i) => {
-            d.classList.toggle("active", i === index);
-        });
-    }
+    if (!items) return;
+
+    items.innerHTML = "";
+
+    let totalFinal = 0;
+
+    carrito.forEach((producto, i) => {
+
+        totalFinal += producto.precio * producto.cantidad;
+
+        items.innerHTML += `
+
+        <div class="item-carrito">
+
+            <img src="${producto.imagen}" 
+                 alt="${producto.nombre}">
+
+            <div class="item-info">
+
+                <h4>${producto.nombre}</h4>
+
+                <p class="precio-carrito">
+                    $${producto.precio.toLocaleString()}
+                </p>
+
+                <p class="detalle-carrito">
+                    ${producto.talla} | ${producto.color}
+                </p>
+
+                <div class="cantidad-box">
+
+                    <button onclick="cambiarCantidad(${i}, -1)">
+                        -
+                    </button>
+
+                    <span>${producto.cantidad}</span>
+
+                    <button onclick="cambiarCantidad(${i}, 1)">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+            <button class="btn-eliminar"
+                onclick="eliminarProducto(${i})">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        `;
+    });
+
+    total.innerText = totalFinal.toLocaleString();
+
+    contador.innerText =
+        carrito.reduce((a, b) => a + b.cantidad, 0);
+
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+}
 
     // =========================
     // DETENER CARRUSEL
