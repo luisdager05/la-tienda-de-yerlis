@@ -231,6 +231,13 @@ body{
    BUSCADOR
 ========================================= */
 
+/* PENDIENTE 1.buscador-container{
+    position:absolute;
+
+    left:50%;
+
+    transform:translateX(-50%);
+} */
 .buscador-container{
     position:absolute;
 
@@ -238,7 +245,6 @@ body{
 
     transform:translateX(-50%);
 }
-
 #buscador{
     width:260px;
 
@@ -1164,11 +1170,11 @@ body{
         height:240px;
     }
 
-    .carrito{
-        width:100%;
+   .carrito{
+    width:320px;
 
-        right:-100%;
-    }
+    right:-320px;
+}
 
     .footer-info{
         flex-direction:column;
@@ -1504,6 +1510,47 @@ body{
 
     .btn-pagar{
         font-size:15px;
+    }
+
+}
+
+@media screen and (max-width:480px){
+
+    .header-principal{
+        display:flex;
+        flex-direction:row;
+        align-items:center;
+        justify-content:space-between;
+        flex-wrap:wrap;
+    }
+
+    .logo{
+        width:auto;
+    }
+
+    .logo img{
+        width:70px;
+    }
+
+    .menu{
+        width:auto;
+        margin-left:auto;
+    }
+
+    .buscador-container{
+        width:100%;
+        order:3;
+        margin-top:10px;
+        padding:0;
+    }
+
+    .carrito{
+        width:300px;
+        right:-300px;
+    }
+
+    .carrito.active{
+        right:0;
     }
 
 }
