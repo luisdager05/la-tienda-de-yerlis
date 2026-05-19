@@ -168,18 +168,16 @@ function actualizarCarrito() {
         totalFinal += producto.precio * producto.cantidad;
 
         items.innerHTML += `
-
         <div class="item-carrito">
 
-            <img src="${producto.imagen}" 
-                 alt="${producto.nombre}">
+            <img src="${producto.imagen}" alt="${producto.nombre}">
 
             <div class="item-info">
 
                 <h4>${producto.nombre}</h4>
 
                 <p class="precio-carrito">
-                    $${producto.precio.toLocaleString()}
+                    $${Number(producto.precio).toLocaleString()}
                 </p>
 
                 <p class="detalle-carrito">
@@ -188,13 +186,15 @@ function actualizarCarrito() {
 
                 <div class="cantidad-box">
 
-                    <button onclick="cambiarCantidad(${i}, -1)">
+                    <button type="button"
+                        onclick="cambiarCantidad(${i}, -1)">
                         -
                     </button>
 
                     <span>${producto.cantidad}</span>
 
-                    <button onclick="cambiarCantidad(${i}, 1)">
+                    <button type="button"
+                        onclick="cambiarCantidad(${i}, 1)">
                         +
                     </button>
 
@@ -202,7 +202,8 @@ function actualizarCarrito() {
 
             </div>
 
-            <button class="btn-eliminar"
+            <button type="button"
+                class="btn-eliminar"
                 onclick="eliminarProducto(${i})">
 
                 ✕
@@ -210,14 +211,23 @@ function actualizarCarrito() {
             </button>
 
         </div>
-
         `;
     });
 
-    total.innerText = totalFinal.toLocaleString();
+    total.innerText =
+        Number(totalFinal).toLocaleString();
 
     contador.innerText =
-        carrito.reduce((a, b) => a + b.cantidad, 0);
+        carrito.reduce(
+            (total, item) => total + item.cantidad,
+            0
+        );
+
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+}
 
     localStorage.setItem(
         "carrito",
@@ -347,17 +357,32 @@ function actualizarCarrito() {
 // CONTROL CARRITO
 // =========================
 function cambiarCantidad(i, c) {
-    carrito[i].cantidad += c;
-    if (carrito[i].cantidad <= 0) carrito.splice(i, 1);
 
-    localStorage.setItem("carrito", JSON.stringify(carrito));
+    if (!carrito[i]) return;
+
+    carrito[i].cantidad += c;
+
+    if (carrito[i].cantidad <= 0) {
+        carrito.splice(i, 1);
+    }
+
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+
     actualizarCarrito();
 }
 
 function eliminarProducto(i) {
+
     carrito.splice(i, 1);
 
-    localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+
     actualizarCarrito();
 }
 
