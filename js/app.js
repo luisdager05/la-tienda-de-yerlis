@@ -108,7 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const colores = parseArray(p.colores);
 
-            ```javascript
+
+
+```javascript id="mkld71"
 let imgFinal = "./img/error.png";
 
 if (p.imagen) {
@@ -125,7 +127,6 @@ if (p.imagen) {
     }
 
 }
-```
 
 
             slider.innerHTML += `
