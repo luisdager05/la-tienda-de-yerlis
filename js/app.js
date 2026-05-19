@@ -226,34 +226,76 @@ function actualizarCarrito() {
     const contador = document.getElementById("contadorCarrito");
 
     if (!items) return;
+    itemsCarrito.innerHTML += `
+<div class="item-carrito">
 
-    items.innerHTML = "";
+    <img src="${producto.imagen}" alt="${producto.nombre}">
 
-    let totalFinal = 0;
+    <div class="item-info">
 
-    carrito.forEach((item, i) => {
+        <h4>${producto.nombre}</h4>
 
-        totalFinal += item.precio * item.cantidad;
+        <p class="precio-carrito">
+            $${producto.precio.toLocaleString()}
+        </p>
 
-        items.innerHTML += `
-        <div class="item-carrito">
+        <p class="detalle-carrito">
+            ${producto.talla} | ${producto.color}
+        </p>
 
-            <img src="${item.imagen}">
+        <div class="cantidad-box">
 
-            <div>
-                <h4>${item.nombre}</h4>
-                <p>$${Number(item.precio).toLocaleString()}</p>
-                <p>${item.talla} | ${item.color}</p>
+            <button onclick="cambiarCantidad(${i}, -1)">
+                -
+            </button>
 
-                <button onclick="cambiarCantidad(${i}, -1)">-</button>
-                ${item.cantidad}
-                <button onclick="cambiarCantidad(${i}, 1)">+</button>
-            </div>
+            <span>${producto.cantidad}</span>
 
-            <button onclick="eliminarProducto(${i})">✖</button>
+            <button onclick="cambiarCantidad(${i}, 1)">
+                +
+            </button>
 
-        </div>`;
-    });
+        </div>
+
+    </div>
+
+    <button class="btn-eliminar"
+        onclick="eliminarProducto(${i})">
+
+        ✕
+
+    </button>
+
+</div>
+`;
+
+    // items.innerHTML = "";
+
+    // let totalFinal = 0;
+
+    // carrito.forEach((item, i) => {
+
+    //     totalFinal += item.precio * item.cantidad;
+
+    //     items.innerHTML += `
+    //     <div class="item-carrito">
+
+    //         <img src="${item.imagen}">
+
+    //         <div>
+    //             <h4>${item.nombre}</h4>
+    //             <p>$${Number(item.precio).toLocaleString()}</p>
+    //             <p>${item.talla} | ${item.color}</p>
+
+    //             <button onclick="cambiarCantidad(${i}, -1)">-</button>
+    //             ${item.cantidad}
+    //             <button onclick="cambiarCantidad(${i}, 1)">+</button>
+    //         </div>
+
+    //         <button onclick="eliminarProducto(${i})">✖</button>
+
+    //     </div>`;
+    // });
 
     total.innerText = totalFinal.toLocaleString();
     contador.innerText = carrito.reduce((a, b) => a + b.cantidad, 0);
