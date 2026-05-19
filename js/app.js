@@ -104,9 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         productos.forEach((p, i) => {
 
-            const tallas = parseArray(p.talla);
+            
 
-            const colores = parseArray(p.colores);
+           
 
 
 const tallas = parseArray(p.talla);
