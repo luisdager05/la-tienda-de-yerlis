@@ -109,7 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const colores = parseArray(p.colores);
 
 
+const tallas = parseArray(p.talla);
 
+const colores = parseArray(p.colores);
 
 let imgFinal = "./img/error.png";
 
@@ -127,6 +129,95 @@ if (p.imagen) {
     }
 
 }
+
+slider.innerHTML += `
+
+<div class="card-producto">
+
+    <div class="img-box">
+
+        <img
+            src="${imgFinal}"
+            class="img-producto"
+            alt="${p.nombre}"
+            onerror="this.src='./img/error.png'"
+        >
+
+    </div>
+
+    <div class="info-producto">
+
+        <h3 class="titulo-producto">
+            ${p.nombre}
+        </h3>
+
+        <p class="precio-producto">
+            $${Number(p.precio).toLocaleString()}
+        </p>
+
+        <select class="select-talla">
+
+            <option value="">
+                Seleccionar talla
+            </option>
+
+            ${tallas.map(t => `
+                <option value="${t}">
+                    ${t}
+                </option>
+            `).join("")}
+
+        </select>
+
+        <div class="colores">
+
+            ${colores.map(c => `
+
+                <span
+                    class="color ${c.toLowerCase()}"
+                    onclick="seleccionarColor('${c}', this)">
+                </span>
+
+            `).join("")}
+
+        </div>
+
+        <button
+            class="btn-agregar"
+            onclick="agregarAlCarrito(
+                this,
+                '${p.id}',
+                '${p.nombre}',
+                '${p.precio}',
+                '${imgFinal}'
+            )">
+
+            🛒 Agregar
+
+        </button>
+
+    </div>
+
+</div>
+
+`;
+
+// let imgFinal = "./img/error.png";
+
+// if (p.imagen) {
+
+//     if (p.imagen.startsWith("http")) {
+
+//         imgFinal = p.imagen;
+
+//     } else {
+
+//         imgFinal =
+//         `https://sgkhlrimsanjeoxjtvnx.supabase.co/storage/v1/object/public/productos/${p.imagen}`;
+
+//     }
+
+// }
 
 
             slider.innerHTML += `
