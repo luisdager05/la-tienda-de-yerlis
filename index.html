@@ -1,19 +1,50 @@
+```html id="6l4ejn"
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- =========================================
+    META
+    ========================================= -->
 
-<title>La Tienda de Yerlis</title>
+    <meta charset="UTF-8">
 
-<!-- CSS -->
-<link rel="stylesheet" href="./css/estilos.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-<!-- FONT AWESOME -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta
+        name="description"
+        content="La Tienda de Yerlis - Moda elegante y moderna para mujeres, hombres y niños">
+
+    <title>
+        La Tienda de Yerlis
+    </title>
+
+    <!-- =========================================
+    FAVICON
+    ========================================= -->
+
+    <link
+        rel="icon"
+        href="./img/logo.png">
+
+    <!-- =========================================
+    CSS
+    ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="./css/estilos.css">
+
+    <!-- =========================================
+    FONT AWESOME
+    ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
@@ -26,32 +57,35 @@ HEADER
 <header class="header-principal">
 
     <!-- LOGO -->
+
     <div class="logo">
 
         <img
-        src="./img/1001669605.png"
-        alt="La Tienda de Yerlis">
+            src="./img/1001669605.png"
+            alt="La Tienda de Yerlis">
 
     </div>
 
     <!-- BUSCADOR -->
+
     <div class="buscador-container">
 
         <input
-        type="text"
-        id="buscador"
-        placeholder="🔍 Buscar productos...">
+            type="text"
+            id="buscador"
+            placeholder="🔍 Buscar productos...">
 
     </div>
 
     <!-- MENU -->
+
     <nav class="menu">
 
         <a href="index.html">
             Inicio
         </a>
 
-        <a href="#tituloCategoria">
+        <a href="#productos">
             Productos
         </a>
 
@@ -68,16 +102,17 @@ HEADER
         </a>
 
         <!-- CARRITO -->
+
         <a
-        href="#"
-        class="btn-carrito-menu"
-        onclick="toggleCarrito()">
+            href="javascript:void(0)"
+            class="btn-carrito-menu"
+            onclick="toggleCarrito()">
 
             <i class="fa-solid fa-cart-shopping"></i>
 
             <span
-            class="contador-carrito"
-            id="contadorCarrito">
+                class="contador-carrito"
+                id="contadorCarrito">
 
                 0
 
@@ -93,9 +128,12 @@ HEADER
 CARRITO
 ========================================= -->
 
-<div id="carrito" class="carrito">
+<div
+    id="carrito"
+    class="carrito">
 
     <!-- HEADER -->
+
     <div class="carrito-header">
 
         <h2>
@@ -103,8 +141,8 @@ CARRITO
         </h2>
 
         <span
-        class="cerrar-carrito"
-        onclick="cerrarCarrito()">
+            class="cerrar-carrito"
+            onclick="cerrarCarrito()">
 
             ✖
 
@@ -113,34 +151,40 @@ CARRITO
     </div>
 
     <!-- ITEMS -->
+
     <div id="itemsCarrito"></div>
 
     <!-- FOOTER -->
+
     <div class="carrito-footer">
 
         <!-- FORMULARIO -->
+
         <div class="checkout-form">
 
             <input
-            type="text"
-            id="clienteNombre"
-            placeholder="👤 Nombre completo">
+                type="text"
+                id="clienteNombre"
+                placeholder="👤 Nombre completo">
 
             <input
-            type="text"
-            id="clienteTelefono"
-            placeholder="📱 Teléfono">
+                type="text"
+                id="clienteTelefono"
+                placeholder="📱 Teléfono">
 
             <textarea
-            id="clienteDireccion"
-            placeholder="📍 Dirección de entrega"></textarea>
+                id="clienteDireccion"
+                placeholder="📍 Dirección de entrega"></textarea>
 
         </div>
 
         <!-- TOTAL -->
+
         <h3>
 
-            <span>Total</span>
+            <span>
+                Total
+            </span>
 
             <span>
                 $<span id="totalCarrito">0</span>
@@ -148,12 +192,14 @@ CARRITO
 
         </h3>
 
-        <!-- BOTON -->
+        <!-- BOTON PAGAR -->
+
         <button
-        class="btn-pagar"
-        onclick="finalizarCompra()">
+            class="btn-pagar"
+            onclick="finalizarCompra()">
 
             <i class="fa-solid fa-credit-card"></i>
+
             Finalizar Compra
 
         </button>
@@ -180,8 +226,8 @@ HERO
         </p>
 
         <a
-        href="#productos"
-        class="btn-hero">
+            href="#productos"
+            class="btn-hero">
 
             Ver productos
 
@@ -192,108 +238,30 @@ HERO
 </section>
 
 <!-- =========================================
-SLIDER
+SLIDER PRODUCTOS
 ========================================= -->
 
 <section
-class="contenedor-slider"
-id="productos">
+    class="contenedor-slider"
+    id="productos">
+
+    <!-- BOTON PREV -->
 
     <button id="prev">
         ❮
     </button>
 
+    <!-- SLIDER -->
+
     <div class="slider-container">
 
-        <div id="slider">
+        <!-- PRODUCTOS DINAMICOS -->
 
-            <!-- CARD 1 -->
-          <div class="card-producto">
-
-                <img
-                src="./img/ropa1.jpg"
-                class="img-producto"
-                alt="producto">
-
-                <div class="info">
-
-                    <h3>Vestido Elegante</h3>
-
-                    <p class="precio">
-                        $120.000
-                    </p>
-
-                    <p class="cantidad">
-                        Disponible
-                    </p>
-
-                    <button>
-                        Agregar al carrito
-                    </button>
-
-                </div>
-
-            </div>
-
-            <!-- CARD 2 -->
-            <div class="card">
-
-                <img
-                src="./img/ropa2.jpg"
-                class="img-producto"
-                alt="producto">
-
-                <div class="info">
-
-                    <h3>Conjunto Casual</h3>
-
-                    <p class="precio">
-                        $95.000
-                    </p>
-
-                    <p class="cantidad">
-                        Disponible
-                    </p>
-
-                    <button>
-                        Agregar al carrito
-                    </button>
-
-                </div>
-
-            </div>
-
-            <!-- CARD 3 -->
-            <div class="card">
-
-                <img
-                src="./img/ropa3.jpg"
-                class="img-producto"
-                alt="producto">
-
-                <div class="info">
-
-                    <h3>Blusa Premium</h3>
-
-                    <p class="precio">
-                        $80.000
-                    </p>
-
-                    <p class="cantidad">
-                        Disponible
-                    </p>
-
-                    <button>
-                        Agregar al carrito
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
+        <div id="slider"></div>
 
     </div>
+
+    <!-- BOTON NEXT -->
 
     <button id="next">
         ❯
@@ -301,11 +269,13 @@ id="productos">
 
 </section>
 
-<!-- DOTS -->
+<!-- =========================================
+DOTS
+========================================= -->
 
 <div
-id="dots"
-class="dots">
+    id="dots"
+    class="dots">
 
 </div>
 
@@ -351,102 +321,11 @@ PRODUCTOS
         🔥 Todos los productos
     </h2>
 
+    <!-- PRODUCTOS DINAMICOS -->
+
     <div
-    class="contenedor-productos"
-    id="destacados">
-
-        <!-- PRODUCTO -->
-
-        <div class="producto">
-
-            <img
-            src="./img/ropa1.jpg"
-            class="img-producto"
-            alt="producto">
-
-            <h3>Vestido Elegante</h3>
-
-            <p class="precio">
-                $120.000
-            </p>
-
-            <div class="colores">
-
-                <span class="color negro"></span>
-
-                <span class="color rosado"></span>
-
-                <span class="color azul"></span>
-
-            </div>
-
-            <button>
-                Agregar al carrito
-            </button>
-
-        </div>
-
-        <!-- PRODUCTO -->
-
-        <div class="producto">
-
-            <img
-            src="./img/ropa2.jpg"
-            class="img-producto"
-            alt="producto">
-
-            <h3>Conjunto Casual</h3>
-
-            <p class="precio">
-                $95.000
-            </p>
-
-            <div class="colores">
-
-                <span class="color beige"></span>
-
-                <span class="color blanco"></span>
-
-                <span class="color rojo"></span>
-
-            </div>
-
-            <button>
-                Agregar al carrito
-            </button>
-
-        </div>
-
-        <!-- PRODUCTO -->
-
-        <div class="producto">
-
-            <img
-            src="./img/ropa3.jpg"
-            class="img-producto"
-            alt="producto">
-
-            <h3>Blusa Premium</h3>
-
-            <p class="precio">
-                $80.000
-            </p>
-
-            <div class="colores">
-
-                <span class="color negro"></span>
-
-                <span class="color verde"></span>
-
-                <span class="color amarillo"></span>
-
-            </div>
-
-            <button>
-                Agregar al carrito
-            </button>
-
-        </div>
+        class="contenedor-productos"
+        id="destacados">
 
     </div>
 
@@ -456,22 +335,24 @@ PRODUCTOS
 MODAL SIMPLE
 ========================================= -->
 
-<div id="modal" class="modal">
+<div
+    id="modal"
+    class="modal">
 
     <div class="modal-content">
 
         <span
-        class="cerrar-modal"
-        onclick="cerrarModal()">
+            class="cerrar-modal"
+            onclick="cerrarModal()">
 
             ✖
 
         </span>
 
         <img
-        id="modal-img"
-        src=""
-        alt="producto">
+            id="modal-img"
+            src=""
+            alt="producto">
 
         <h2 id="modal-title"></h2>
 
@@ -486,31 +367,34 @@ MODAL PRODUCTO
 ========================================= -->
 
 <div
-id="modalProducto"
-class="modal-producto">
+    id="modalProducto"
+    class="modal-producto">
 
     <div class="modal-producto-content">
 
         <!-- CERRAR -->
+
         <span
-        class="cerrar-modal"
-        onclick="cerrarModalProducto()">
+            class="cerrar-modal"
+            onclick="cerrarModalProducto()">
 
             ✖
 
         </span>
 
         <!-- IMAGEN -->
+
         <div class="modal-img-container">
 
             <img
-            id="modalImagen"
-            src=""
-            alt="producto">
+                id="modalImagen"
+                src=""
+                alt="producto">
 
         </div>
 
         <!-- INFO -->
+
         <div class="modal-info">
 
             <h2 id="modalNombre"></h2>
@@ -522,8 +406,8 @@ class="modal-producto">
             <span id="modalCategoria"></span>
 
             <button
-            id="btnAgregarModal"
-            class="btn-modal-carrito">
+                id="btnAgregarModal"
+                class="btn-modal-carrito">
 
                 🛒 Agregar al carrito
 
@@ -550,50 +434,60 @@ FOOTER
         <div class="footer-info">
 
             <!-- WHATSAPP -->
+
             <a
-            href="https://wa.me/573148471107"
-            target="_blank">
+                href="https://wa.me/573148471107"
+                target="_blank">
 
                 <i class="fa-brands fa-whatsapp"></i>
+
                 WhatsApp
 
             </a>
 
             <!-- INSTAGRAM -->
+
             <a
-            href="https://instagram.com/latiendadeyerlis"
-            target="_blank">
+                href="https://instagram.com/latiendadeyerlis"
+                target="_blank">
 
                 <i class="fa-brands fa-instagram"></i>
+
                 Instagram
 
             </a>
 
             <!-- FACEBOOK -->
+
             <a
-            href="https://facebook.com/"
-            target="_blank">
+                href="https://facebook.com/"
+                target="_blank">
 
                 <i class="fa-brands fa-facebook-f"></i>
+
                 Facebook
 
             </a>
 
             <!-- TIKTOK -->
+
             <a
-            href="https://tiktok.com/@latiendadeyerlis"
-            target="_blank">
+                href="https://tiktok.com/@latiendadeyerlis"
+                target="_blank">
 
                 <i class="fa-brands fa-tiktok"></i>
+
                 TikTok
 
             </a>
 
             <!-- EMAIL -->
+
             <a
-            href="mailto:yerlisstore@gmail.com">
+                href="mailto:yerlisstore@gmail.com">
 
                 <i class="fa-solid fa-envelope"></i>
+
                 Email
 
             </a>
@@ -601,6 +495,7 @@ FOOTER
         </div>
 
         <!-- COPYRIGHT -->
+
         <div class="footer-copy">
 
             <p>
@@ -618,24 +513,41 @@ NOTIFICACION
 ========================================= -->
 
 <div
-id="notificacion"
-class="notificacion">
+    id="notificacion"
+    class="notificacion">
 
     ✅ Producto agregado al carrito
 
 </div>
 
 <!-- =========================================
+SUPABASE
+========================================= -->
+
+<script
+    defer
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js">
+</script>
+
+<!-- =========================================
 SCRIPTS
 ========================================= -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script
+    defer
+    src="./js/supabase.js">
+</script>
 
-<script src="./js/supabase.js"></script>
+<script
+    defer
+    src="./js/carrito.js">
+</script>
 
-<script src="./js/carrito.js"></script>
-
-<script src="./js/app.js"></script>
+<script
+    defer
+    src="./js/app.js">
+</script>
 
 </body>
 </html>
+```
