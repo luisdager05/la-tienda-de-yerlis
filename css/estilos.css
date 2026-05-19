@@ -1749,53 +1749,33 @@ body{
 
 @media screen and (max-width:768px){
 
-    .menu .btn-carrito-menu{
+    .menu{
 
-        position:relative;
+        display:none;
 
-        width:50px;
+        width:100%;
 
-        height:50px;
-
-        display:flex;
+        flex-direction:column;
 
         align-items:center;
 
         justify-content:center;
 
-        margin:0 auto;
+        gap:15px;
 
-        font-size:22px;
+        padding:20px;
+
+        margin-top:15px;
+
+        background:white;
+
+        border-radius:15px;
 
     }
 
-    .menu .contador-carrito{
-
-        position:absolute;
-
-        top:2px;
-
-        right:0px;
-
-        min-width:20px;
-
-        height:20px;
-
-        border-radius:50%;
+    .menu.active{
 
         display:flex;
-
-        align-items:center;
-
-        justify-content:center;
-
-        font-size:11px;
-
-        font-weight:bold;
-
-        background:#ff1744;
-
-        color:white;
 
     }
 
