@@ -337,33 +337,7 @@ function actualizarCarrito() {
 </div>
 `;
 
-    // items.innerHTML = "";
-
-    // let totalFinal = 0;
-
-    // carrito.forEach((item, i) => {
-
-    //     totalFinal += item.precio * item.cantidad;
-
-    //     items.innerHTML += `
-    //     <div class="item-carrito">
-
-    //         <img src="${item.imagen}">
-
-    //         <div>
-    //             <h4>${item.nombre}</h4>
-    //             <p>$${Number(item.precio).toLocaleString()}</p>
-    //             <p>${item.talla} | ${item.color}</p>
-
-    //             <button onclick="cambiarCantidad(${i}, -1)">-</button>
-    //             ${item.cantidad}
-    //             <button onclick="cambiarCantidad(${i}, 1)">+</button>
-    //         </div>
-
-    //         <button onclick="eliminarProducto(${i})">✖</button>
-
-    //     </div>`;
-    // });
+ 
 
     total.innerText = totalFinal.toLocaleString();
     contador.innerText = carrito.reduce((a, b) => a + b.cantidad, 0);
@@ -420,7 +394,24 @@ function parseArray(value) {
     return value.split(",").map(v => v.trim());
 }
 
-// =========================
-// INICIAR CARRITO
-// =========================
-actualizarCarrito();
+function cambiarCantidad(i, cambio) {
+
+    if (!carrito[i]) return;
+
+    carrito[i].cantidad += cambio;
+
+    if (carrito[i].cantidad <= 0) {
+        carrito.splice(i, 1);
+    }
+
+    actualizarCarrito();
+}
+
+function eliminarProducto(i) {
+
+    carrito.splice(i, 1);
+
+    actualizarCarrito();
+}
+
+
