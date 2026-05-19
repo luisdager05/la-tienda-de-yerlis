@@ -746,7 +746,8 @@ body{
 
     position: fixed;
 
-    top: 0;
+    top: 80;
+   height: calc(100vh - 80px);
 
     right: -420px;
 
