@@ -588,33 +588,37 @@ body{
    CARRITO
 ========================================= */
 
-#carrito {
+.carrito {
 
     position: fixed;
 
     top: 0;
 
-    right: -400px;
+    right: -420px;
 
-    width: 380px;
+    width: 400px;
 
     height: 100vh;
 
-    background: #fff;
+    background: #ffffff;
 
-    z-index: 99999;
+    z-index: 999999;
 
-    transition: right 0.3s ease;
+    transition: right 0.35s ease;
 
-    overflow-y: auto;
+    display: flex;
 
-    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    flex-direction: column;
 
-    padding: 20px;
+    box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+
+    overflow: hidden;
 
 }
 
-#carrito.active {
+/* ACTIVO */
+
+.carrito.active {
 
     right: 0;
 
