@@ -748,8 +748,7 @@ body{
 
     position: fixed;
 
-    top: 80;
-   height: calc(100vh - 80px);
+    top: 0;
 
     right: -420px;
 
@@ -759,7 +758,7 @@ body{
 
     background: #ffffff;
 
-    z-index: 999999;
+    z-index: 999999999;
 
     transition: right 0.35s ease;
 
@@ -767,7 +766,7 @@ body{
 
     flex-direction: column;
 
-    box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+    box-shadow: -5px 0 20px rgba(0,0,0,0.25);
 
     overflow: hidden;
 
@@ -1219,4 +1218,14 @@ body{
     }
 
 }
-```
+.menu {
+
+    padding-right: 70px;
+
+}
+
+.btn-carrito-menu {
+
+    z-index: 999999999;
+
+}
