@@ -1,4 +1,4 @@
-```javascript
+
 // =========================================
 // APP.JS CORREGIDO COMPLETO
 // =========================================
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-```javascript id="mkld71"
+
 let imgFinal = "./img/error.png";
 
 if (p.imagen) {
