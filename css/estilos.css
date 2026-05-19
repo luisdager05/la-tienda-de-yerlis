@@ -1086,7 +1086,7 @@ body{
     opacity:0.8;
 }
 
-/* =========================================
+/* /* =========================================
    RESPONSIVE
 ========================================= */
 
@@ -1551,6 +1551,174 @@ body{
 
     .carrito.active{
         right:0;
+    }
+
+} */
+
+/* =========================================
+   HEADER RESPONSIVE NUEVO
+========================================= */
+
+.header-principal{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+/* LOGO */
+
+.logo{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    flex-shrink:0;
+}
+
+.logo img{
+    width:90px;
+    height:auto;
+}
+
+/* BUSCADOR */
+
+.buscador-container{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    position:relative;
+    left:auto;
+    transform:none;
+    min-width:250px;
+}
+
+#buscador{
+    width:100%;
+    max-width:400px;
+}
+
+/* MENU */
+
+.menu{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-left:auto;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media screen and (max-width:992px){
+
+    .header-principal{
+        padding:15px;
+        gap:15px;
+    }
+
+    .logo img{
+        width:80px;
+    }
+
+    .buscador-container{
+        order:3;
+        width:100%;
+        flex:none;
+    }
+
+    #buscador{
+        max-width:100%;
+    }
+
+    .menu{
+        margin-left:auto;
+        gap:12px;
+    }
+
+    .menu a{
+        font-size:13px;
+    }
+
+}
+
+/* =========================================
+   MOVIL
+========================================= */
+
+@media screen and (max-width:768px){
+
+    .header-principal{
+        flex-direction:row;
+        align-items:center;
+        justify-content:space-between;
+    }
+
+    .logo{
+        width:auto;
+    }
+
+    .logo img{
+        width:70px;
+    }
+
+    .menu{
+        width:auto;
+        margin-left:auto;
+        justify-content:flex-end;
+        gap:10px;
+    }
+
+    .menu a{
+        font-size:12px;
+    }
+
+    .buscador-container{
+        width:100%;
+        order:3;
+        padding:0;
+        margin-top:10px;
+    }
+
+    #buscador{
+        width:100%;
+        font-size:14px;
+    }
+
+}
+
+/* =========================================
+   CELULARES PEQUEÑOS
+========================================= */
+
+@media screen and (max-width:480px){
+
+    .header-principal{
+        padding:10px;
+    }
+
+    .logo img{
+        width:60px;
+    }
+
+    .menu{
+        gap:8px;
+    }
+
+    .menu a{
+        font-size:11px;
+    }
+
+    .btn-carrito-menu{
+        font-size:18px;
+    }
+
+    #buscador{
+        padding:10px 14px;
+        font-size:13px;
     }
 
 }
