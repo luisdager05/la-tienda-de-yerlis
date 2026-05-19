@@ -588,31 +588,71 @@ body{
    CARRITO
 ========================================= */
 
-.carrito{
-    position:fixed;
+#carrito {
 
-    top:0;
-    right:-400px;
+    position: fixed;
 
-    width:360px;
-    height:100vh;
+    top: 0;
 
-    background:white;
+    right: -400px;
 
-    z-index:9999;
+    width: 380px;
 
-    transition:0.4s;
+    height: 100vh;
 
-    display:flex;
-    flex-direction:column;
+    background: #fff;
 
-    box-shadow:-10px 0 30px rgba(0,0,0,0.15);
+    z-index: 99999;
+
+    transition: right 0.3s ease;
+
+    overflow-y: auto;
+
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+
+    padding: 20px;
+
 }
 
-.carrito.active{
-    right:0;
+#carrito.active {
+
+    right: 0;
+
 }
 
+
+/* =========================================
+  BOTON CARRITO
+========================================= */
+.btn-carrito {
+
+    position: fixed;
+
+    bottom: 20px;
+
+    right: 20px;
+
+    z-index: 999999;
+
+    background: black;
+
+    color: white;
+
+    border: none;
+
+    width: 60px;
+
+    height: 60px;
+
+    border-radius: 50%;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+}
 /* =========================================
    HEADER CARRITO
 ========================================= */
