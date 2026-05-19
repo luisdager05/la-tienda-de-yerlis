@@ -112,41 +112,156 @@ document.addEventListener("DOMContentLoaded", () => {
         iniciarCarrusel();
     }
 
-    // =========================
-    // CARRUSEL
-    // =========================
-    function iniciarCarrusel() {
 
-        clearInterval(intervalo);
+   // =========================
+// CARRUSEL
+// =========================
 
-        const slides = document.querySelectorAll("#slider .card-producto");
+function iniciarCarrusel() {
 
-        if (!slides.length) return;
+    clearInterval(intervalo);
 
+    const slides =
+        document.querySelectorAll("#slider .card-producto");
+
+    if (slides.length === 0) return;
+
+    index = 0;
+
+    actualizarDots();
+
+    intervalo = setInterval(() => {
+
+        const slides =
+            document.querySelectorAll("#slider .card-producto");
+
+        if (slides.length === 0) return;
+
+        index++;
+
+        if (index >= slides.length) {
+            index = 0;
+        }
+
+        const width =
+            slides[0].offsetWidth + 20;
+
+        slider.scrollTo({
+
+            left: index * width,
+            behavior: "smooth"
+
+        });
+
+        actualizarDots();
+
+    }, 3000);
+
+}
+
+// =========================
+// DOTS
+// =========================
+
+function actualizarDots() {
+
+    const dotsEl =
+        document.querySelectorAll("#dots span");
+
+    dotsEl.forEach((dot, i) => {
+
+        if (i === index) {
+
+            dot.classList.add("active");
+
+        } else {
+
+            dot.classList.remove("active");
+
+        }
+
+    });
+
+}
+
+// =========================
+// BOTONES
+// =========================
+
+document.getElementById("next")?.addEventListener("click", () => {
+
+    const slides =
+        document.querySelectorAll("#slider .card-producto");
+
+    if (!slides.length) return;
+
+    index++;
+
+    if (index >= slides.length) {
         index = 0;
-
-        intervalo = setInterval(() => {
-
-            const slides = document.querySelectorAll("#slider .card-producto");
-            if (!slides.length) return;
-
-            index++;
-
-            if (index >= slides.length) {
-                index = 0;
-            }
-
-            const width = slides[0].offsetWidth + 20;
-
-            slider.scrollTo({
-                left: index * width,
-                behavior: "smooth"
-            });
-
-            actualizarDots();
-
-        }, 2500);
     }
+
+    moverCarrusel();
+
+});
+
+document.getElementById("prev")?.addEventListener("click", () => {
+
+    const slides =
+        document.querySelectorAll("#slider .card-producto");
+
+    if (!slides.length) return;
+
+    index--;
+
+    if (index < 0) {
+        index = slides.length - 1;
+    }
+
+    moverCarrusel();
+
+});
+
+// =========================
+// MOVER
+// =========================
+
+function moverCarrusel() {
+
+    const slides =
+        document.querySelectorAll("#slider .card-producto");
+
+    if (!slides.length) return;
+
+    const width =
+        slides[0].offsetWidth + 20;
+
+    slider.scrollTo({
+
+        left: index * width,
+        behavior: "smooth"
+
+    });
+
+    actualizarDots();
+
+}
+
+// =========================
+// PAUSAR
+// =========================
+
+slider?.addEventListener("mouseenter", () => {
+
+    clearInterval(intervalo);
+
+});
+
+slider?.addEventListener("mouseleave", () => {
+
+    iniciarCarrusel();
+
+});
 
    // =========================
 // ACTUALIZAR CARRITO
