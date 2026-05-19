@@ -1783,6 +1783,52 @@ document.addEventListener("click", (e)=>{
 }
 }
 
+/* =========================
+   BOTON ELIMINAR
+========================= */
+
+.btn-eliminar{
+    position:absolute;
+
+    top:10px;
+    right:10px;
+
+    width:32px;
+    height:32px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:white;
+
+    color:#ff4081;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:
+    0 4px 10px rgba(0,0,0,.1);
+
+    transition:.3s;
+}
+
+.btn-eliminar:hover{
+
+    background:#ff4081;
+
+    color:white;
+
+    transform:rotate(90deg) scale(1.1);
+}
+
 /* TITULO */
 
 .titulo-producto{
