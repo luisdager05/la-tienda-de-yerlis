@@ -108,22 +108,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const colores = parseArray(p.colores);
 
-            let imgFinal = "./img/error.png";
+            ```javascript
+let imgFinal = "./img/error.png";
 
-            if (p.imagen) {
+if (p.imagen) {
 
-                if (p.imagen.startsWith("http")) {
+    if (p.imagen.startsWith("http")) {
 
-                    imgFinal = p.imagen;
+        imgFinal = p.imagen;
 
-                } else {
+    } else {
 
-                    imgFinal =
-                    `https://sgkhlrimsanjeoxjtvnx.supabase.co/storage/v1/object/public/${p.imagen}`;
+        imgFinal =
+        `https://sgkhlrimsanjeoxjtvnx.supabase.co/storage/v1/object/public/productos/${p.imagen}`;
 
-                }
+    }
 
-            }
+}
+```
+
 
             slider.innerHTML += `
 
