@@ -9,7 +9,23 @@ console.log("SUPABASE:", window.supabaseClient);
 // VARIABLES GLOBALES
 // =========================================
 
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let carrito = [];
+
+try {
+
+    carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    if (!Array.isArray(carrito)) {
+
+        carrito = [];
+
+    }
+
+} catch {
+
+    carrito = [];
+
+}
 
 let productosGlobal = [];
 
