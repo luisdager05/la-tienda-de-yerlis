@@ -1,1 +1,144 @@
+/* =========================
+   PRODUCTOS
+========================= */
 
+.seccion-productos{
+
+    padding:40px 20px;
+
+}
+
+.contenedor-productos{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,260px));
+
+    justify-content:center;
+
+    gap:25px;
+
+    width:100%;
+
+}
+
+/* CARD */
+
+.producto{
+
+    width:260px;
+
+    min-height:480px;
+
+    background:white;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    transition:.4s;
+
+    box-shadow:0 8px 20px rgba(255,182,193,.18);
+
+}
+
+.producto:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 15px 30px rgba(255,64,129,.25);
+
+}
+
+/* IMAGEN */
+
+.img-producto{
+
+    width:100%;
+
+    height:320px;
+
+    object-fit:cover;
+
+    transition:.4s;
+
+    cursor:pointer;
+
+}
+
+.producto:hover .img-producto{
+
+    transform:scale(1.03);
+
+}
+
+/* TITULO */
+
+.producto h3{
+
+    padding:15px 15px 5px;
+
+    font-size:18px;
+
+    color:#333;
+
+    text-align:center;
+
+}
+
+/* PRECIO */
+
+.precio{
+
+    font-size:24px;
+
+    font-weight:800;
+
+    color:#ff4081;
+
+    text-align:center;
+
+    padding-bottom:10px;
+
+}
+
+/* BOTON */
+
+.producto button{
+
+    border:none;
+
+    margin:12px;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    background:linear-gradient(45deg,#ff4081,#ff80ab);
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 5px 15px rgba(255,64,129,.25);
+
+}
+
+.producto button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px rgba(255,64,129,.35);
+
+}
