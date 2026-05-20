@@ -1,54 +1,19 @@
-
-// =========================================
-// APP.JS CORREGIDO COMPLETO
-// =========================================
-
 console.log("SUPABASE:", window.supabaseClient);
-
-// =========================================
-// VARIABLES GLOBALES
-// =========================================
-
-let carrito = [];
-
-try {
-
-    carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-    if (!Array.isArray(carrito)) {
-
-        carrito = [];
-
-    }
-
-} catch {
-
-    carrito = [];
-
-}
-
-let productosGlobal = [];
-
-let index = 0;
-
-let intervalo;
-
-// =========================================
-// DOM READY
-// =========================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
     const slider = document.getElementById("slider");
-
     const dots = document.getElementById("dots");
 
-    // =========================================
+    let index = 0;
+    let intervalo;
+    let productosGlobal = [];
+
+    // =========================
     // ESPERAR SUPABASE
-    // =========================================
+    // =========================
 
-    async function waitSupabase() {
-
+    const waitSupabase = () => {
         return new Promise(resolve => {
 
             const check = setInterval(() => {
@@ -56,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (window.supabaseClient) {
 
                     clearInterval(check);
-
                     resolve();
 
                 }
@@ -64,251 +28,149 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 100);
 
         });
+    };
 
-    }
+    waitSupabase().then(cargarProductos);
 
-    // =========================================
-    // INICIAR
-    // =========================================
-
-    waitSupabase().then(() => {
-
-        cargarProductos();
-
-        actualizarCarrito();
-
-    });
-
-    // =========================================
+    // =========================
     // CARGAR PRODUCTOS
-    // =========================================
+    // =========================
 
     async function cargarProductos() {
 
-        const { data, error } = await window.supabaseClient
+        const { data, error } =
+        await window.supabaseClient
             .from("productos")
             .select("*");
 
-        if (error) {
+        if (error || !data) {
 
-            console.error(error);
-
-            slider.innerHTML = `
-                <h2 style="padding:20px;">
-                    Error cargando productos
-                </h2>
-            `;
+            slider.innerHTML =
+            "<h2>Error cargando productos</h2>";
 
             return;
         }
 
+        // GUARDAR GLOBALMENTE
+        window.productosGlobalData = data;
         productosGlobal = data;
 
-        renderProductos(data);
+        render(data);
+        mostrarSecciones(data);
+        activarBuscador();
 
     }
 
-    // =========================================
-    // RENDER PRODUCTOS
-    // =========================================
+    // =========================
+    // RENDER SLIDER
+    // =========================
 
-    function renderProductos(productos) {
+    function render(productos) {
 
         slider.innerHTML = "";
-
         dots.innerHTML = "";
 
         productos.forEach((p, i) => {
 
-            
+            slider.innerHTML += `
 
-           
+                <div class="card">
 
+                    <img
+                    class="img-producto"
+                    src="${p.imagen || './img/error.png'}"
+                    alt="${p.nombre}"
+                    onclick="abrirModalProductoPorId(${p.id})">
 
-const tallas = parseArray(p.talla);
+                    <div class="info">
 
-const colores = parseArray(p.colores);
+                        <h3>${p.nombre}</h3>
 
-let imgFinal = "./img/error.png";
+                        <p class="precio">
+                            $${Number(p.precio).toLocaleString()}
+                        </p>
 
-if (p.imagen) {
+                        <!-- TALLA -->
+                        <div class="selector-opciones">
 
-    if (p.imagen.startsWith("http")) {
+                            <label>Talla:</label>
 
-        imgFinal = p.imagen;
+                            <select class="select-talla">
 
-    } else {
+                                <option value="">
+    Seleccionar
+</option>
 
-        imgFinal =
-        `https://sgkhlrimsanjeoxjtvnx.supabase.co/storage/v1/object/public/productos/${p.imagen}`;
+${p.talla?.map(t => `
 
-    }
+    <option value="${t}">
+        ${t}
+    </option>
 
-}
+`).join("") || ""}
 
-slider.innerHTML += `
+                            </select>
 
-<div class="card-producto">
+                        </div>
 
-    <div class="img-box">
+                        <!-- COLORES -->
+                        <div class="selector-opciones">
 
-        <img
-            src="${imgFinal}"
-            class="img-producto"
-            alt="${p.nombre}"
-            onerror="this.src='./img/error.png'"
-        >
+                            <label>Color:</label>
 
-    </div>
+                            <div class="colores">
 
-    <div class="info-producto">
+${p.colores?.map(color => `
 
-        <h3 class="titulo-producto">
-            ${p.nombre}
-        </h3>
+    <span
+    class="color ${color.toLowerCase()}"
+    onclick="seleccionarColor('${color}', this)"
+    title="${color}">
+    </span>
 
-        <p class="precio-producto">
-            $${Number(p.precio).toLocaleString()}
-        </p>
-
-        <select class="select-talla">
-
-            <option value="">
-                Seleccionar talla
-            </option>
-
-            ${tallas.map(t => `
-                <option value="${t}">
-                    ${t}
-                </option>
-            `).join("")}
-
-        </select>
-
-        <div class="colores">
-
-            ${colores.map(c => `
-
-                <span
-                    class="color ${c.toLowerCase()}"
-                    onclick="seleccionarColor('${c}', this)">
-                </span>
-
-            `).join("")}
-
-        </div>
-
-        <button
-            class="btn-agregar"
-            onclick="agregarAlCarrito(
-                this,
-                '${p.id}',
-                '${p.nombre}',
-                '${p.precio}',
-                '${imgFinal}'
-            )">
-
-            🛒 Agregar
-
-        </button>
-
-    </div>
+`).join("") || ""}
 
 </div>
 
-`;
+                        </div>
 
-// let imgFinal = "./img/error.png";
+                        <!-- BOTON VER -->
+                        <button
+                        onclick="abrirModalProductoPorId(${p.id})">
 
-// if (p.imagen) {
+                            👁 Ver rápido
 
-//     if (p.imagen.startsWith("http")) {
+                        </button>
 
-//         imgFinal = p.imagen;
+                      
+                        <!-- BOTON CARRITO -->
+<button onclick="
+    agregarAlCarrito(
+        this,
+        '${p.id}',
+        '${p.nombre}',
+        '${p.precio}',
+        '${p.imagen}',
+        {
+            talla: this.closest('.card')?.querySelector('.select-talla')?.value || '',
+            color: this.closest('.card')?.dataset.color || ''
+        }
+    )
+">
 
-//     } else {
+    🛒 Agregar al carrito
 
-//         imgFinal =
-//         `https://sgkhlrimsanjeoxjtvnx.supabase.co/storage/v1/object/public/productos/${p.imagen}`;
-
-//     }
-
-// }
-
-
-            slider.innerHTML += `
-
-            <div class="card-producto">
-
-                <div class="img-box">
-
-                    <img
-                        src="${imgFinal}"
-                        class="img-producto"
-                        alt="${p.nombre}"
-                        onerror="this.src='./img/error.png'"
-                    >
-
-                </div>
-
-                <div class="info-producto">
-
-                    <h3 class="titulo-producto">
-                        ${p.nombre}
-                    </h3>
-
-                    <p class="precio-producto">
-                        $${Number(p.precio).toLocaleString()}
-                    </p>
-
-                    <select class="select-talla">
-
-                        <option value="">
-                            Seleccionar talla
-                        </option>
-
-                        ${tallas.map(t => `
-                            <option value="${t}">
-                                ${t}
-                            </option>
-                        `).join("")}
-
-                    </select>
-
-                    <div class="colores">
-
-                        ${colores.map(c => `
-
-                            <span
-                                class="color ${c.toLowerCase()}"
-                                onclick="seleccionarColor('${c}', this)">
-                            </span>
-
-                        `).join("")}
+</button>
 
                     </div>
 
-                    <button
-                        class="btn-agregar"
-                        onclick="agregarAlCarrito(
-                            this,
-                            '${p.id}',
-                            '${p.nombre}',
-                            '${p.precio}',
-                            '${imgFinal}'
-                        )">
-
-                        🛒 Agregar
-
-                    </button>
-
                 </div>
-
-            </div>
 
             `;
 
-            dots.innerHTML += `<span></span>`;
+            dots.innerHTML += `
+                <span class="${i === 0 ? "active" : ""}"></span>
+            `;
 
         });
 
@@ -316,444 +178,385 @@ slider.innerHTML += `
 
     }
 
-    // =========================================
+    // =========================
     // INICIAR CARRUSEL
-    // =========================================
+    // =========================
 
     function iniciarCarrusel() {
 
         clearInterval(intervalo);
 
-        const slides =
-        document.querySelectorAll("#slider .card-producto");
-
-        if (!slides.length) return;
-
-        index = 0;
-
-        actualizarDots();
-
         intervalo = setInterval(() => {
 
-            const slides =
-            document.querySelectorAll("#slider .card-producto");
+            const cards =
+            document.querySelectorAll(".card");
 
-            if (!slides.length) return;
+            if (!cards.length) return;
 
             index++;
 
-            if (index >= slides.length) {
+            if (index >= cards.length) {
 
                 index = 0;
 
             }
 
-            moverCarrusel();
+            const width =
+            cards[0].offsetWidth + 20;
 
-        }, 3000);
+            slider.scrollTo({
 
-    }
+                left: index * width,
+                behavior: "smooth"
 
-    // =========================================
-    // MOVER CARRUSEL
-    // =========================================
+            });
 
-    function moverCarrusel() {
-
-        const slides =
-        document.querySelectorAll("#slider .card-producto");
-
-        if (!slides.length) return;
-
-        const width = slides[0].offsetWidth + 20;
-
-        slider.scrollTo({
-
-            left: index * width,
-
-            behavior: "smooth"
-
-        });
-
-        actualizarDots();
+        }, 2000);
 
     }
 
-    // =========================================
-    // DOTS
-    // =========================================
+    // =========================
+// PAUSAR SLIDER CON HOVER
+// =========================
 
-    function actualizarDots() {
+slider.addEventListener("mouseenter", () => {
 
-        const dotsEl =
-        document.querySelectorAll("#dots span");
-
-        dotsEl.forEach((dot, i) => {
-
-            dot.classList.toggle("active", i === index);
-
-        });
-
-    }
-
-    // =========================================
-    // BOTON NEXT
-    // =========================================
-
-    document.getElementById("next")
-    ?.addEventListener("click", () => {
-
-        const slides =
-        document.querySelectorAll("#slider .card-producto");
-
-        if (!slides.length) return;
-
-        index++;
-
-        if (index >= slides.length) {
-
-            index = 0;
-
-        }
-
-        moverCarrusel();
-
-    });
-
-    // =========================================
-    // BOTON PREV
-    // =========================================
-
-    document.getElementById("prev")
-    ?.addEventListener("click", () => {
-
-        const slides =
-        document.querySelectorAll("#slider .card-producto");
-
-        if (!slides.length) return;
-
-        index--;
-
-        if (index < 0) {
-
-            index = slides.length - 1;
-
-        }
-
-        moverCarrusel();
-
-    });
-
-    // =========================================
-    // PAUSAR HOVER
-    // =========================================
-
-    slider?.addEventListener("mouseenter", () => {
-
-        clearInterval(intervalo);
-
-    });
-
-    slider?.addEventListener("mouseleave", () => {
-
-        iniciarCarrusel();
-
-    });
+    clearInterval(intervalo);
 
 });
 
-// =========================================
-// SELECCIONAR COLOR
-// =========================================
+// =========================
+// REANUDAR SLIDER
+// =========================
 
-function seleccionarColor(color, el) {
+slider.addEventListener("mouseleave", () => {
 
-    const card = el.closest(".card-producto");
+    iniciarCarrusel();
 
-    if (!card) return;
+});
+
+// slider.addEventListener("mouseenter", () => {
+
+//     clearInterval(intervalo);
+
+// });
+
+// // REANUDAR
+// slider.addEventListener("mouseleave", () => {
+
+//     intervalo = setInterval(() => {
+
+//         moverSlider();
+
+//     }, 2000);
+
+// });
+
+    // =========================
+    // BUSCADOR
+    // =========================
+
+    function activarBuscador() {
+
+        const buscador =
+        document.getElementById("buscador");
+
+        if (!buscador) return;
+
+        buscador.addEventListener("input", () => {
+
+            const texto =
+            buscador.value.toLowerCase().trim();
+
+            // MOSTRAR TODO
+            if (texto === "") {
+
+                mostrarSecciones(productosGlobal);
+                render(productosGlobal);
+
+                return;
+            }
+
+            // FILTRAR
+            const filtrados =
+            productosGlobal.filter(p =>
+
+                p.nombre?.toLowerCase()
+                .includes(texto)
+
+                ||
+
+                p.categoria?.toLowerCase()
+                .includes(texto)
+
+            );
+
+            mostrarSecciones(filtrados);
+            render(filtrados);
+
+        });
+
+    }
+
+});
+
+// =========================
+// COLOR SELECCIONADO
+// =========================
+
+function seleccionarColor(color, el){
+
+    const card =
+    el.closest(".producto")
+    ||
+    el.closest(".card");
+
+    if(!card) return;
 
     card.dataset.color = color;
 
     card.querySelectorAll(".color")
-    .forEach(c => c.classList.remove("activo"));
+    .forEach(c =>
+        c.classList.remove("activo")
+    );
 
     el.classList.add("activo");
 
 }
 
-// =========================================
-// AGREGAR AL CARRITO
-// =========================================
+// =========================
+// ABRIR MODAL POR ID
+// =========================
 
-function agregarAlCarrito(
-    btn,
-    id,
-    nombre,
-    precio,
-    imagen
-) {
+function abrirModalProductoPorId(id){
 
-    const card =
-    btn.closest(".card-producto");
+    const producto =
+    window.productosGlobalData
+    .find(p => p.id == id);
 
-    const talla =
-    card.querySelector(".select-talla").value;
+    if(!producto) return;
 
-    const color =
-    card.dataset.color;
-
-    if (!talla) {
-
-        alert("Selecciona una talla");
-
-        return;
-
-    }
-
-    if (!color) {
-
-        alert("Selecciona un color");
-
-        return;
-
-    }
-
-    const existe = carrito.find(item =>
-
-        item.id == id &&
-        item.talla == talla &&
-        item.color == color
-
-    );
-
-    if (existe) {
-
-        existe.cantidad++;
-
-    } else {
-
-        carrito.push({
-
-            id,
-            nombre,
-            precio: Number(precio),
-            imagen,
-            talla,
-            color,
-            cantidad: 1
-
-        });
-
-    }
-
-    localStorage.setItem(
-        "carrito",
-        JSON.stringify(carrito)
-    );
-
-    actualizarCarrito();
-
-    mostrarNotificacion("Producto agregado");
+    abrirModalProducto(producto);
 
 }
 
-// =========================================
-// ACTUALIZAR CARRITO
-// =========================================
+// =========================
+// MODAL PRODUCTO
+// =========================
 
-function actualizarCarrito() {
+function abrirModalProducto(producto){
 
-    const items =
-    document.getElementById("itemsCarrito");
+    document.getElementById("modalProducto")
+    .classList.add("active");
 
-    const total =
-    document.getElementById("totalCarrito");
+    document.getElementById("modalImagen")
+    .src = producto.imagen;
 
-    const contador =
-    document.getElementById("contadorCarrito");
+    document.getElementById("modalNombre")
+    .innerText = producto.nombre;
 
-    if (!items) return;
+    document.getElementById("modalDescripcion")
+    .innerText = producto.descripcion;
 
-    items.innerHTML = "";
+    document.getElementById("modalPrecio")
+    .innerText =
+    "$ " +
+    Number(producto.precio)
+    .toLocaleString();
 
-    let totalFinal = 0;
+    document.getElementById("modalCategoria")
+    .innerText = producto.categoria;
 
-    carrito.forEach((producto, i) => {
+    // BOTON AGREGAR
+    document.getElementById("btnAgregarModal")
+    .onclick = function () {
 
-        totalFinal +=
-        producto.precio * producto.cantidad;
+        agregarAlCarrito(
+            this,
+            producto.id,
+            producto.nombre,
+            producto.precio,
+            producto.imagen
+        );
 
-        items.innerHTML += `
+        cerrarModalProducto();
 
-        <div class="item-carrito">
+    }
 
-            <img
-                src="${producto.imagen}"
-                alt="${producto.nombre}"
-            >
+}
 
-            <div class="item-info">
+// =========================
+// CERRAR MODAL
+// =========================
 
-                <h4>
-                    ${producto.nombre}
-                </h4>
+function cerrarModalProducto(){
 
-                <p>
-                    $${producto.precio.toLocaleString()}
+    document.getElementById("modalProducto")
+    .classList.remove("active");
+
+}
+
+// =========================
+// FILTRAR CATEGORIA
+// =========================
+
+function filtrarCategoria(categoria){
+
+    const titulo =
+    document.getElementById("tituloCategoria");
+
+    // TODOS
+    if(categoria === "todos"){
+
+        titulo.innerText =
+        "🔥 Todos los productos";
+
+        mostrarSecciones(
+            window.productosGlobalData
+        );
+
+        return;
+    }
+
+    // FILTRAR
+    const filtrados =
+    window.productosGlobalData.filter(p =>
+
+        p.categoria &&
+        p.categoria.toLowerCase().trim() ===
+        categoria.toLowerCase().trim()
+
+    );
+
+    // TITULO
+    titulo.innerText =
+    categoria.charAt(0).toUpperCase() +
+    categoria.slice(1);
+
+    // MOSTRAR
+    mostrarSecciones(filtrados);
+
+}
+
+// =========================
+// MOSTRAR PRODUCTOS
+// =========================
+
+function mostrarSecciones(productos) {
+
+    const destacados =
+    document.getElementById("destacados");
+
+    if (!destacados) return;
+
+    destacados.innerHTML = "";
+
+    productos.forEach(p => {
+
+        const card = `
+
+            <div class="producto">
+
+                <!-- IMAGEN -->
+                <img
+                class="img-producto"
+                src="${p.imagen || './img/error.png'}"
+                alt="${p.nombre}"
+                onclick="abrirModalProductoPorId(${p.id})">
+
+                <!-- NOMBRE -->
+                <h3>${p.nombre}</h3>
+
+                <!-- PRECIO -->
+                <p class="precio">
+                    $${Number(p.precio).toLocaleString()}
                 </p>
 
-                <p>
-                    ${producto.talla} |
-                    ${producto.color}
-                </p>
+                <!-- TALLA -->
+                <div class="selector-opciones">
 
-                <div class="cantidad-box">
+                    <label>Talla:</label>
 
-                    <button
-                        onclick="cambiarCantidad(${i}, -1)">
-                        -
-                    </button>
+                    <select class="select-talla">
 
-                    <span>
-                        ${producto.cantidad}
-                    </span>
+                        <option value="">
+                            Seleccionar
+                        </option>
 
-                    <button
-                        onclick="cambiarCantidad(${i}, 1)">
-                        +
-                    </button>
+                        <option value="">
+    Seleccionar
+</option>
+
+${p.talla?.map(t => `
+
+    <option value="${t}">
+        ${t}
+    </option>
+
+`).join("") || ""}
+
+                    </select>
 
                 </div>
 
+                <!-- COLORES -->
+                <div class="selector-opciones">
+
+                    <label>Color:</label>
+
+                    <div class="colores">
+
+                        <div class="colores">
+
+${p.colores?.map(color => `
+
+    <span
+    class="color ${color.toLowerCase()}"
+    onclick="seleccionarColor('${color}', this)"
+    title="${color}">
+    </span>
+
+`).join("") || ""}
+
+</div>
+
+                    </div>
+
+                </div>
+
+                <!-- BOTON VER -->
+                <button
+                onclick="abrirModalProductoPorId(${p.id})">
+
+                    👁 Ver rápido
+
+                </button>
+
+                <!-- BOTON CARRITO -->
+                <button onclick="
+                    agregarAlCarrito(
+                        this,
+                        '${p.id}',
+                        '${p.nombre}',
+                        '${p.precio}',
+                        '${p.imagen}',
+                        {
+                            talla: this.closest('.producto')?.querySelector('.select-talla')?.value || '',
+                            color: this.closest('.producto')?.dataset.color || ''
+                        }
+                    )
+                ">
+
+                    🛒 Agregar al carrito
+
+                </button>
+
             </div>
-
-            <button
-                class="btn-eliminar"
-                onclick="eliminarProducto(${i})">
-
-                ✕
-
-            </button>
-
-        </div>
 
         `;
 
+        destacados.innerHTML += card;
+
     });
-
-    total.innerText =
-    totalFinal.toLocaleString();
-
-    contador.innerText =
-    carrito.reduce(
-        (acc, item) => acc + item.cantidad,
-        0
-    );
-
-    localStorage.setItem(
-        "carrito",
-        JSON.stringify(carrito)
-    );
-
-}
-
-// =========================================
-// CAMBIAR CANTIDAD
-// =========================================
-
-function cambiarCantidad(i, cambio) {
-
-    if (!carrito[i]) return;
-
-    carrito[i].cantidad += cambio;
-
-    if (carrito[i].cantidad <= 0) {
-
-        carrito.splice(i, 1);
-
-    }
-
-    actualizarCarrito();
-
-}
-
-// =========================================
-// ELIMINAR PRODUCTO
-// =========================================
-
-function eliminarProducto(i) {
-
-    carrito.splice(i, 1);
-
-    actualizarCarrito();
-
-}
-
-// =========================================
-// TOGGLE CARRITO
-// =========================================
-
-function toggleCarrito() {
-
-    document.getElementById("carrito")
-    ?.classList.toggle("active");
-
-}
-
-// =========================================
-// CERRAR CARRITO
-// =========================================
-
-function cerrarCarrito() {
-
-    document.getElementById("carrito")
-    ?.classList.remove("active");
-
-}
-
-// =========================================
-// NOTIFICACION
-// =========================================
-
-function mostrarNotificacion(texto) {
-
-    const noti =
-    document.getElementById("notificacion");
-
-    if (!noti) return;
-
-    noti.innerText = texto;
-
-    noti.classList.add("active");
-
-    setTimeout(() => {
-
-        noti.classList.remove("active");
-
-    }, 2500);
-
-}
-
-// =========================================
-// PARSE ARRAY
-// =========================================
-
-function parseArray(value) {
-
-    if (!value) return [];
-
-    if (Array.isArray(value)) return value;
-
-    return value
-    .split(",")
-    .map(v => v.trim());
-
-}
-
-function toggleMenu() {
-
-    const menu = document.querySelector(".menu");
-
-    menu.classList.toggle("active");
 
 }
