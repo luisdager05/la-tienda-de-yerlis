@@ -123,7 +123,8 @@ ${p.talla?.map(t => `
 ${p.colores?.map(color => `
 
     <span
-    class="color ${color.toLowerCase()}"
+    class="color"
+style="background:${color}"
     onclick="seleccionarColor('${color}', this)"
     title="${color}">
     </span>
