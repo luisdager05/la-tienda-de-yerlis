@@ -216,6 +216,70 @@ ${p.colores?.map(color => `
     }
 
     // =========================
+// BOTONES SLIDER
+// =========================
+
+const btnPrev =
+document.getElementById("prev");
+
+const btnNext =
+document.getElementById("next");
+
+btnNext?.addEventListener("click", () => {
+
+    const cards =
+    document.querySelectorAll(".card");
+
+    if (!cards.length) return;
+
+    const width =
+    cards[0].offsetWidth + 20;
+
+    index++;
+
+    if (index >= cards.length) {
+
+        index = 0;
+
+    }
+
+    slider.scrollTo({
+
+        left: index * width,
+        behavior: "smooth"
+
+    });
+
+});
+
+btnPrev?.addEventListener("click", () => {
+
+    const cards =
+    document.querySelectorAll(".card");
+
+    if (!cards.length) return;
+
+    const width =
+    cards[0].offsetWidth + 20;
+
+    index--;
+
+    if (index < 0) {
+
+        index = cards.length - 1;
+
+    }
+
+    slider.scrollTo({
+
+        left: index * width,
+        behavior: "smooth"
+
+    });
+
+});
+
+    // =========================
 // PAUSAR SLIDER CON HOVER
 // =========================
 
