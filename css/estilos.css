@@ -152,7 +152,185 @@ body{
 /* =========================
    HERO ELEGANTE
 ========================= */
+/* =========================
+   HERO MÁS PEQUEÑO
+========================= */
 
+.hero{
+
+    min-height:38vh !important;
+
+    padding:25px 15px !important;
+
+    background:
+    linear-gradient(
+        rgba(0,0,0,.38),
+        rgba(0,0,0,.38)
+    ),
+    url("./img/banner.jpg") !important;
+
+    background-size:cover !important;
+
+    background-position:center !important;
+
+}
+
+/* TITULO */
+
+.hero h1{
+
+    font-size:42px !important;
+
+    white-space:nowrap !important;
+
+    margin-bottom:10px !important;
+
+    color:white !important;
+
+}
+
+/* TEXTO */
+
+.hero p{
+
+    font-size:15px !important;
+
+    margin-bottom:18px !important;
+
+    color:rgba(255,255,255,.92) !important;
+
+}
+
+/* BOTON */
+
+.btn-hero{
+
+    padding:12px 24px !important;
+
+    border-radius:40px !important;
+
+    background:linear-gradient(
+        45deg,
+        #ff4d88,
+        #ff80ab
+    ) !important;
+
+    color:white !important;
+
+    font-weight:bold !important;
+
+    box-shadow:
+    0 6px 18px rgba(255,77,136,.25) !important;
+
+}
+
+/* =========================
+   MENU CATEGORIAS ELEGANTE
+========================= */
+
+.menu-categorias{
+
+    display:flex !important;
+
+    justify-content:center !important;
+
+    align-items:center !important;
+
+    flex-wrap:wrap !important;
+
+    gap:14px !important;
+
+    padding:25px 15px !important;
+
+}
+
+/* BOTONES */
+
+.menu-categorias button{
+
+    border:none !important;
+
+    padding:13px 22px !important;
+
+    border-radius:50px !important;
+
+    background:
+    linear-gradient(
+        to right,
+        #fff0f5,
+        #ffe4ec
+    ) !important;
+
+    color:#ff4081 !important;
+
+    font-size:15px !important;
+
+    font-weight:700 !important;
+
+    cursor:pointer !important;
+
+    transition:.3s ease !important;
+
+    border:1px solid rgba(255,192,203,.45) !important;
+
+    box-shadow:
+    0 5px 15px rgba(255,182,193,.18) !important;
+
+}
+
+/* HOVER */
+
+.menu-categorias button:hover{
+
+    background:
+    linear-gradient(
+        45deg,
+        #ff4d88,
+        #ff80ab
+    ) !important;
+
+    color:white !important;
+
+    transform:translateY(-3px) !important;
+
+    box-shadow:
+    0 10px 22px rgba(255,77,136,.28) !important;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .hero{
+
+        min-height:30vh !important;
+
+    }
+
+    .hero h1{
+
+        font-size:28px !important;
+
+        white-space:normal !important;
+
+    }
+
+    .hero p{
+
+        font-size:14px !important;
+
+    }
+
+    .menu-categorias button{
+
+        padding:11px 16px !important;
+
+        font-size:14px !important;
+
+    }
+
+}
 /* =========================
    HERO ELEGANTE
 ========================= */
