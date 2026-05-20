@@ -188,10 +188,11 @@ function actualizarCarrito() {
             return acc + item.cantidad;
 
         }, 0);
+    // FORZAR REFRESCO VISUAL
+items.offsetHeight;
 
 }
-// FORZAR REFRESCO VISUAL
-items.offsetHeight;
+
 // =========================
 // CAMBIAR CANTIDAD
 // =========================
@@ -315,7 +316,7 @@ function finalizarCompra() {
 
     );
 
-}
+
 
 
 // LIMPIAR CARRITO
@@ -332,7 +333,7 @@ cerrarCarrito();
 mostrarNotificacion(
     "✅ Pedido enviado correctamente"
 );
-
+}
 // =========================
 // NOTIFICACION
 // =========================
