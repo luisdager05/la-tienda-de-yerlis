@@ -2,7 +2,7 @@
 // CARRITO
 // =========================
 
-// let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 // =========================
 // AGREGAR AL CARRITO
