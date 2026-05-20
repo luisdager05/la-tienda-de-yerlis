@@ -152,6 +152,9 @@ body{
 /* =========================
    HERO ELEGANTE
 ========================= */
+/* =========================
+   HERO ELEGANTE
+========================= */
 
 .hero{
 
@@ -162,17 +165,18 @@ body{
     min-height:55vh;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     text-align:center;
 
-    padding:60px 20px;
+    padding:40px 20px;
 
     background:
     linear-gradient(
-        rgba(255,192,203,.35),
-        rgba(255,228,236,.45)
+        rgba(0,0,0,.45),
+        rgba(0,0,0,.45)
     ),
     url("./img/banner.jpg");
 
@@ -183,14 +187,18 @@ body{
 
 }
 
+/* OVERLAY */
+
 .hero .overlay{
 
     position:absolute;
     inset:0;
 
-    backdrop-filter:blur(2px);
+    backdrop-filter:blur(1px);
 
 }
+
+/* TEXTO */
 
 .hero-text{
 
@@ -198,75 +206,65 @@ body{
 
     z-index:2;
 
-    max-width:700px;
+    max-width:900px;
 
-    color:#2b2b2b;
+    color:white;
 
     animation:fadeHero 1s ease;
 
 }
 
-.subtitulo{
-
-    display:inline-block;
-
-    margin-bottom:15px;
-
-    padding:8px 18px;
-
-    border-radius:30px;
-
-    background:rgba(255,255,255,.45);
-
-    backdrop-filter:blur(10px);
-
-    font-size:14px;
-
-    letter-spacing:1px;
-
-}
+/* TITULO */
 
 .hero h1{
 
-    font-size:4rem;
+    font-size:52px;
 
     font-weight:800;
 
-    margin-bottom:20px;
+    margin-bottom:15px;
 
     line-height:1.1;
 
-    text-transform:uppercase;
+    white-space:nowrap;
+
+    text-shadow:
+    0 5px 15px rgba(0,0,0,.3);
 
 }
+
+/* TEXTO */
 
 .hero p{
 
-    font-size:1.2rem;
+    font-size:17px;
 
-    line-height:1.8;
+    line-height:1.7;
 
-    color:#444;
+    color:rgba(255,255,255,.92);
 
-    margin-bottom:35px;
+    margin-bottom:25px;
 
 }
+
+/* BOTON */
 
 .btn-hero{
 
     display:inline-flex;
 
     align-items:center;
-
     justify-content:center;
 
-    gap:10px;
-
-    padding:16px 35px;
+    padding:14px 30px;
 
     border-radius:50px;
 
-    background:linear-gradient(45deg,#ff4d8d,#ff80ab);
+    background:linear-gradient(
+        45deg,
+        #ff4d88,
+        #ff7aa2
+    );
 
     color:white;
 
@@ -276,31 +274,68 @@ body{
 
     transition:.3s ease;
 
-    box-shadow:0 10px 30px rgba(255,64,129,.25);
+    box-shadow:
+    0 8px 20px rgba(255,77,136,.25);
 
 }
 
 .btn-hero:hover{
 
-    transform:translateY(-5px) scale(1.03);
+    transform:translateY(-4px);
 
-    box-shadow:0 15px 35px rgba(255,64,129,.35);
+    box-shadow:
+    0 12px 25px rgba(255,77,136,.35);
 
 }
+
+/* ANIMACION */
 
 @keyframes fadeHero{
 
     from{
+
         opacity:0;
-        transform:translateY(30px);
+        transform:translateY(25px);
+
     }
 
     to{
+
         opacity:1;
         transform:translateY(0);
+
     }
 
 }
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .hero{
+
+        min-height:42vh;
+
+        padding:30px 15px;
+
+    }
+
+    .hero h1{
+
+        font-size:32px;
+
+        white-space:normal;
+
+    }
+
+    .hero p{
+
+        font-size:14px;
+
+    }
+
+}
+
 
 /* =========================
    CARRUSEL
