@@ -624,3 +624,121 @@
     }
 
 }
+/* =========================
+   COLORES FIX
+========================= */
+
+.colores{
+    display:flex;
+    gap:10px;
+    margin-top:8px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+}
+
+.color{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    border:2px solid #eee;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.color:hover{
+    transform:scale(1.1);
+}
+
+.color.activo{
+    border:3px solid #ff4081;
+    transform:scale(1.15);
+}
+
+/* =========================
+   BOTONES FIX
+========================= */
+
+.btn-ver{
+    margin-bottom:12px !important;
+}
+
+.producto button,
+.card button{
+
+    width:100%;
+
+    border:none;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+/* =========================
+   MODAL PRODUCTO
+========================= */
+
+.modal-producto-content{
+
+    background:white;
+
+    width:95%;
+    max-width:950px;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    position:relative;
+
+}
+
+.modal-img-container{
+
+    background:#fff5f8;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:30px;
+}
+
+.modal-img-container img{
+
+    width:100%;
+    max-width:400px;
+
+    border-radius:20px;
+}
+
+.modal-info{
+
+    padding:35px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    gap:18px;
+}
+
+.modal-info h2{
+
+    font-size:32px;
+    color:#333;
+}
+
+.modal-info h3{
+
+    color:#ff4081;
+    font-size:30px;
+}
