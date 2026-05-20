@@ -517,107 +517,108 @@ function mostrarSecciones(productos) {
 
     productos.forEach(p => {
 
-        const card = `
+       const card = `
 
-            <div class="producto">
+<div class="producto">
 
-                <!-- IMAGEN -->
-                <img
-                class="img-producto"
-                src="${p.imagen || './img/error.png'}"
-                alt="${p.nombre}"
-                onclick="abrirModalProductoPorId(${p.id})">
+    <!-- IMAGEN -->
+    <img
+    class="img-producto"
+    src="${p.imagen || './img/error.png'}"
+    alt="${p.nombre}"
+    onclick="abrirModalProductoPorId(${p.id})">
 
-                <!-- NOMBRE -->
-                <h3>${p.nombre}</h3>
+    <!-- INFO -->
+    <div class="info">
 
-                <!-- PRECIO -->
-                <p class="precio">
-                    $${Number(p.precio).toLocaleString()}
-                </p>
+        <!-- TITULO -->
+        <h3>${p.nombre}</h3>
 
-                <!-- TALLA -->
-                <div class="selector-opciones">
+        <!-- PRECIO -->
+        <p class="precio">
+            $${Number(p.precio).toLocaleString()}
+        </p>
 
-                    <label>Talla:</label>
+        <!-- TALLA -->
+        <div class="selector-opciones">
 
-                    <select class="select-talla">
+            <label>Talla:</label>
 
-                        <option value="">
-                            Seleccionar
-                        </option>
+            <select class="select-talla">
 
-                        <option value="">
-    Seleccionar
-</option>
+                <option value="">
+                    Seleccionar
+                </option>
 
-${p.talla?.map(t => `
+                ${p.talla?.map(t => `
 
-    <option value="${t}">
-        ${t}
-    </option>
+                    <option value="${t}">
+                        ${t}
+                    </option>
 
-`).join("") || ""}
+                `).join("") || ""}
 
-                    </select>
+            </select>
 
-                </div>
+        </div>
 
-                <!-- COLORES -->
-                <div class="selector-opciones">
+        <!-- COLORES -->
+        <div class="selector-opciones">
 
-                    <label>Color:</label>
+            <label>Color:</label>
 
-                    <div class="colores">
+            <div class="colores">
 
-                        <div class="colores">
+                ${p.colores?.map(color => `
 
-${p.colores?.map(color => `
+                    <span
+                    class="color"
+                    style="background:${color}"
+                    onclick="seleccionarColor('${color}', this)"
+                    title="${color}">
+                    </span>
 
-    <span
-    class="color ${color.toLowerCase()}"
-    onclick="seleccionarColor('${color}', this)"
-    title="${color}">
-    </span>
-
-`).join("") || ""}
-
-</div>
-
-                    </div>
-
-                </div>
-
-                <!-- BOTON VER -->
-                <button
-                onclick="abrirModalProductoPorId(${p.id})">
-
-                    👁 Ver rápido
-
-                </button>
-
-                <!-- BOTON CARRITO -->
-                <button onclick="
-                    agregarAlCarrito(
-                        this,
-                        '${p.id}',
-                        '${p.nombre}',
-                        '${p.precio}',
-                        '${p.imagen}',
-                        {
-                            talla: this.closest('.producto')?.querySelector('.select-talla')?.value || '',
-                            color: this.closest('.producto')?.dataset.color || ''
-                        }
-                    )
-                ">
-
-                    🛒 Agregar al carrito
-
-                </button>
+                `).join("") || ""}
 
             </div>
 
-        `;
+        </div>
+
+        <!-- BOTON VER -->
+        <button
+        class="btn-ver"
+        onclick="abrirModalProductoPorId(${p.id})">
+
+            👁 Ver rápido
+
+        </button>
+
+        <!-- BOTON CARRITO -->
+        <button
+        class="btn-agregar"
+        onclick="
+            agregarAlCarrito(
+                this,
+                '${p.id}',
+                '${p.nombre}',
+                '${p.precio}',
+                '${p.imagen}',
+                {
+                    talla: this.closest('.producto')?.querySelector('.select-talla')?.value || '',
+                    color: this.closest('.producto')?.dataset.color || ''
+                }
+            )
+        ">
+
+            🛒 Agregar al carrito
+
+        </button>
+
+    </div>
+
+</div>
+
+`;
 
         destacados.innerHTML += card;
 
