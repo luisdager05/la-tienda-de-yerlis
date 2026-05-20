@@ -1,1 +1,75 @@
+/* =========================
+   FOOTER
+========================= */
 
+#contacto{
+
+    background:linear-gradient(to right,#ffcad4,#ffdce8);
+
+    color:#333;
+
+    padding:60px 20px;
+
+    text-align:center;
+
+    margin-top:70px;
+
+}
+
+.footer-contenido{
+
+    max-width:1000px;
+
+    margin:auto;
+
+}
+
+.footer-info{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:35px;
+
+}
+
+.footer-info a{
+
+    text-decoration:none;
+
+    color:#444;
+
+    background:white;
+
+    padding:15px 25px;
+
+    border-radius:15px;
+
+    transition:.4s;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    box-shadow:0 5px 15px rgba(255,182,193,.15);
+
+}
+
+.footer-info a:hover{
+
+    transform:translateY(-8px) scale(1.05);
+
+    background:#ff4081;
+
+    color:white;
+
+}
