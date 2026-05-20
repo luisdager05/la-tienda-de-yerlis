@@ -530,6 +530,46 @@
     transform:scale(1.15);
 
 }
+.negro{
+    background:black;
+}
+
+.blanco{
+    background:white;
+    border:1px solid #999;
+}
+
+.azul{
+    background:blue;
+}
+
+.rosado{
+    background:pink;
+}
+
+.rojo{
+    background:red;
+}
+
+.verde{
+    background:green;
+}
+
+.gris{
+    background:gray;
+}
+
+.beige{
+    background:beige;
+}
+
+.morado{
+    background:purple;
+}
+
+.amarillo{
+    background:yellow;
+}
 
 /* =========================
    BOTON
