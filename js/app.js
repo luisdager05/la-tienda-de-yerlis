@@ -572,11 +572,10 @@ function mostrarSecciones(productos) {
                 ${p.colores?.map(color => `
 
                     <span
-                    class="color"
-                    style="background:${color}"
-                    onclick="seleccionarColor('${color}', this)"
-                    title="${color}">
-                    </span>
+class="color ${color.toLowerCase()}"
+onclick="seleccionarColor('${color}', this)"
+title="${color}">
+</span>
 
                 `).join("") || ""}
 
