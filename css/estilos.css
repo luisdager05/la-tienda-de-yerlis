@@ -1747,13 +1747,45 @@ body{
    RESPONSIVE MENU
 ========================================= */
 
+/* =========================================
+MENU HAMBURGUESA FINAL
+========================================= */
+
+.btn-menu{
+    display:none;
+    border:none;
+    background:none;
+    font-size:32px;
+    cursor:pointer;
+    color:#ff4081;
+    z-index:9999999;
+}
+
+/* MOBILE */
+
 @media screen and (max-width:768px){
+
+    .btn-menu{
+        display:block;
+    }
+
+    .header-principal{
+        position:relative;
+    }
 
     .menu{
 
-        display:none;
+        position:absolute;
+
+        top:100%;
+
+        left:0;
 
         width:100%;
+
+        background:#fff;
+
+        display:none;
 
         flex-direction:column;
 
@@ -1761,22 +1793,19 @@ body{
 
         justify-content:center;
 
-        gap:15px;
+        gap:20px;
 
-        padding:20px;
+        padding:25px;
 
-        margin-top:15px;
+        border-radius:0 0 20px 20px;
 
-        background:white;
+        box-shadow:0 10px 25px rgba(0,0,0,0.1);
 
-        border-radius:15px;
-
+        z-index:999999;
     }
 
     .menu.active{
-
         display:flex;
-
     }
 
 }
