@@ -1,35 +1,96 @@
 /* =========================
-   PRODUCTOS
+   SLIDER PRODUCTOS
 ========================= */
 
-.seccion-productos{
-
-    padding:40px 20px;
-
+.contenedor-slider{
+    width:95%;
+    margin:auto;
+    position:relative;
+    padding:20px 0;
 }
 
-.contenedor-productos{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(260px,260px));
-
-    justify-content:center;
-
-    gap:25px;
-
+.slider-container{
     width:100%;
+    overflow:hidden;
+}
+
+#slider{
+    display:flex;
+    align-items:stretch;
+    gap:20px;
+
+    overflow-x:auto;
+    scroll-behavior:smooth;
+
+    padding:10px 5px 30px;
+
+    scroll-snap-type:x mandatory;
+}
+
+#slider::-webkit-scrollbar{
+    display:none;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+#prev,
+#next{
+
+    position:absolute;
+
+    top:45%;
+
+    transform:translateY(-50%);
+
+    width:45px;
+    height:45px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:white;
+
+    color:#ff4081;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    z-index:20;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.12);
+
+    transition:.3s;
 
 }
 
-/* CARD */
+#prev{
+    left:-10px;
+}
 
-.producto{
+#next{
+    right:-10px;
+}
 
-    width:260px;
+#prev:hover,
+#next:hover{
 
-    min-height:480px;
+    background:#ff4081;
+    color:white;
+
+}
+
+/* =========================
+   CARD SLIDER
+========================= */
+
+.card{
+
+    min-width:230px;
+    max-width:230px;
 
     background:white;
 
@@ -37,19 +98,19 @@
 
     overflow:hidden;
 
-    display:flex;
+    flex-shrink:0;
 
-    flex-direction:column;
+    scroll-snap-align:center;
 
-    justify-content:space-between;
-
-    transition:.4s;
+    transition:.3s;
 
     box-shadow:0 8px 20px rgba(255,182,193,.18);
 
+    border:1px solid rgba(255,192,203,.4);
+
 }
 
-.producto:hover{
+.card:hover{
 
     transform:translateY(-8px);
 
@@ -59,43 +120,34 @@
 
 /* IMAGEN */
 
-.img-producto{
+.card .img-producto{
 
     width:100%;
-
-    height:320px;
+    height:300px;
 
     object-fit:cover;
 
-    transition:.4s;
-
-    cursor:pointer;
+    display:block;
 
 }
 
-.producto:hover .img-producto{
+/* INFO */
 
-    transform:scale(1.03);
-
+.card .info{
+    padding:15px;
 }
 
-/* TITULO */
-
-.producto h3{
-
-    padding:15px 15px 5px;
+.card h3{
 
     font-size:18px;
 
     color:#333;
 
-    text-align:center;
+    margin-bottom:10px;
 
 }
 
-/* PRECIO */
-
-.precio{
+.card .precio{
 
     font-size:24px;
 
@@ -103,25 +155,27 @@
 
     color:#ff4081;
 
-    text-align:center;
-
-    padding-bottom:10px;
+    margin-bottom:12px;
 
 }
 
 /* BOTON */
 
-.producto button{
+.card button{
+
+    width:100%;
 
     border:none;
-
-    margin:12px;
 
     padding:14px;
 
     border-radius:14px;
 
-    background:linear-gradient(45deg,#ff4081,#ff80ab);
+    background:linear-gradient(
+        45deg,
+        #ff4081,
+        #ff80ab
+    );
 
     color:white;
 
@@ -131,14 +185,48 @@
 
     transition:.3s;
 
-    box-shadow:0 5px 15px rgba(255,64,129,.25);
+}
+
+.card button:hover{
+
+    transform:translateY(-2px);
 
 }
 
-.producto button:hover{
+/* =========================
+   RESPONSIVE
+========================= */
 
-    transform:translateY(-3px);
+@media(max-width:768px){
 
-    box-shadow:0 10px 25px rgba(255,64,129,.35);
+    .card{
+
+        min-width:180px;
+        max-width:180px;
+
+    }
+
+    .card .img-producto{
+
+        height:240px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .card{
+
+        min-width:160px;
+        max-width:160px;
+
+    }
+
+    .card .img-producto{
+
+        height:210px;
+
+    }
 
 }
