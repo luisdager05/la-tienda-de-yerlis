@@ -316,6 +316,17 @@ function finalizarCompra() {
 
 }
 
+// LIMPIAR CARRITO
+carrito = [];
+
+guardarCarrito();
+
+actualizarCarrito();
+
+mostrarNotificacion(
+    "✅ Pedido enviado correctamente"
+);
+
 // =========================
 // NOTIFICACION
 // =========================
