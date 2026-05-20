@@ -109,7 +109,7 @@ function actualizarCarrito() {
     const contador =
         document.getElementById("contadorCarrito");
 
-    if (!items) return;
+    if (!items || !total || !contador) return;
 
     items.innerHTML = "";
 
@@ -190,7 +190,8 @@ function actualizarCarrito() {
         }, 0);
 
 }
-
+// FORZAR REFRESCO VISUAL
+items.offsetHeight;
 // =========================
 // CAMBIAR CANTIDAD
 // =========================
@@ -316,12 +317,17 @@ function finalizarCompra() {
 
 }
 
+
 // LIMPIAR CARRITO
-carrito = [];
+carrito.length = 0;
 
-guardarCarrito();
+localStorage.removeItem("carrito");
 
+// ACTUALIZAR EN TIEMPO REAL
 actualizarCarrito();
+
+// CERRAR PANEL
+cerrarCarrito();
 
 mostrarNotificacion(
     "✅ Pedido enviado correctamente"
