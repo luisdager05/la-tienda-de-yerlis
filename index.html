@@ -1,93 +1,44 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- =========================================
-    META
-    ========================================= -->
+<title>La Tienda de Yerlis</title>
 
-    <meta charset="UTF-8">
+<link rel="stylesheet" href="./css/estilos.css">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <meta
-        name="description"
-        content="La Tienda de Yerlis - Moda elegante y moderna para mujeres, hombres y niños">
-
-    <title>
-        La Tienda de Yerlis
-    </title>
-
-    <!-- =========================================
-    FAVICON
-    ========================================= -->
-
-    <link
-        rel="icon"
-        href="./img/logo.png">
-
-    <!-- =========================================
-    CSS
-    ========================================= -->
-
-    <link
-        rel="stylesheet"
-        href="./css/estilos.css">
-
-    <!-- =========================================
-    FONT AWESOME
-    ========================================= -->
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- FONT AWESOME -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
 <body>
 
-<!-- =========================================
-HEADER
-========================================= -->
-
+<!-- =========================
+     HEADER PRINCIPAL
+========================= -->
 <header class="header-principal">
 
     <!-- LOGO -->
-
     <div class="logo">
 
         <img
-            src="./img/1001669605.png"
-            alt="La Tienda de Yerlis">
-
-    </div>
-
-    <!-- BUSCADOR -->
-
-    <div class="buscador-container">
-
-        <input
-            type="text"
-            id="buscador"
-            placeholder="🔍 Buscar productos...">
+        src="./img/1001669605.png"
+        alt="La Tienda de Yerlis">
 
     </div>
 
     <!-- MENU -->
-<button class="btn-menu" onclick="toggleMenu()">
-    ☰
-</button>
     <nav class="menu">
 
         <a href="index.html">
             Inicio
         </a>
 
-        <a href="#productos">
+        <a href="#tituloCategoria">
             Productos
         </a>
 
@@ -98,23 +49,22 @@ HEADER
         <a href="./admin/login.html">
             Iniciar Sesión
         </a>
-
-        <a href="./admin/register.html">
+          <a href="./admin/register.html">
             ✨ Registrarse
         </a>
 
-        <!-- CARRITO -->
-
+        <!-- BOTON CARRITO -->
         <a
-            href="javascript:void(0)"
-            class="btn-carrito-menu"
-            onclick="toggleCarrito()">
+        href="#"
+        class="btn-carrito-menu"
+        onclick="toggleCarrito()">
 
-            <i class="fa-solid fa-cart-shopping"></i>
+            🛒 Carrito
 
+            <!-- CONTADOR -->
             <span
-                class="contador-carrito"
-                id="contadorCarrito">
+            class="contador-carrito"
+            id="contadorCarrito">
 
                 0
 
@@ -124,18 +74,24 @@ HEADER
 
     </nav>
 
+    <!-- BUSCADOR -->
+    <div class="buscador-container">
+
+        <input
+        type="text"
+        id="buscador"
+        placeholder="🔍 Buscar productos...">
+
+    </div>
+
 </header>
 
-<!-- =========================================
-CARRITO
-========================================= -->
-
-<div
-    id="carrito"
-    class="carrito">
+<!-- =========================
+     CARRITO LATERAL
+========================= -->
+<div id="carrito" class="carrito">
 
     <!-- HEADER -->
-
     <div class="carrito-header">
 
         <h2>
@@ -143,8 +99,8 @@ CARRITO
         </h2>
 
         <span
-            class="cerrar-carrito"
-            onclick="cerrarCarrito()">
+        class="cerrar-carrito"
+        onclick="cerrarCarrito()">
 
             ✖
 
@@ -153,68 +109,57 @@ CARRITO
     </div>
 
     <!-- ITEMS -->
-
     <div id="itemsCarrito"></div>
 
     <!-- FOOTER -->
-
     <div class="carrito-footer">
 
-        <!-- FORMULARIO -->
+          <!-- FORMULARIO -->
+    <div class="checkout-form">
 
-        <div class="checkout-form">
+        <input
+        type="text"
+        id="clienteNombre"
+        placeholder="👤 Nombre completo">
 
-            <input
-                type="text"
-                id="clienteNombre"
-                placeholder="👤 Nombre completo">
+        <input
+        type="text"
+        id="clienteTelefono"
+        placeholder="📱 Teléfono">
 
-            <input
-                type="text"
-                id="clienteTelefono"
-                placeholder="📱 Teléfono">
-
-            <textarea
-                id="clienteDireccion"
-                placeholder="📍 Dirección de entrega"></textarea>
-
-        </div>
-
-        <!-- TOTAL -->
-
-        <h3>
-
-            <span>
-                Total
-            </span>
-
-            <span>
-                $<span id="totalCarrito">0</span>
-            </span>
-
-        </h3>
-
-        <!-- BOTON PAGAR -->
-
-        <button
-            class="btn-pagar"
-            onclick="finalizarCompra()">
-
-            <i class="fa-solid fa-credit-card"></i>
-
-            Finalizar Compra
-
-        </button>
+        <textarea
+        id="clienteDireccion"
+        placeholder="📍 Dirección de entrega"></textarea>
 
     </div>
 
+    <h3>
+
+        <span>Total</span>
+
+        <span>
+            $<span id="totalCarrito">0</span>
+        </span>
+
+    </h3>
+
+    <button
+    class="btn-pagar"
+    onclick="finalizarCompra()">
+
+        <i class="fa-solid fa-credit-card"></i>
+        Finalizar Compra
+
+    </button>
+
 </div>
 
-<!-- =========================================
-HERO
-========================================= -->
+</div>
 
-<section class="hero">
+<!-- =========================
+     HERO
+========================= -->
+<header class="hero">
 
     <div class="hero-text">
 
@@ -223,13 +168,15 @@ HERO
         </h1>
 
         <p>
+
             Elegancia, estilo y moda
             pensada para realzar tu esencia
+
         </p>
 
         <a
-            href="#productos"
-            class="btn-hero">
+        href="#productos"
+        class="btn-hero">
 
             Ver productos
 
@@ -237,53 +184,44 @@ HERO
 
     </div>
 
-</section>
+</header>
 
-<!-- =========================================
-SLIDER PRODUCTOS
-========================================= -->
-
-<section
-    class="contenedor-slider"
-    id="productos">
-
-    <!-- BOTON PREV -->
+<!-- =========================
+     CARRUSEL
+========================= -->
+<div
+class="contenedor-slider"
+id="productos">
 
     <button id="prev">
+
         ❮
+
     </button>
 
-    <!-- SLIDER -->
-
     <div class="slider-container">
-
-        <!-- PRODUCTOS DINAMICOS -->
 
         <div id="slider"></div>
 
     </div>
 
-    <!-- BOTON NEXT -->
-
     <button id="next">
+
         ❯
+
     </button>
-
-</section>
-
-<!-- =========================================
-DOTS
-========================================= -->
-
-<div
-    id="dots"
-    class="dots">
 
 </div>
 
-<!-- =========================================
-CATEGORIAS
-========================================= -->
+<!-- DOTS -->
+<div
+id="dots"
+class="dots">
+
+</div>
+     <!-- =========================
+     MENU CATEGORIAS
+========================= -->
 
 <section class="menu-categorias">
 
@@ -313,48 +251,31 @@ CATEGORIAS
 
 </section>
 
-<!-- =========================================
-PRODUCTOS
-========================================= -->
-
+<!-- =========================
+     PRODUCTOS DESTACADOS
+========================= -->
 <section class="seccion-productos">
 
     <h2 id="tituloCategoria">
-        🔥 Todos los productos
-    </h2>
-
-    <!-- PRODUCTOS DINAMICOS -->
+    🔥 Todos los productos
+</h2>
 
     <div
-        class="contenedor-productos"
-        id="destacados">
+    class="contenedor-productos"
+    id="destacados">
 
     </div>
 
 </section>
 
-<!-- =========================================
-MODAL SIMPLE
-========================================= -->
 
-<div
-    id="modal"
-    class="modal">
+<div id="modal" class="modal">
 
     <div class="modal-content">
 
-        <span
-            class="cerrar-modal"
-            onclick="cerrarModal()">
+        <span class="cerrar-modal" onclick="cerrarModal()">✖</span>
 
-            ✖
-
-        </span>
-
-        <img
-            id="modal-img"
-            src=""
-            alt="producto">
+        <img id="modal-img" src="" alt="producto">
 
         <h2 id="modal-title"></h2>
 
@@ -364,39 +285,30 @@ MODAL SIMPLE
 
 </div>
 
-<!-- =========================================
-MODAL PRODUCTO
-========================================= -->
 
-<div
-    id="modalProducto"
-    class="modal-producto">
+     <!-- =========================
+     MODAL PRODUCTO
+========================= -->
+<div id="modalProducto" class="modal-producto">
 
     <div class="modal-producto-content">
 
         <!-- CERRAR -->
-
-        <span
-            class="cerrar-modal"
-            onclick="cerrarModalProducto()">
-
+        <span class="cerrar-modal" onclick="cerrarModalProducto()">
             ✖
-
         </span>
 
         <!-- IMAGEN -->
-
         <div class="modal-img-container">
 
             <img
-                id="modalImagen"
-                src=""
-                alt="producto">
+            id="modalImagen"
+            src=""
+            alt="producto">
 
         </div>
 
         <!-- INFO -->
-
         <div class="modal-info">
 
             <h2 id="modalNombre"></h2>
@@ -408,8 +320,8 @@ MODAL PRODUCTO
             <span id="modalCategoria"></span>
 
             <button
-                id="btnAgregarModal"
-                class="btn-modal-carrito">
+            id="btnAgregarModal"
+            class="btn-modal-carrito">
 
                 🛒 Agregar al carrito
 
@@ -420,26 +332,25 @@ MODAL PRODUCTO
     </div>
 
 </div>
-
-<!-- =========================================
-FOOTER
-========================================= -->
-
+<!-- =========================
+     FOOTER
+========================= -->
 <footer id="contacto">
 
     <div class="footer-contenido">
 
         <h2>
+
             Contáctanos
+
         </h2>
 
         <div class="footer-info">
 
             <!-- WHATSAPP -->
-
             <a
-                href="https://wa.me/573148471107"
-                target="_blank">
+            href="https://wa.me/573148471107"
+            target="_blank">
 
                 <i class="fa-brands fa-whatsapp"></i>
 
@@ -448,45 +359,40 @@ FOOTER
             </a>
 
             <!-- INSTAGRAM -->
-
             <a
-                href="https://instagram.com/latiendadeyerlis"
-                target="_blank">
+            href="https://instagram.com/latiendadeyerlis"
+            target="_blank">
 
                 <i class="fa-brands fa-instagram"></i>
 
                 Instagram
 
             </a>
+             <!-- FACEBOOK -->
+<a
+href="https://facebook.com/"
+target="_blank">
 
-            <!-- FACEBOOK -->
+    <i class="fa-brands fa-facebook-f"></i>
 
-            <a
-                href="https://facebook.com/"
-                target="_blank">
+    Facebook
 
-                <i class="fa-brands fa-facebook-f"></i>
+</a>
 
-                Facebook
+<!-- TIKTOK -->
+<a
+href="https://tiktok.com/@latiendadeyerlis"
+target="_blank">
 
-            </a>
+    <i class="fa-brands fa-tiktok"></i>
 
-            <!-- TIKTOK -->
+    TikTok
 
-            <a
-                href="https://tiktok.com/@latiendadeyerlis"
-                target="_blank">
-
-                <i class="fa-brands fa-tiktok"></i>
-
-                TikTok
-
-            </a>
+</a>
 
             <!-- EMAIL -->
-
             <a
-                href="mailto:yerlisstore@gmail.com">
+            href="mailto:yerlisstore@gmail.com">
 
                 <i class="fa-solid fa-envelope"></i>
 
@@ -497,11 +403,12 @@ FOOTER
         </div>
 
         <!-- COPYRIGHT -->
-
         <div class="footer-copy">
 
             <p>
+
                 © 2026 La Tienda de Yerlis
+
             </p>
 
         </div>
@@ -509,47 +416,23 @@ FOOTER
     </div>
 
 </footer>
-
-<!-- =========================================
-NOTIFICACION
-========================================= -->
-
-<div
-    id="notificacion"
-    class="notificacion">
+<!-- NOTIFICACION -->
+<div id="notificacion" class="notificacion">
 
     ✅ Producto agregado al carrito
 
 </div>
+<!-- =========================
+     SCRIPTS
+========================= -->
 
-<!-- =========================================
-SUPABASE
-========================================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-<script
-    defer
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js">
-</script>
+<script src="./js/supabase.js"></script>
 
-<!-- =========================================
-SCRIPTS
-========================================= -->
+<script src="./js/carrito.js"></script>
 
-<script
-    defer
-    src="./js/supabase.js">
-</script>
-
-<script
-    defer
-    src="./js/carrito.js">
-</script>
-
-<script
-    defer
-    src="./js/app.js">
-</script>
+<script src="./js/app.js"></script>
 
 </body>
 </html>
-```
