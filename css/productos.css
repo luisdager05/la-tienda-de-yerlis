@@ -134,7 +134,33 @@
 /* INFO */
 
 .card .info{
-    padding:15px;
+
+    padding:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    height:100%;
+}
+.card .btn-agregar{
+
+    margin-top:auto;
+
+}
+.card .selector-opciones{
+
+    margin-bottom:5px;
+
+}
+
+.card h3{
+
+    min-height:50px;
+
+    line-height:1.4;
 }
 
 .card h3{
