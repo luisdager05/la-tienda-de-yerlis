@@ -1,1 +1,144 @@
+/* =========================
+   HERO
+========================= */
 
+.hero{
+
+    position:relative;
+
+    width:100%;
+
+    min-height:34vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:25px 15px;
+
+    background:
+    linear-gradient(
+        rgba(0,0,0,.18),
+        rgba(0,0,0,.18)
+    ),
+    url("../img/banner.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+    overflow:hidden;
+
+}
+
+/* TEXTO */
+
+.hero-text{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:850px;
+
+    color:white;
+
+    animation:fadeHero 1s ease;
+
+}
+
+/* TITULO */
+
+.hero h1{
+
+    font-size:42px;
+
+    font-weight:800;
+
+    margin-bottom:10px;
+
+    line-height:1.1;
+
+    white-space:nowrap;
+
+    color:white;
+
+    text-shadow:0 3px 10px rgba(0,0,0,.20);
+
+}
+
+/* TEXTO */
+
+.hero p{
+
+    font-size:15px;
+
+    line-height:1.6;
+
+    color:rgba(255,255,255,.96);
+
+    margin-bottom:18px;
+
+}
+
+/* BOTON */
+
+.btn-hero{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:12px 24px;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+        45deg,
+        #ff4d88,
+        #ff80ab
+    );
+
+    color:white;
+
+    font-weight:700;
+
+    text-decoration:none;
+
+    transition:.3s ease;
+
+    box-shadow:
+    0 6px 18px rgba(255,77,136,.25);
+
+}
+
+.btn-hero:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 10px 22px rgba(255,77,136,.30);
+
+}
+
+/* ANIMACION */
+
+@keyframes fadeHero{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
