@@ -514,7 +514,7 @@ function finalizarCompra(){
     alert("✅ Pedido realizado exitosamente");
 
 }
-}
+
 
 // =========================
 // ABRIR MODAL POR ID
