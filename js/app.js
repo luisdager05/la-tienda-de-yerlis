@@ -380,11 +380,15 @@ function seleccionarColor(color, el){
     card.dataset.color = color;
 
     card.querySelectorAll(".color")
-    .forEach(c =>
-        c.classList.remove("activo")
-    );
+    .forEach(c => {
+
+        c.classList.remove("activo");
+
+    });
 
     el.classList.add("activo");
+
+}
 /* =========================
    CARRITO
 ========================= */
