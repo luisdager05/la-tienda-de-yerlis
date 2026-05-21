@@ -1069,3 +1069,220 @@
     0 12px 25px rgba(255,64,129,.35);
 
 }
+
+/* =========================================
+   RESPONSIVE GENERAL MOBILE FIX
+========================================= */
+
+@media(max-width:480px){
+
+    body{
+        overflow-x:hidden;
+    }
+
+    /* MENU CATEGORIAS */
+
+    .menu-categorias{
+        padding:12px 8px;
+        gap:8px;
+        justify-content:center;
+    }
+
+    .menu-categorias button{
+
+        padding:10px 14px;
+
+        font-size:12px;
+
+        border-radius:20px;
+
+    }
+
+    /* SLIDER */
+
+    .contenedor-slider{
+        width:100%;
+        padding:10px 0;
+    }
+
+    #slider{
+        gap:12px;
+        padding:10px;
+    }
+
+    /* CARD SLIDER */
+
+    .card{
+
+        min-width:145px;
+        max-width:145px;
+
+        border-radius:18px;
+
+    }
+
+    .card .img-producto{
+
+        height:180px;
+
+    }
+
+    .card .info{
+
+        padding:10px;
+
+        gap:4px;
+
+    }
+
+    .card h3{
+
+        font-size:14px;
+
+        line-height:1.2;
+
+    }
+
+    .card .precio{
+
+        font-size:20px;
+
+    }
+
+    /* PRODUCTOS */
+
+    .contenedor-productos{
+
+        grid-template-columns:repeat(2,1fr);
+
+        gap:12px;
+
+        padding:0 5px;
+
+    }
+
+    .producto{
+
+        width:100%;
+
+        border-radius:18px;
+
+    }
+
+    .producto .img-producto{
+
+        height:190px;
+
+    }
+
+    .producto .info{
+
+        padding:10px;
+
+        gap:5px;
+
+    }
+
+    .producto h3{
+
+        font-size:14px;
+
+        line-height:1.2;
+
+    }
+
+    .producto .precio{
+
+        font-size:20px;
+
+    }
+
+    /* SELECT */
+
+    .selector-opciones select{
+
+        padding:9px;
+
+        font-size:13px;
+
+    }
+
+    /* COLORES */
+
+    .colores{
+
+        gap:5px;
+
+        justify-content:center;
+
+        margin-bottom:8px;
+
+    }
+
+    .color{
+
+        width:18px;
+        height:18px;
+
+    }
+
+    /* BOTONES */
+
+    .producto button,
+    .card button,
+    .btn-pagar,
+    .btn-finalizar{
+
+        padding:12px;
+
+        font-size:14px;
+
+        border-radius:12px;
+
+    }
+
+    /* CARRITO */
+
+    .carrito{
+
+        width:100% !important;
+
+    }
+
+    /* MODAL */
+
+    .modal-producto-content{
+
+        width:100%;
+
+        border-radius:18px;
+
+    }
+
+    .modal-img-container{
+
+        padding:15px;
+
+    }
+
+    .modal-info{
+
+        padding:18px;
+
+        gap:10px;
+
+    }
+
+    .modal-info h2{
+
+        font-size:22px;
+
+    }
+
+    .modal-info h3{
+
+        font-size:24px;
+
+    }
+
+}
