@@ -385,7 +385,131 @@ function seleccionarColor(color, el){
     );
 
     el.classList.add("activo");
+/* =========================
+   CARRITO
+========================= */
 
+let carrito = [];
+
+/* =========================
+   AGREGAR AL CARRITO
+========================= */
+
+function agregarAlCarrito(
+    btn,
+    id,
+    nombre,
+    precio,
+    imagen,
+    opciones = {}
+){
+
+    /* VALIDAR TALLA */
+
+    if(!opciones.talla){
+
+        alert("⚠️ Por favor seleccione una talla");
+
+        return;
+    }
+
+    /* VALIDAR COLOR */
+
+    if(!opciones.color){
+
+        alert("⚠️ Por favor seleccione un color");
+
+        return;
+    }
+
+    /* AGREGAR */
+
+    carrito.push({
+
+        id,
+        nombre,
+        precio,
+        imagen,
+
+        talla: opciones.talla,
+
+        color: opciones.color,
+
+        cantidad:1
+
+    });
+
+    /* MENSAJE */
+
+    alert("✅ Producto agregado al carrito exitosamente");
+
+    actualizarCarrito();
+
+}
+
+/* =========================
+   FINALIZAR COMPRA
+========================= */
+
+function finalizarCompra(){
+
+    const nombre =
+    document.getElementById("clienteNombre")
+    .value.trim();
+
+    const telefono =
+    document.getElementById("clienteTelefono")
+    .value.trim();
+
+    const direccion =
+    document.getElementById("clienteDireccion")
+    .value.trim();
+
+    /* CARRITO VACIO */
+
+    if(carrito.length === 0){
+
+        alert("⚠️ Tu carrito está vacío");
+
+        return;
+
+    }
+
+    /* NOMBRE */
+
+    if(nombre === ""){
+
+        alert("⚠️ El nombre es obligatorio");
+
+        return;
+
+    }
+
+    /* TELEFONO */
+
+    if(telefono === ""){
+
+        alert("⚠️ El teléfono es obligatorio");
+
+        return;
+
+    }
+
+    /* DIRECCION */
+
+    if(direccion === ""){
+
+        alert("⚠️ La dirección es obligatoria");
+
+        return;
+
+    }
+
+    /* EXITO */
+
+    alert("✅ Pedido realizado exitosamente");
+
+}
 }
 
 // =========================
