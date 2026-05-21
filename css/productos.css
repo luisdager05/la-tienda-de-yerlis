@@ -992,3 +992,83 @@
     }
 
 }
+
+/* =========================================
+   FIX FINAL PRODUCTOS Y CARRITO
+========================================= */
+
+/* INFO PRODUCTOS */
+
+.producto .info{
+    padding:12px !important;
+    gap:6px !important;
+}
+
+.producto h3{
+    margin:0 !important;
+    min-height:auto !important;
+    line-height:1.2 !important;
+    font-size:16px !important;
+}
+
+.producto .precio{
+    margin:0 0 6px 0 !important;
+    font-size:22px !important;
+}
+
+/* SELECTORES */
+
+.selector-opciones{
+    gap:5px !important;
+    margin-bottom:8px !important;
+}
+
+/* COLORES */
+
+.colores{
+    margin-bottom:10px !important;
+}
+
+/* BOTON FINALIZAR */
+
+.btn-finalizar,
+.btn-pagar{
+
+    width:100% !important;
+
+    padding:16px !important;
+
+    border:none !important;
+
+    border-radius:16px !important;
+
+    background:linear-gradient(
+        45deg,
+        #ff4081,
+        #ff80ab
+    ) !important;
+
+    color:white !important;
+
+    font-size:16px !important;
+
+    font-weight:bold !important;
+
+    cursor:pointer !important;
+
+    transition:.3s !important;
+
+    box-shadow:
+    0 8px 20px rgba(255,64,129,.25) !important;
+
+}
+
+.btn-finalizar:hover,
+.btn-pagar:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 12px 25px rgba(255,64,129,.35);
+
+}
