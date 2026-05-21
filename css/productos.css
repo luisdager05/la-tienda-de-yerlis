@@ -120,16 +120,7 @@
 
 /* IMAGEN */
 
-.card .img-producto{
 
-    width:100%;
-    height:300px;
-
-    object-fit:cover;
-
-    display:block;
-
-}
 
 /* INFO */
 
@@ -367,19 +358,7 @@
    IMAGEN
 ========================= */
 
-.producto .img-producto{
 
-    width:100%;
-
-    height:320px;
-
-    object-fit:cover;
-
-    display:block;
-
-    transition:.4s;
-
-}
 
 .producto:hover .img-producto{
 
@@ -1282,6 +1261,60 @@
     .modal-info h3{
 
         font-size:24px;
+
+    }
+
+}
+/* =========================================
+   FIX IMAGENES PRODUCTOS Y SLIDER
+========================================= */
+
+.card .img-producto,
+.producto .img-producto{
+
+    width:100% !important;
+
+    height:300px !important;
+
+    object-fit:contain !important;
+
+    object-position:center !important;
+
+    display:block !important;
+
+    background:white;
+
+    padding:5px;
+
+}
+
+/* HOVER */
+
+.producto:hover .img-producto{
+
+    transform:scale(1.02);
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .card .img-producto,
+    .producto .img-producto{
+
+        height:230px !important;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .card .img-producto,
+    .producto .img-producto{
+
+        height:180px !important;
 
     }
 
