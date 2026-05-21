@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <img
                     class="img-producto"
-                    src="${p.imagen || './img/error.png'}"
+                    src="${p.imagen}"
                     alt="${p.nombre}"
                     onclick="abrirModalProductoPorId(${p.id})">
 
