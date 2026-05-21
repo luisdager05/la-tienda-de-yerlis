@@ -1319,3 +1319,52 @@
     }
 
 }
+/* =========================================
+   FIX TOTAL IMAGENES
+========================================= */
+
+.card .img-producto,
+.producto .img-producto,
+.modal-img-container img{
+
+    width:100% !important;
+
+    height:auto !important;
+
+    max-height:320px !important;
+
+    object-fit:contain !important;
+
+    object-position:center !important;
+
+    display:block !important;
+
+    visibility:visible !important;
+
+    opacity:1 !important;
+
+    background:white !important;
+
+}
+
+/* EVITAR QUE EL CONTENEDOR CORTE LA IMAGEN */
+
+.card,
+.producto{
+
+    overflow:visible !important;
+
+}
+
+/* MOBILE */
+
+@media(max-width:480px){
+
+    .card .img-producto,
+    .producto .img-producto{
+
+        max-height:200px !important;
+
+    }
+
+}
