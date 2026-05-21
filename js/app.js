@@ -753,9 +753,4 @@ function seleccionarColor(color, el){
    ...
 }
 
-/* PEGAR AQUI */
-let carrito = [];
 
-function agregarAlCarrito(...)
-
-function finalizarCompra(...)
