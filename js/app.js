@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dots.innerHTML = "";
 
         productos.forEach((p, i) => {
-
+console.log("IMAGEN:", p.imagen);
             slider.innerHTML += `
 
                 <div class="card">
