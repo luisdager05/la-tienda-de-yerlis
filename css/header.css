@@ -648,25 +648,16 @@ margin-left:25px;
 
 }
 
-/* =========================
-   FIX 1280x800
-========================= */
 
 /* =========================
-   FIX REAL 1280x800
+   FIX FINAL 1280
 ========================= */
 
-@media(max-width:1400px){
-
-    .header-principal{
-
-        padding:14px 18px;
-
-    }
+@media (min-width:1101px) and (max-width:1400px){
 
     .menu{
 
-        gap:10px;
+        padding-right:240px;
 
     }
 
@@ -678,21 +669,11 @@ margin-left:25px;
 
     .buscador-container{
 
-        width:200px;
-
-    }
-
-    #buscador{
-
-        width:100%;
+        width:220px;
 
     }
 
 }
-
-/* =========================
-   FIX FINAL 1280
-========================= */
 
 @media (min-width:1101px) and (max-width:1400px){
 
