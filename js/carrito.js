@@ -30,17 +30,18 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
 
     if (!talla) {
 
-               mostrarMensaje(
+  mostrarNotificacion(
     "📏 Debes seleccionar una talla"
 );
-
+        return;
     }
 
     if (!color) {
 
- mostrarMensaje(
+mostrarNotificacion(
     "🎨 Debes seleccionar un color"
 );
+        return;
 
     }
 
@@ -77,7 +78,7 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
     guardarCarrito();
     actualizarCarrito();
 
-   mostrarMensaje(
+mostrarNotificacion(
     "🛒 Producto agregado exitosamente"
 );
 }
