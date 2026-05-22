@@ -41,7 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const { data, error } =
         await window.supabaseClient
             .from("productos")
-            .select("*");
+            .select("*")
+        .gt("stock", 0);
 
         if (error || !data) {
 
