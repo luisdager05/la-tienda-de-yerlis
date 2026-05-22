@@ -640,3 +640,28 @@ menuToggle.addEventListener("click", () => {
     menu.classList.toggle("active");
 
 });
+/* LOGO CENTRADO */
+
+.logo{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-bottom:10px;
+
+}
+
+/* BOTON HAMBURGUESA */
+
+.menu-toggle{
+
+    position:absolute;
+
+    right:15px;
+
+    top:18px;
+
+}
