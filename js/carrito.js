@@ -79,16 +79,7 @@ mostrarNotificacion(
 
     );
 
-   if (productoDB.stock <= 0) {
-
-    mostrarNotificacion(
-        "❌ Producto agotado"
-    );
-
-    return;
-}
-
-if (productoExistente) {
+  if (productoExistente) {
 
     productoExistente.cantidad++;
 
@@ -97,24 +88,6 @@ if (productoExistente) {
     carrito.push(producto);
 
 }
-
-// DESCONTAR STOCK
-productoDB.stock -= 1;
-
-// ACTUALIZAR SUPABASE
-window.supabaseClient
-.from("productos")
-.update({
-    stock: productoDB.stock
-})
-.eq("id", id);
-
-// GUARDAR
-localStorage.setItem(
-    "carrito",
-    JSON.stringify(carrito)
-);
-
     guardarCarrito();
     actualizarCarrito();
 
@@ -291,7 +264,7 @@ function cerrarCarrito() {
 // FINALIZAR COMPRA
 // =========================
 
-function finalizarCompra() {
+async function finalizarCompra() {
 
     if (carrito.length === 0) {
 
@@ -329,14 +302,33 @@ function finalizarCompra() {
 
     let total = 0;
 
-    carrito.forEach(i => {
+   for (const i of carrito) {
 
-        const subtotal =
-            i.precio * i.cantidad;
+    const subtotal =
+        i.precio * i.cantidad;
 
-        total += subtotal;
+    total += subtotal;
 
-        msg += `
+    const productoDB =
+    window.productosGlobalData.find(
+        p => p.id == i.id
+    );
+
+    if(productoDB){
+
+        const nuevoStock =
+        productoDB.stock - i.cantidad;
+
+        await window.supabaseClient
+        .from("productos")
+        .update({
+            stock: nuevoStock
+        })
+        .eq("id", i.id);
+
+    }
+
+    msg += `
 📦 ${i.nombre}
 📏 Talla: ${i.talla}
 🎨 Color: ${i.color}
@@ -345,6 +337,7 @@ function finalizarCompra() {
 
 `;
 
+}
     });
 
     msg += `
