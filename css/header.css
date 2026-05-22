@@ -426,7 +426,7 @@ margin-left:25px;
 
         align-items:center;
 
-        justify-content:space-between;
+        justify-content:flex-start;
 
         gap:15px;
 
@@ -531,13 +531,7 @@ margin-left:25px;
 
 }
 
-    /* BUSCADOR */
-
-    .buscador-container{
-
-        max-width:260px;
-
-    }
+   
 
     #buscador{
 
