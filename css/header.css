@@ -485,3 +485,73 @@ margin-left:25px;
     }
 
 }
+
+/* =========================
+   LAPTOP 1280x800 FIX
+========================= */
+
+@media(max-width:1400px){
+
+    .header-principal{
+
+        padding:14px 22px;
+
+        gap:15px;
+
+    }
+
+    /* LOGO */
+
+    .logo img{
+
+        width:85px;
+
+    }
+
+    /* MENU */
+
+    .menu{
+
+        gap:18px;
+
+    }
+
+    .menu a{
+
+        font-size:13px;
+
+    }
+
+    /* BUSCADOR */
+
+    .buscador-container{
+
+        max-width:260px;
+
+    }
+
+    #buscador{
+
+        width:100%;
+
+        padding:10px 15px;
+
+        font-size:14px;
+
+    }
+
+    /* CARRITO */
+
+    .btn-carrito-menu{
+
+        width:48px;
+
+        height:48px;
+
+        font-size:21px;
+
+        margin-left:15px;
+
+    }
+
+}
