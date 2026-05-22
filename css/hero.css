@@ -21,10 +21,10 @@
     padding:25px 15px;
 
      background:
-    linear-gradient(
-        rgba(255,192,203,.20),
-        rgba(255,228,236,.20)
-    ),
+linear-gradient(
+    rgba(255,182,193,.35),
+    rgba(255,192,203,.35)
+),
     url("../img/banner.jpg");
 
     background-size:cover;
