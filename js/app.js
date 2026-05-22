@@ -90,6 +90,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         <p class="precio">
                             $${Number(p.precio).toLocaleString()}
                         </p>
+                        <p class="stock">
+                                Disponibles: ${p.stock}
+                        </p>
 
                         <!-- TALLA -->
                         <div class="selector-opciones">
@@ -539,6 +542,9 @@ function mostrarSecciones(productos) {
         <p class="precio">
             $${Number(p.precio).toLocaleString()}
         </p>
+        <p class="stock">
+    Disponibles: ${p.stock}
+        </p>
 
         <!-- TALLA -->
         <div class="selector-opciones">
@@ -597,6 +603,17 @@ title="${color}">
         <button
         class="btn-agregar"
         onclick="
+
+const cantidadEnCarrito =
+carrito.filter(item => item.id == '${p.id}').length;
+
+if(cantidadEnCarrito >= ${p.stock}){
+
+    alert('No hay más unidades disponibles');
+
+    return;
+
+}
             agregarAlCarrito(
                 this,
                 '${p.id}',
