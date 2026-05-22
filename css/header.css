@@ -408,3 +408,80 @@ margin-left:25px;
 
 }
 }
+/* =========================
+   HEADER RESPONSIVE FIX
+========================= */
+
+@media(max-width:1100px){
+
+    .header-principal{
+
+        display:flex;
+
+        flex-wrap:wrap;
+
+        align-items:center;
+
+        justify-content:space-between;
+
+        gap:15px;
+
+        padding:15px 20px;
+
+    }
+
+    /* MENU */
+
+    .menu{
+
+        order:3;
+
+        width:100%;
+
+        justify-content:center;
+
+        flex-wrap:wrap;
+
+        gap:15px;
+
+    }
+
+    /* BUSCADOR */
+
+    .buscador-container{
+
+        order:2;
+
+        flex:1;
+
+        min-width:220px;
+
+    }
+
+    #buscador{
+
+        width:100%;
+
+    }
+
+    /* LOGO */
+
+    .logo img{
+
+        max-width:140px;
+
+    }
+
+    /* CARRITO */
+
+    .btn-carrito-menu{
+
+        width:48px;
+
+        height:48px;
+
+        font-size:22px;
+
+    }
+
+}
