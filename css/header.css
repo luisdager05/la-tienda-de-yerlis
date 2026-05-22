@@ -648,3 +648,35 @@ margin-left:25px;
     width:100%;
 
 }
+
+/* =========================
+   FIX 1280x800
+========================= */
+
+@media(max-width:1400px){
+
+    /* MENU */
+
+    .menu{
+
+        margin-right:260px;
+
+        gap:16px;
+
+    }
+
+    /* BUSCADOR */
+
+    .buscador-container{
+
+        width:220px;
+
+    }
+
+    #buscador{
+
+        width:100%;
+
+    }
+
+}
