@@ -302,33 +302,37 @@ async function finalizarCompra() {
 
     let total = 0;
 
-   for (const i of carrito) {
+    // RECORRER CARRITO
+    for (const i of carrito) {
 
-    const subtotal =
-        i.precio * i.cantidad;
+        const subtotal =
+            i.precio * i.cantidad;
 
-    total += subtotal;
+        total += subtotal;
 
-    const productoDB =
-    window.productosGlobalData.find(
-        p => p.id == i.id
-    );
+        // BUSCAR PRODUCTO
+        const productoDB =
+        window.productosGlobalData.find(
+            p => p.id == i.id
+        );
 
-    if(productoDB){
+        // DESCONTAR STOCK
+        if(productoDB){
 
-        const nuevoStock =
-        productoDB.stock - i.cantidad;
+            const nuevoStock =
+            productoDB.stock - i.cantidad;
 
-        await window.supabaseClient
-        .from("productos")
-        .update({
-            stock: nuevoStock
-        })
-        .eq("id", i.id);
+            await window.supabaseClient
+            .from("productos")
+            .update({
+                stock: nuevoStock
+            })
+            .eq("id", i.id);
 
-    }
+        }
 
-    msg += `
+        // MENSAJE
+        msg += `
 📦 ${i.nombre}
 📏 Talla: ${i.talla}
 🎨 Color: ${i.color}
@@ -337,44 +341,38 @@ async function finalizarCompra() {
 
 `;
 
-}
-    });
+    }
 
     msg += `
 🧾 TOTAL: $${total.toLocaleString()}
 `;
 
+    // WHATSAPP
     window.open(
-
         `https://wa.me/573148471107?text=${encodeURIComponent(msg)}`,
         "_blank"
-
     );
 
+    // LIMPIAR CARRITO
+    carrito.length = 0;
 
+    localStorage.removeItem("carrito");
 
-
-// LIMPIAR CARRITO
-carrito.length = 0;
-
-localStorage.removeItem("carrito");
     // LIMPIAR FORMULARIO
-document.getElementById("clienteNombre").value = "";
+    document.getElementById("clienteNombre").value = "";
+    document.getElementById("clienteTelefono").value = "";
+    document.getElementById("clienteDireccion").value = "";
 
-document.getElementById("clienteTelefono").value = "";
+    // ACTUALIZAR
+    actualizarCarrito();
 
-document.getElementById("clienteDireccion").value = "";
+    // CERRAR
+    cerrarCarrito();
 
+    mostrarNotificacion(
+        "✅ Pedido enviado correctamente"
+    );
 
-// ACTUALIZAR EN TIEMPO REAL
-actualizarCarrito();
-
-// CERRAR PANEL
-cerrarCarrito();
-
-mostrarNotificacion(
-    "✅ Pedido enviado correctamente"
-);
 }
 // =========================
 // NOTIFICACION
