@@ -214,11 +214,13 @@
 
     .header-principal{
 
-        position:relative;
+    position:relative;
 
-        flex-wrap:wrap;
+    display:flex;
 
-        align-items:center;
+    align-items:center;
+
+    justify-content:space-between;
 
     }
 
@@ -303,5 +305,40 @@
         width:100%;
 
     }
+
+}
+
+/* LOGO CENTRADO */
+
+.logo{
+
+     width:auto;
+
+    margin:0;
+
+    display:flex;
+
+    justify-content:flex-start;
+
+}
+
+/* BOTON HAMBURGUESA */
+
+.menu-toggle{
+
+     position:absolute;
+
+    left:15px;
+
+    top:18px;
+
+    display:block;
+
+}
+/* CARRITO */
+
+.btn-carrito-menu{
+
+    margin-left:auto;
 
 }
