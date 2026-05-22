@@ -372,23 +372,33 @@ slider.addEventListener("mouseleave", () => {
 // COLOR SELECCIONADO
 // =========================
 
-function seleccionarColor(color, el){
+function seleccionarColor(color, elemento) {
 
     const card =
-    el.closest(".producto")
-    ||
-    el.closest(".card");
+        elemento.closest(".producto")
+        ||
+        elemento.closest(".card");
 
     if(!card) return;
 
+    card
+        .querySelectorAll(".color-option, .color")
+        .forEach(c => {
+
+            c.classList.remove("activo");
+
+            c.style.border =
+            "2px solid #ccc";
+
+        });
+
+    elemento.classList.add("activo");
+
+    elemento.style.border =
+        "3px solid #ff4081";
+
+    // GUARDAR COLOR
     card.dataset.color = color;
-
-    card.querySelectorAll(".color")
-    .forEach(c =>
-        c.classList.remove("activo")
-    );
-
-    el.classList.add("activo");
 
 }
 
