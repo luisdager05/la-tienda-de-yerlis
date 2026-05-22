@@ -242,7 +242,7 @@
 
     justify-content:center;
 
-    padding:10px 12px;
+    padding:8px 12px;
 
 }
 
@@ -256,13 +256,13 @@
 
     justify-content:center;
 
-    margin-bottom:4px;
+    margin-bottom:2px;
 
 }
 
     .logo img{
 
-        width:72px;
+        width:68px;
 
     }
 
@@ -338,7 +338,7 @@
     max-height .4s ease,
     opacity .3s ease;
 
-    margin-top:55px;
+    margin-top:50px;
 
     z-index:1000;
 
@@ -382,7 +382,7 @@
 
     width:100%;
 
-    margin-top:6px;
+    margin-top:2px;
 
 }
 
