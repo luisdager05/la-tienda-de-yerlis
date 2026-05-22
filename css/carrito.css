@@ -219,3 +219,28 @@
 
     cursor:pointer;
 }
+
+.notificacion{
+    position:fixed;
+    top:20px;
+    right:20px;
+    background:#ff4081;
+    color:white;
+    padding:14px 20px;
+    border-radius:12px;
+    font-weight:bold;
+    z-index:99999;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(-20px);
+
+    transition:all .4s ease;
+}
+
+.notificacion.active{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
