@@ -79,28 +79,41 @@ mostrarNotificacion(
 
     );
 
-    if (productoExistente) {
+   if (productoDB.stock <= 0) {
 
-        productoExistente.cantidad++;
+    mostrarNotificacion(
+        "❌ Producto agotado"
+    );
 
-    } else {
+    return;
+}
 
-        carrito.push(producto);
-        productoDB.stock -= 1;
-        // ACTUALIZAR SUPABASE
+if (productoExistente) {
+
+    productoExistente.cantidad++;
+
+} else {
+
+    carrito.push(producto);
+
+}
+
+// DESCONTAR STOCK
+productoDB.stock -= 1;
+
+// ACTUALIZAR SUPABASE
 window.supabaseClient
 .from("productos")
 .update({
     stock: productoDB.stock
 })
 .eq("id", id);
-        // GUARDAR CARRITO
+
+// GUARDAR
 localStorage.setItem(
     "carrito",
     JSON.stringify(carrito)
 );
-
-    }
 
     guardarCarrito();
     actualizarCarrito();
