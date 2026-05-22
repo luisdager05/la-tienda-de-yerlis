@@ -303,3 +303,21 @@ body{
     }
 
 }
+
+.dev-copy{
+
+    margin-top:10px;
+
+    color:#888;
+
+    font-size:14px;
+
+}
+
+.dev-copy strong{
+
+    color:#ff4081;
+
+    letter-spacing:.5px;
+
+}
