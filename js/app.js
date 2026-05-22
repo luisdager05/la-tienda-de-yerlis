@@ -629,15 +629,27 @@ title="${color}">
 // MENU HAMBURGUESA
 // =========================
 
-const menuToggle =
-document.getElementById("menu-toggle");
+// =========================
+// MENU HAMBURGUESA
+// =========================
 
-const menu =
-document.getElementById("menu");
+document.addEventListener("DOMContentLoaded", () => {
 
-menuToggle.addEventListener("click", () => {
+    const menuToggle =
+    document.getElementById("menu-toggle");
 
-    menu.classList.toggle("active");
+    const menu =
+    document.getElementById("menu");
+
+    if(menuToggle && menu){
+
+        menuToggle.addEventListener("click", () => {
+
+            menu.classList.toggle("active");
+
+        });
+
+    }
 
 });
 
