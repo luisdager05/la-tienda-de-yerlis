@@ -30,15 +30,17 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
 
     if (!talla) {
 
-        mostrarNotificacion("⚠️ Selecciona una talla");
-        return;
+               mostrarMensaje(
+    "📏 Debes seleccionar una talla"
+);
 
     }
 
     if (!color) {
 
-        mostrarNotificacion("⚠️ Selecciona un color");
-        return;
+ mostrarMensaje(
+    "🎨 Debes seleccionar un color"
+);
 
     }
 
@@ -75,10 +77,9 @@ function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
     guardarCarrito();
     actualizarCarrito();
 
-    mostrarNotificacion(
-        "✅ Producto agregado exitosamente"
-    );
-
+   mostrarMensaje(
+    "🛒 Producto agregado exitosamente"
+);
 }
 
 // =========================
@@ -532,22 +533,51 @@ function filtrarCategoria(categoria) {
 // COLOR
 // =========================
 
+// function seleccionarColor(elemento) {
+
+//     const card =
+//         elemento.closest(".producto");
+
+//     card
+//         .querySelectorAll(".color-option")
+//         .forEach(c => {
+
+//             c.style.border =
+//                 "2px solid #ccc";
+
+//         });
+
+//     elemento.style.border =
+//         "3px solid black";
+
+//     card.dataset.color =
+//         elemento.dataset.color;
+
+// }
 function seleccionarColor(elemento) {
 
     const card =
-        elemento.closest(".producto");
+        elemento.closest(".producto")
+        ||
+        elemento.closest(".card");
+
+    if(!card) return;
 
     card
-        .querySelectorAll(".color-option")
+        .querySelectorAll(".color-option, .color")
         .forEach(c => {
 
+            c.classList.remove("activo");
+
             c.style.border =
-                "2px solid #ccc";
+            "2px solid #ccc";
 
         });
 
+    elemento.classList.add("activo");
+
     elemento.style.border =
-        "3px solid black";
+        "3px solid #ff4081";
 
     card.dataset.color =
         elemento.dataset.color;
