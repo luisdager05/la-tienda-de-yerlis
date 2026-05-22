@@ -70,17 +70,17 @@
 
 .buscador-container{
 
-    position:absolute;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
     display:flex;
 
     align-items:center;
 
     justify-content:center;
+
+    flex:1;
+
+    max-width:280px;
+
+    margin:0 auto;
 
 }
 
@@ -128,9 +128,13 @@
 
     align-items:center;
 
-    gap:25px;
+    justify-content:center;
 
-    margin-left:auto;
+    flex-wrap:wrap;
+
+    gap:18px;
+
+    flex:1;
 
 }
 
@@ -512,7 +516,7 @@ margin-left:25px;
 
     .menu{
 
-        gap:18px;
+        gap:12px;
 
     }
 
@@ -521,6 +525,11 @@ margin-left:25px;
         font-size:13px;
 
     }
+   .buscador-container{
+
+    max-width:220px;
+
+}
 
     /* BUSCADOR */
 
