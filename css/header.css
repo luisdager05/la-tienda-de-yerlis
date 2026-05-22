@@ -68,7 +68,7 @@
    BUSCADOR
 ========================= */
 
-.buscador-container{
+/* .buscador-container{
 
     position:absolute;
 
@@ -84,8 +84,20 @@
 
     z-index:1;
 
-}
+} */
+.buscador-container{
 
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:0 20px;
+
+    flex-shrink:0;
+
+}
 #buscador{
 
     width:260px;
@@ -653,19 +665,27 @@ margin-left:25px;
    FIX 1280x800
 ========================= */
 
-@media(max-width:1400px){
+/* =========================
+   FIX 1280x800
+========================= */
 
-    /* MENU */
+@media(max-width:1400px){
 
     .menu{
 
-        margin-right:260px;
+        gap:12px;
 
-        gap:16px;
+        margin-right:0;
 
     }
 
-    /* BUSCADOR */
+    .menu a{
+
+        font-size:13px;
+
+        white-space:nowrap;
+
+    }
 
     .buscador-container{
 
