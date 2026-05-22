@@ -270,65 +270,79 @@
 
     .menu-toggle{
 
-        display:block;
+    display:block;
 
-        position:absolute;
+    position:absolute;
 
-        left:15px;
+    left:15px;
 
-        top:20px;
+    top:18px;
 
-        z-index:1001;
+    z-index:1002;
 
-    }
+}
 
     /* CARRITO */
 
-    .btn-carrito-menu{
+   .btn-carrito-menu{
 
-        position:absolute;
+    position:absolute;
 
-        right:15px;
+    right:15px;
 
-        top:16px;
+    top:14px;
 
-        width:45px;
+    width:48px;
 
-        height:45px;
+    height:48px;
 
-        border-radius:50%;
+    border-radius:50%;
 
-    }
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:1002;
+
+    background:white;
+
+    box-shadow:0 4px 12px rgba(255,105,180,.18);
+
+}
 
     /* MENU */
 
-    .menu{
+   .menu{
 
-        width:100%;
+    width:100%;
 
-        display:flex;
+    display:flex;
 
-        flex-direction:column;
+    flex-direction:column;
 
-        align-items:center;
+    align-items:center;
 
-        background:white;
+    background:white;
 
-        border-radius:15px;
+    border-radius:15px;
 
-        overflow:hidden;
+    overflow:hidden;
 
-        max-height:0;
+    max-height:0;
 
-        opacity:0;
+    opacity:0;
 
-        transition:
-        max-height .4s ease,
-        opacity .3s ease;
+    transition:
+    max-height .4s ease,
+    opacity .3s ease;
 
-        margin-top:10px;
+    margin-top:70px;
 
-    }
+    z-index:1000;
+
+}
 
     /* MENU ACTIVO */
 
