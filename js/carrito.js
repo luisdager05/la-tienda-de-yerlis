@@ -9,6 +9,20 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 // =========================
 
 function agregarAlCarrito(btn, id, nombre, precio, imagen, extra = {}) {
+    const productoDB =
+window.productosGlobalData.find(
+    p => p.id == id
+);
+
+if(!productoDB) return;
+
+if(productoDB.stock <= 0){
+
+    alert("Producto agotado");
+
+    return;
+
+}
 
     const card =
         btn?.closest(".producto") ||
@@ -72,6 +86,19 @@ mostrarNotificacion(
     } else {
 
         carrito.push(producto);
+        productoDB.stock -= 1;
+        // ACTUALIZAR SUPABASE
+window.supabaseClient
+.from("productos")
+.update({
+    stock: productoDB.stock
+})
+.eq("id", id);
+        // GUARDAR CARRITO
+localStorage.setItem(
+    "carrito",
+    JSON.stringify(carrito)
+);
 
     }
 
