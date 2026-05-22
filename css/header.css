@@ -648,4 +648,57 @@ margin-left:25px;
 
 }
 
+/* =========================
+   FIX REAL 1280x800
+========================= */
+
+@media (min-width:1101px) and (max-width:1400px){
+
+    .header-principal{
+
+        flex-wrap:wrap;
+
+        padding-bottom:20px;
+
+    }
+
+    .buscador-container{
+
+        position:relative;
+
+        left:auto;
+
+        transform:none;
+
+        width:100%;
+
+        order:10;
+
+        margin-top:10px;
+
+    }
+
+    #buscador{
+
+        width:100%;
+
+        max-width:500px;
+
+    }
+
+    .menu{
+
+        gap:10px;
+
+        flex-wrap:wrap;
+
+    }
+
+    .menu a{
+
+        font-size:12px;
+
+    }
+
+}
 
