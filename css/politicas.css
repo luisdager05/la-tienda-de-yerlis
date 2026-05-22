@@ -1,1 +1,43 @@
+/* =========================
+   POLITICAS
+========================= */
 
+.politica-box{
+
+    max-width:900px;
+
+    margin:40px auto;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.06);
+
+    text-align:left;
+
+    border:
+        1px solid #ffd6e5;
+
+}
+
+.politica-box h2{
+
+    color:#ff4081;
+
+    margin-bottom:20px;
+
+}
+
+.politica-box p{
+
+    color:#555;
+
+    line-height:1.8;
+
+    margin-bottom:15px;
+
+}
