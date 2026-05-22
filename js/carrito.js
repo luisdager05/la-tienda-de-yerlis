@@ -325,6 +325,13 @@ function finalizarCompra() {
 carrito.length = 0;
 
 localStorage.removeItem("carrito");
+    // LIMPIAR FORMULARIO
+document.getElementById("clienteNombre").value = "";
+
+document.getElementById("clienteTelefono").value = "";
+
+document.getElementById("clienteDireccion").value = "";
+
 
 // ACTUALIZAR EN TIEMPO REAL
 actualizarCarrito();
