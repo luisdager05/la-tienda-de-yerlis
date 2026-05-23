@@ -24,6 +24,14 @@ talla.split(",").map(t => t.trim());
 
 const coloresArray =
 colores.split(",").map(c => c.trim().toLowerCase());
+    const stock =
+document.getElementById("stock").value;
+
+const valor_unitario =
+document.getElementById("valor_unitario").value;
+
+const ganancia =
+document.getElementById("ganancia").value;
 
     if (!nombre || !precio || !descripcion || !categoria || !imagen) {
         alert("Completa todos los campos");
@@ -46,7 +54,10 @@ colores.split(",").map(c => c.trim().toLowerCase());
                 categoria,
                 imagen,
                 talla: tallasArray,
-                colores: coloresArray
+                colores: coloresArray,
+stock: Number(stock),
+valor_unitario: Number(valor_unitario),
+ganancia: Number(ganancia)
             })
             .eq("id", editandoId)
             .select(); // 🔥 IMPORTANTE
@@ -79,7 +90,10 @@ colores.split(",").map(c => c.trim().toLowerCase());
     categoria,
     imagen,
     talla: tallasArray,
-    colores: coloresArray
+    colores: coloresArray,
+stock: Number(stock),
+valor_unitario: Number(valor_unitario),
+ganancia: Number(ganancia)
 
 }])
             .select();
