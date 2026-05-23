@@ -467,3 +467,43 @@ async function cargarVentas(){
 
 cargarInventario();
 cargarVentas();
+// =========================
+// CALCULAR GANANCIA
+// =========================
+
+const inputPrecio =
+document.getElementById("precio");
+
+const inputCosto =
+document.getElementById("valor_unitario");
+
+if(inputPrecio && inputCosto){
+
+    inputPrecio.addEventListener(
+        "input",
+        calcularGanancia
+    );
+
+    inputCosto.addEventListener(
+        "input",
+        calcularGanancia
+    );
+
+}
+
+function calcularGanancia(){
+
+    const precio =
+    Number(inputPrecio.value) || 0;
+
+    const costo =
+    Number(inputCosto.value) || 0;
+
+    const ganancia =
+    precio - costo;
+
+    document.getElementById(
+        "ganancia"
+    ).value = ganancia;
+
+}
