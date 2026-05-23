@@ -269,8 +269,8 @@ window.editarProducto = async function (id) {
     document.getElementById("categoria").value =
         data.categoria;
 
-    document.getElementById("imagen").value =
-        data.imagen;
+    // document.getElementById("imagen").value =
+    //     data.imagen;borrar si sale bien todo
     document.getElementById("stock").value =
     data.stock || "";
 
