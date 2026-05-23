@@ -41,13 +41,14 @@ document.getElementById("valor_unitario").value;
 *
 Number(stock);
 
-  
+  let imagen = null;
     if (
     !nombre ||
     !precio ||
     !descripcion ||
     !categoria ||
-    !archivoImagen
+    // !archivoImagen
+    (!archivoImagen && !editandoId)
 ){
     alert("Completa todos los campos");
     return;
@@ -105,7 +106,7 @@ urlData.publicUrl;
                 precio: Number(precio),
                 descripcion,
                 categoria,
-                imagen,
+                imagen: imagen || data.imagen,
                 talla: tallasArray,
                 colores: coloresArray,
 stock: Number(stock),
