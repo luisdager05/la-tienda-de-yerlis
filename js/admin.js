@@ -603,12 +603,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ){
 
         inputPrecio.addEventListener(
-            "input",
+            "keyup",
             calcularGanancia
         );
 
         inputCosto.addEventListener(
-            "input",
+           "keyup",
             calcularGanancia
         );
 
