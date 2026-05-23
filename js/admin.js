@@ -220,8 +220,14 @@ window.editarProducto = async function (id) {
 document.getElementById("valor_unitario").value =
     data.valor_unitario || "";
 
+// document.getElementById("ganancia").value =
+//     data.ganancia || "";
+    const nuevaGanancia =
+Number(data.precio || 0) -
+Number(data.valor_unitario || 0);
+
 document.getElementById("ganancia").value =
-    data.ganancia || "";
+nuevaGanancia;
 
 document.getElementById("talla").value =
     data.talla?.join(",") || "";
