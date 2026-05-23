@@ -149,7 +149,7 @@ button:hover{
     background:white;
     padding:18px;
     border-radius:20px;
-    margin-top:20px;
+    /* margin-top:20px; */
     align-items:center;
     box-shadow:0 5px 15px rgba(255,182,193,0.15);
     border:1px solid #ffd1df;
@@ -159,6 +159,25 @@ button:hover{
 .producto-admin:hover{
     transform:translateY(-5px);
     box-shadow:0 10px 25px rgba(255,64,129,0.2);
+}
+
+#listaProductos{
+
+    width:100%;
+
+    max-width:1400px;
+
+    margin:30px auto;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(350px,1fr));
+
+    gap:25px;
+
+    align-items:start;
+
 }
 
 /* =========================
