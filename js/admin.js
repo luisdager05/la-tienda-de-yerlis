@@ -114,6 +114,7 @@ ganancia: Number(ganancia)
 
     limpiarFormulario();
     cargarProductos();
+    cargarInventario();
 };
 // =========================
 // CARGAR PRODUCTOS
