@@ -32,11 +32,7 @@ document.getElementById("stock").value;
 const valor_unitario =
 document.getElementById("valor_unitario").value;
 
-// const ganancia =
-// document.getElementById("ganancia").value;
-//     const ganancia =
-// Number(precio) -
-// Number(valor_unitario);
+
     const ganancia =
 (
     Number(precio) -
@@ -45,10 +41,7 @@ document.getElementById("valor_unitario").value;
 *
 Number(stock);
 
-    // if (!nombre || !precio || !descripcion || !categoria || !imagen) {
-    //     alert("Completa todos los campos");
-    //     return;
-    // } pendiente si sale bien borrar
+  
     if (
     !nombre ||
     !precio ||
@@ -554,79 +547,6 @@ async function cargarVentas(){
 
 cargarInventario();
 cargarVentas();
-// =========================
-// CALCULAR GANANCIA
-// =========================
-
-// const inputPrecio =
-// document.getElementById("precio");
-
-// const inputCosto =
-// document.getElementById("valor_unitario");
-
-// if(inputPrecio && inputCosto){
-
-//     inputPrecio.addEventListener(
-//         "input",
-//         calcularGanancia
-//     );
-
-//     inputCosto.addEventListener(
-//         "input",
-//         calcularGanancia
-//     );
-
-// }
-
-// =========================
-// CALCULAR GANANCIA
-// =========================
-
-// document.addEventListener(
-//     "DOMContentLoaded",
-//     () => {
-
-//     const inputPrecio =
-//     document.getElementById("precio");
-
-//     const inputCosto =
-//     document.getElementById("valor_unitario");
-
-//     const inputGanancia =
-//     document.getElementById("ganancia");
-
-//     if(
-//         inputPrecio &&
-//         inputCosto &&
-//         inputGanancia
-//     ){
-
-//         function calcularGanancia(){
-
-//             const precio =
-//             Number(inputPrecio.value) || 0;
-
-//             const costo =
-//             Number(inputCosto.value) || 0;
-
-//             inputGanancia.value =
-//             precio - costo;
-
-//         }
-
-//         inputPrecio.addEventListener(
-//             "input",
-//             calcularGanancia
-//         );
-
-//         inputCosto.addEventListener(
-//             "input",
-//             calcularGanancia
-//         );
-
-//     }
-
-// });
 
 // =========================
 // CALCULAR GANANCIA
