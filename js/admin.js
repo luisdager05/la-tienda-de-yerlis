@@ -213,6 +213,20 @@ window.editarProducto = async function (id) {
 
     document.getElementById("imagen").value =
         data.imagen;
+    document.getElementById("stock").value =
+    data.stock || "";
+
+document.getElementById("valor_unitario").value =
+    data.valor_unitario || "";
+
+document.getElementById("ganancia").value =
+    data.ganancia || "";
+
+document.getElementById("talla").value =
+    data.talla?.join(",") || "";
+
+document.getElementById("colores").value =
+    data.colores?.join(",") || "";
 
     editandoId = id;
 
@@ -264,6 +278,15 @@ function limpiarFormulario() {
     document.getElementById("categoria").value = "";
 
     document.getElementById("imagen").value = "";
+    document.getElementById("stock").value = "";
+
+    document.getElementById("valor_unitario").value = "";
+
+    document.getElementById("ganancia").value = "";
+
+    document.getElementById("talla").value = "";
+
+    document.getElementById("colores").value = "";
 }
 
 
