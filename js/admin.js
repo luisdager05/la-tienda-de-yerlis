@@ -471,25 +471,25 @@ cargarVentas();
 // CALCULAR GANANCIA
 // =========================
 
-const inputPrecio =
-document.getElementById("precio");
+// const inputPrecio =
+// document.getElementById("precio");
 
-const inputCosto =
-document.getElementById("valor_unitario");
+// const inputCosto =
+// document.getElementById("valor_unitario");
 
-if(inputPrecio && inputCosto){
+// if(inputPrecio && inputCosto){
 
-    inputPrecio.addEventListener(
-        "input",
-        calcularGanancia
-    );
+//     inputPrecio.addEventListener(
+//         "input",
+//         calcularGanancia
+//     );
 
-    inputCosto.addEventListener(
-        "input",
-        calcularGanancia
-    );
+//     inputCosto.addEventListener(
+//         "input",
+//         calcularGanancia
+//     );
 
-}
+// }
 
 // =========================
 // CALCULAR GANANCIA
