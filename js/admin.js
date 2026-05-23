@@ -58,39 +58,83 @@ Number(stock);
 // SUBIR IMAGEN A SUPABASE
 // =========================
 
-const nombreArchivo =
-Date.now() +
-"-" +
-archivoImagen.name;
+// const nombreArchivo =
+// Date.now() +
+// "-" +
+// archivoImagen.name;
 
-const { error: errorUpload } =
-await window.supabaseClient
-.storage
-.from("productos")
-.upload(
-    nombreArchivo,
-    archivoImagen
-);
+// const { error: errorUpload } =
+// await window.supabaseClient
+// .storage
+// .from("productos")
+// .upload(
+//     nombreArchivo,
+//     archivoImagen
+// );
 
-if(errorUpload){
+// if(errorUpload){
 
-    console.log(errorUpload);
+//     console.log(errorUpload);
 
-    alert("Error subiendo imagen");
+//     alert("Error subiendo imagen");
 
-    return;
+//     return;
+
+// }
+
+// // URL PUBLICA
+// const { data: urlData } =
+// window.supabaseClient
+// .storage
+// .from("productos")
+// .getPublicUrl(nombreArchivo);
+
+// const imagen =
+// urlData.publicUrl;
+    // =========================
+// SUBIR IMAGEN A SUPABASE
+// =========================
+
+let imagen = null;
+
+// SOLO SI HAY IMAGEN NUEVA
+if(archivoImagen){
+
+    const nombreArchivo =
+    Date.now() +
+    "-" +
+    archivoImagen.name;
+
+    const { error:errorUpload } =
+    await window.supabaseClient
+    .storage
+    .from("productos")
+    .upload(
+        nombreArchivo,
+        archivoImagen
+    );
+
+    if(errorUpload){
+
+        console.log(errorUpload);
+
+        alert("Error subiendo imagen");
+
+        return;
+
+    }
+
+    // URL PUBLICA
+    const { data:urlData } =
+    window.supabaseClient
+    .storage
+    .from("productos")
+    .getPublicUrl(nombreArchivo);
+
+    imagen =
+    urlData.publicUrl;
 
 }
-
-// URL PUBLICA
-const { data: urlData } =
-window.supabaseClient
-.storage
-.from("productos")
-.getPublicUrl(nombreArchivo);
-
-const imagen =
-urlData.publicUrl;
 
     console.log("EDITANDO ID:", editandoId); // 🔥 DEBUG
 
@@ -106,7 +150,8 @@ urlData.publicUrl;
                 precio: Number(precio),
                 descripcion,
                 categoria,
-                imagen,
+                // imagen,
+                ...(imagen && { imagen }),
                 talla: tallasArray,
                 colores: coloresArray,
 stock: Number(stock),
