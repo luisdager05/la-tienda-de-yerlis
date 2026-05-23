@@ -382,16 +382,47 @@ async function cargarVentas(){
             </p>
 
             <p>
-                💰
-                $${Number(v.total)
-                .toLocaleString()}
+    💰
+    $${Number(v.total)
+    .toLocaleString()}
+</p>
+
+<div class="productos-vendidos">
+
+    <h4>🛒 Productos:</h4>
+
+    ${v.productos?.map(p => `
+
+        <div class="producto-vendido">
+
+            <p>
+                📦 ${p.nombre}
             </p>
 
             <p>
-                📅
-                ${new Date(v.fecha)
-                .toLocaleString()}
+                🔢 Cantidad:
+                ${p.cantidad}
             </p>
+
+            <p>
+                📏 ${p.talla}
+            </p>
+
+            <p>
+                🎨 ${p.color}
+            </p>
+
+        </div>
+
+    `).join("")}
+
+</div>
+
+<p>
+    📅
+    ${new Date(v.fecha)
+    .toLocaleString()}
+</p>
 
         </div>
 
