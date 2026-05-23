@@ -568,3 +568,55 @@ input[type="file"]::file-selector-button:hover{
     opacity:.9;
 
 }
+
+/* =========================
+ TITULO PRODUCTOS
+========================= */
+
+.titulo-productos{
+
+    text-align:center;
+
+    margin-top:50px;
+
+    margin-bottom:30px;
+
+    font-size:34px;
+
+    font-weight:bold;
+
+    color:#ff4081;
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+/* LINEAS DECORATIVAS */
+
+.titulo-productos::before,
+.titulo-productos::after{
+
+    content:"";
+
+    width:80px;
+
+    height:3px;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+        45deg,
+        #ff4d8d,
+        #ff80ab
+    );
+
+}
