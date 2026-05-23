@@ -41,7 +41,7 @@ document.getElementById("valor_unitario").value;
 *
 Number(stock);
 
-  let imagen = null;
+  // let imagen = null;
     if (
     !nombre ||
     !precio ||
@@ -106,7 +106,7 @@ urlData.publicUrl;
                 precio: Number(precio),
                 descripcion,
                 categoria,
-                imagen: imagen || data.imagen,
+                imagen,
                 talla: tallasArray,
                 colores: coloresArray,
 stock: Number(stock),
