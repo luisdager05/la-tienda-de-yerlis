@@ -262,13 +262,26 @@ function cerrarSesion(){
     "./login.html";
 }
 
+// =========================
+// INVENTARIO
+// =========================
+
 async function cargarInventario(){
+
+    const tabla =
+    document.getElementById(
+        "tablaInventario"
+    );
+
+    if(!tabla) return;
 
     const { data, error } =
     await window.supabaseClient
     .from("productos")
     .select("*")
-    .order("stock", { ascending:true });
+    .order("stock", {
+        ascending:true
+    });
 
     if(error){
 
@@ -277,23 +290,23 @@ async function cargarInventario(){
 
     }
 
-    const tabla =
-    document.getElementById("tablaInventario");
-
     tabla.innerHTML = "";
 
     data.forEach(p => {
 
-        let estado = "✅ Disponible";
+        let estado =
+        "✅ Disponible";
 
         if(p.stock <= 0){
 
-            estado = "❌ Agotado";
+            estado =
+            "❌ Agotado";
 
         }
         else if(p.stock <= 3){
 
-            estado = "⚠️ Poco stock";
+            estado =
+            "⚠️ Poco stock";
 
         }
 
@@ -303,7 +316,10 @@ async function cargarInventario(){
 
             <td>${p.nombre}</td>
 
-            <td>$${Number(p.precio).toLocaleString()}</td>
+            <td>
+                $${Number(p.precio)
+                .toLocaleString()}
+            </td>
 
             <td>${p.stock}</td>
 
@@ -317,4 +333,77 @@ async function cargarInventario(){
 
 }
 
+// =========================
+// REPORTE VENTAS
+// =========================
+
+async function cargarVentas(){
+
+    const contenedor =
+    document.getElementById(
+        "reporteVentas"
+    );
+
+    if(!contenedor) return;
+
+    const { data, error } =
+    await window.supabaseClient
+    .from("ventas")
+    .select("*")
+    .order("fecha", {
+        ascending:false
+    });
+
+    if(error){
+
+        console.log(error);
+        return;
+
+    }
+
+    contenedor.innerHTML = "";
+
+    data.forEach(v => {
+
+        contenedor.innerHTML += `
+
+        <div class="venta-box">
+
+            <h3>
+                👤 ${v.cliente}
+            </h3>
+
+            <p>
+                📱 ${v.telefono}
+            </p>
+
+            <p>
+                📍 ${v.direccion}
+            </p>
+
+            <p>
+                💰
+                $${Number(v.total)
+                .toLocaleString()}
+            </p>
+
+            <p>
+                📅
+                ${new Date(v.fecha)
+                .toLocaleString()}
+            </p>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+// =========================
+// INICIAR
+// =========================
+
 cargarInventario();
+cargarVentas();
