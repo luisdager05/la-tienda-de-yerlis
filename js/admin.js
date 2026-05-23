@@ -491,19 +491,52 @@ if(inputPrecio && inputCosto){
 
 }
 
-function calcularGanancia(){
+// =========================
+// CALCULAR GANANCIA
+// =========================
 
-    const precio =
-    Number(inputPrecio.value) || 0;
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    const costo =
-    Number(inputCosto.value) || 0;
+    const inputPrecio =
+    document.getElementById("precio");
 
-    const ganancia =
-    precio - costo;
+    const inputCosto =
+    document.getElementById("valor_unitario");
 
-    document.getElementById(
-        "ganancia"
-    ).value = ganancia;
+    const inputGanancia =
+    document.getElementById("ganancia");
 
-}
+    if(
+        inputPrecio &&
+        inputCosto &&
+        inputGanancia
+    ){
+
+        function calcularGanancia(){
+
+            const precio =
+            Number(inputPrecio.value) || 0;
+
+            const costo =
+            Number(inputCosto.value) || 0;
+
+            inputGanancia.value =
+            precio - costo;
+
+        }
+
+        inputPrecio.addEventListener(
+            "input",
+            calcularGanancia
+        );
+
+        inputCosto.addEventListener(
+            "input",
+            calcularGanancia
+        );
+
+    }
+
+});
