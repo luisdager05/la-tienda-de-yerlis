@@ -16,7 +16,9 @@ window.guardarProducto = async function () {
     const precio = document.getElementById("precio").value;
     const descripcion = document.getElementById("descripcion").value;
     const categoria = document.getElementById("categoria").value;
-    const imagen = document.getElementById("imagen").value;
+    // const imagen = document.getElementById("imagen").value; pendiente  borrar si sale bien 
+    const archivoImagen =
+document.getElementById("imagen").files[0];
     const talla = document.getElementById("talla").value;
     const colores = document.getElementById("colores").value;
     const tallasArray =
@@ -43,10 +45,58 @@ document.getElementById("valor_unitario").value;
 *
 Number(stock);
 
-    if (!nombre || !precio || !descripcion || !categoria || !imagen) {
-        alert("Completa todos los campos");
-        return;
-    }
+    // if (!nombre || !precio || !descripcion || !categoria || !imagen) {
+    //     alert("Completa todos los campos");
+    //     return;
+    // } pendiente si sale bien borrar
+    if (
+    !nombre ||
+    !precio ||
+    !descripcion ||
+    !categoria ||
+    !archivoImagen
+){
+    alert("Completa todos los campos");
+    return;
+}
+
+// =========================
+// SUBIR IMAGEN A SUPABASE
+// =========================
+
+const nombreArchivo =
+Date.now() +
+"-" +
+archivoImagen.name;
+
+const { error: errorUpload } =
+await window.supabaseClient
+.storage
+.from("productos")
+.upload(
+    nombreArchivo,
+    archivoImagen
+);
+
+if(errorUpload){
+
+    console.log(errorUpload);
+
+    alert("Error subiendo imagen");
+
+    return;
+
+}
+
+// URL PUBLICA
+const { data: urlData } =
+window.supabaseClient
+.storage
+.from("productos")
+.getPublicUrl(nombreArchivo);
+
+const imagen =
+urlData.publicUrl;
 
     console.log("EDITANDO ID:", editandoId); // 🔥 DEBUG
 
