@@ -32,9 +32,16 @@ document.getElementById("valor_unitario").value;
 
 // const ganancia =
 // document.getElementById("ganancia").value;
+//     const ganancia =
+// Number(precio) -
+// Number(valor_unitario);
     const ganancia =
-Number(precio) -
-Number(valor_unitario);
+(
+    Number(precio) -
+    Number(valor_unitario)
+)
+*
+Number(stock);
 
     if (!nombre || !precio || !descripcion || !categoria || !imagen) {
         alert("Completa todos los campos");
