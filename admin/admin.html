@@ -115,45 +115,44 @@ if(localStorage.getItem("adminLogueado") !== "true"){
 
 <div id="listaProductos"></div>
 
-    <script>
+   <!-- =========================
+ INVENTARIO
+========================= -->
 
-async function cerrarSesion(){
+<section class="admin-box">
 
-    // cerrar sesión Supabase
-    await window.supabaseClient.auth.signOut();
+    <h2>📦 Inventario</h2>
 
-    // eliminar sesión local
-    localStorage.removeItem(
-        "adminLogueado"
-    );
+    <table class="tabla-admin">
 
-    // volver al login
-    window.location.href =
-    "./login.html";
+        <thead>
 
-}
-        <section class="admin-box">
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Estado</th>
+            </tr>
 
-<h2>📦 Inventario</h2>
+        </thead>
 
-<table class="tabla-admin">
+        <tbody id="tablaInventario"></tbody>
 
-<thead>
-<tr>
-<th>Producto</th>
-<th>Precio</th>
-<th>Stock</th>
-<th>Estado</th>
-</tr>
-</thead>
-
-<tbody id="tablaInventario"></tbody>
-
-</table>
+    </table>
 
 </section>
 
-</script>
+<!-- =========================
+ REPORTE VENTAS
+========================= -->
+
+<section class="admin-box">
+
+    <h2>💰 Reporte de Ventas</h2>
+
+    <div id="reporteVentas"></div>
+
+</section>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
