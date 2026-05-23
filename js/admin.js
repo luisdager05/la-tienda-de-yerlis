@@ -47,8 +47,8 @@ Number(stock);
     !precio ||
     !descripcion ||
     !categoria ||
-    !archivoImagen
-    // (!archivoImagen && !editandoId)
+    // !archivoImagen
+    (!archivoImagen && !editandoId)
 ){
     alert("Completa todos los campos");
     return;
