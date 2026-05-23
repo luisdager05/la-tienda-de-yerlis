@@ -226,3 +226,223 @@ button:hover{
     }
 
 }
+
+/* =========================
+ INVENTARIO Y VENTAS
+========================= */
+
+.admin-box{
+
+    width:95%;
+    max-width:1200px;
+
+    margin:40px auto;
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+
+}
+
+/* TITULOS */
+
+.admin-box h2{
+
+    color:#c2185b;
+
+    margin-bottom:20px;
+
+    font-size:28px;
+
+}
+
+/* =========================
+ TABLA INVENTARIO
+========================= */
+
+.tabla-admin{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    overflow:hidden;
+
+    border-radius:15px;
+
+}
+
+/* HEAD */
+
+.tabla-admin thead{
+
+    background:
+    linear-gradient(
+        45deg,
+        #ff4d8d,
+        #ff80ab
+    );
+
+    color:white;
+
+}
+
+/* TITULOS */
+
+.tabla-admin th{
+
+    padding:16px;
+
+    text-align:center;
+
+    font-size:15px;
+
+    letter-spacing:.5px;
+
+}
+
+/* CELDAS */
+
+.tabla-admin td{
+
+    padding:15px;
+
+    text-align:center;
+
+    border-bottom:
+    1px solid #f3d7e2;
+
+    font-size:15px;
+
+}
+
+/* FILAS */
+
+.tabla-admin tbody tr{
+
+    transition:.3s;
+
+}
+
+/* HOVER */
+
+.tabla-admin tbody tr:hover{
+
+    background:#fff0f5;
+
+    transform:scale(1.01);
+
+}
+
+/* =========================
+ VENTAS
+========================= */
+
+#reporteVentas{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+    gap:20px;
+
+}
+
+/* CARD */
+
+.venta-box{
+
+    background:
+    linear-gradient(
+        to bottom,
+        #fff,
+        #fff7fa
+    );
+
+    padding:20px;
+
+    border-radius:18px;
+
+    box-shadow:
+    0 5px 18px rgba(255,64,129,.12);
+
+    transition:.3s;
+
+    border:
+    1px solid #ffe0ea;
+
+}
+
+/* HOVER */
+
+.venta-box:hover{
+
+    transform:
+    translateY(-4px);
+
+    box-shadow:
+    0 10px 25px rgba(255,64,129,.18);
+
+}
+
+/* TITULO */
+
+.venta-box h3{
+
+    color:#e91e63;
+
+    margin-bottom:12px;
+
+    font-size:20px;
+
+}
+
+/* TEXTOS */
+
+.venta-box p{
+
+    margin:8px 0;
+
+    color:#555;
+
+    font-size:15px;
+
+    line-height:1.5;
+
+}
+
+/* =========================
+ RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .admin-box{
+
+        padding:15px;
+
+    }
+
+    .tabla-admin{
+
+        display:block;
+
+        overflow-x:auto;
+
+        white-space:nowrap;
+
+    }
+
+    .admin-box h2{
+
+        font-size:22px;
+
+    }
+
+}
