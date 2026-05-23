@@ -339,6 +339,18 @@ async function cargarInventario(){
 
             <td>${estado}</td>
 
+            <td>
+    $${Number(
+        p.valor_unitario || 0
+    ).toLocaleString()}
+</td>
+
+<td>
+    $${Number(
+        p.ganancia || 0
+    ).toLocaleString()}
+</td>
+
         </tr>
 
         `;
