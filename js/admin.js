@@ -30,8 +30,11 @@ document.getElementById("stock").value;
 const valor_unitario =
 document.getElementById("valor_unitario").value;
 
-const ganancia =
-document.getElementById("ganancia").value;
+// const ganancia =
+// document.getElementById("ganancia").value;
+    const ganancia =
+Number(precio) -
+Number(valor_unitario);
 
     if (!nombre || !precio || !descripcion || !categoria || !imagen) {
         alert("Completa todos los campos");
