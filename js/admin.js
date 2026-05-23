@@ -495,9 +495,57 @@ cargarVentas();
 // CALCULAR GANANCIA
 // =========================
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+// document.addEventListener(
+//     "DOMContentLoaded",
+//     () => {
+
+//     const inputPrecio =
+//     document.getElementById("precio");
+
+//     const inputCosto =
+//     document.getElementById("valor_unitario");
+
+//     const inputGanancia =
+//     document.getElementById("ganancia");
+
+//     if(
+//         inputPrecio &&
+//         inputCosto &&
+//         inputGanancia
+//     ){
+
+//         function calcularGanancia(){
+
+//             const precio =
+//             Number(inputPrecio.value) || 0;
+
+//             const costo =
+//             Number(inputCosto.value) || 0;
+
+//             inputGanancia.value =
+//             precio - costo;
+
+//         }
+
+//         inputPrecio.addEventListener(
+//             "input",
+//             calcularGanancia
+//         );
+
+//         inputCosto.addEventListener(
+//             "input",
+//             calcularGanancia
+//         );
+
+//     }
+
+// });
+
+// =========================
+// CALCULAR GANANCIA
+// =========================
+
+document.addEventListener("DOMContentLoaded", () => {
 
     const inputPrecio =
     document.getElementById("precio");
@@ -508,24 +556,27 @@ document.addEventListener(
     const inputGanancia =
     document.getElementById("ganancia");
 
+    function calcularGanancia(){
+
+        const precio =
+        Number(inputPrecio.value) || 0;
+
+        const costo =
+        Number(inputCosto.value) || 0;
+
+        const ganancia =
+        precio - costo;
+
+        inputGanancia.value =
+        ganancia;
+
+    }
+
     if(
         inputPrecio &&
         inputCosto &&
         inputGanancia
     ){
-
-        function calcularGanancia(){
-
-            const precio =
-            Number(inputPrecio.value) || 0;
-
-            const costo =
-            Number(inputCosto.value) || 0;
-
-            inputGanancia.value =
-            precio - costo;
-
-        }
 
         inputPrecio.addEventListener(
             "input",
