@@ -261,3 +261,60 @@ function cerrarSesion(){
     window.location.href =
     "./login.html";
 }
+
+async function cargarInventario(){
+
+    const { data, error } =
+    await window.supabaseClient
+    .from("productos")
+    .select("*")
+    .order("stock", { ascending:true });
+
+    if(error){
+
+        console.log(error);
+        return;
+
+    }
+
+    const tabla =
+    document.getElementById("tablaInventario");
+
+    tabla.innerHTML = "";
+
+    data.forEach(p => {
+
+        let estado = "✅ Disponible";
+
+        if(p.stock <= 0){
+
+            estado = "❌ Agotado";
+
+        }
+        else if(p.stock <= 3){
+
+            estado = "⚠️ Poco stock";
+
+        }
+
+        tabla.innerHTML += `
+
+        <tr>
+
+            <td>${p.nombre}</td>
+
+            <td>$${Number(p.precio).toLocaleString()}</td>
+
+            <td>${p.stock}</td>
+
+            <td>${estado}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+cargarInventario();
