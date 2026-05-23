@@ -346,7 +346,19 @@ async function finalizarCompra() {
     msg += `
 🧾 TOTAL: $${total.toLocaleString()}
 `;
+// GUARDAR VENTA
+await window.supabaseClient
+.from("ventas")
+.insert([{
 
+    cliente:nombre,
+    telefono:telefono,
+    direccion:direccion,
+    productos:carrito,
+    total:total,
+    fecha:new Date()
+
+}]);
     // WHATSAPP
     window.open(
         `https://wa.me/573148471107?text=${encodeURIComponent(msg)}`,
