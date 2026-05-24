@@ -262,3 +262,42 @@ body{
     font-weight:bold;
 
 }
+/* =========================
+   VER PASSWORD
+========================= */
+
+.password-box{
+
+    position:relative;
+
+    width:100%;
+
+}
+
+.password-box input{
+
+    width:100%;
+
+    padding-right:50px;
+
+}
+
+.toggle-password{
+
+    position:absolute;
+
+    right:15px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    color:#c2185b;
+
+    user-select:none;
+
+}
