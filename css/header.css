@@ -298,7 +298,7 @@ margin-left:25px;
 
     /* CARRITO */
 
-   .btn-carrito-menu{
+   /* .btn-carrito-menu{
 
     position:absolute;
 
@@ -326,6 +326,35 @@ margin-left:25px;
     background:white;
 
     box-shadow:0 4px 12px rgba(255,105,180,.18);
+
+} */
+.btn-carrito-menu{
+
+    position:absolute;
+
+    right:15px;
+
+    top:14px;
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:1002;
+
+    background:white;
+
+    box-shadow:0 4px 12px rgba(255,105,180,.18);
+
+    margin-left:0;
 
 }
 
