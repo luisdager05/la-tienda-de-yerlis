@@ -68,7 +68,7 @@
    BUSCADOR
 ========================= */
 
- .buscador-container{
+.buscador-container{
 
     position:absolute;
 
@@ -84,7 +84,7 @@
 
     z-index:1;
 
-} 
+}
 
 #buscador{
 
@@ -128,7 +128,11 @@
 
     display:flex;
 
+    flex:1;
+
     align-items:center;
+
+    justify-content:flex-end;
 
     gap:25px;
 
@@ -152,7 +156,7 @@
 
     position:relative;
 
-    transition:.3s;
+    transition:.3s ease;
 
 }
 
@@ -172,13 +176,13 @@
 
     background:#ff4d8d;
 
-    transition:.3s;
+    transition:width .3s ease;
 
 }
 
 .menu a:hover{
 
-    color:#ff4d8d;
+    color:#c2185b;
 
 }
 
@@ -209,7 +213,7 @@
 }
 
 /* =========================
-   CARRITO
+   BOTON CARRITO
 ========================= */
 
 .btn-carrito-menu{
@@ -221,21 +225,43 @@
     align-items:center;
 
     justify-content:center;
-margin-left:25px;
-    gap:5px;
+
+    width:52px;
+
+    height:52px;
+
+    min-width:52px;
+
+    margin-left:25px;
 
     text-decoration:none;
-   flex-shrink:0;
+
+    flex-shrink:0;
 
     overflow:visible;
 
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        #fff0f5,
+        #ffd6e5
+    );
+
+    box-shadow:
+        0 6px 15px rgba(255,64,129,.18);
+
+    transition:all .3s ease;
+
 }
+
 .btn-carrito-menu:hover{
 
     transform:
         translateY(-2px)
         scale(1.04);
-   box-shadow:
+
+    box-shadow:
         0 12px 25px rgba(255,64,129,.35);
 
 }
@@ -246,33 +272,29 @@ margin-left:25px;
 
 @media(max-width:768px){
 
-    /* HEADER */
-
     .header-principal{
 
-    position:relative;
+        position:relative;
 
-    flex-wrap:wrap;
+        flex-wrap:wrap;
 
-    justify-content:center;
+        justify-content:center;
 
-    padding:8px 12px;
+        padding:8px 12px;
 
-}
+    }
 
-    /* LOGO */
+    .logo{
 
-   .logo{
+        width:auto;
 
-    width:auto;
+        display:flex;
 
-    display:flex;
+        justify-content:center;
 
-    justify-content:center;
+        margin-bottom:0;
 
-    margin-bottom:0;
-
-}
+    }
 
     .logo img{
 
@@ -280,117 +302,69 @@ margin-left:25px;
 
     }
 
-    /* BOTON MENU */
-
     .menu-toggle{
 
-    display:block;
+        display:block;
 
-    position:absolute;
+        position:absolute;
 
-    left:15px;
+        left:15px;
 
-    top:18px;
+        top:18px;
 
-    z-index:1002;
+        z-index:1002;
 
-}
+    }
 
-    /* CARRITO */
+    .btn-carrito-menu{
 
-   /* .btn-carrito-menu{
+        position:absolute;
 
-    position:absolute;
+        right:15px;
 
-    right:15px;
+        top:14px;
 
-    /* top:14px; */
-      top:50%;
+        width:48px;
 
-    transform:translateY(-50%);
+        height:48px;
 
-    width:48px;
+        min-width:48px;
 
-    height:48px;
+        margin-left:0;
 
-    border-radius:50%;
+        z-index:1002;
 
-    display:flex;
+    }
 
-    align-items:center;
+    .menu{
 
-    justify-content:center;
+        width:100%;
 
-    z-index:1002;
+        display:flex;
 
-    background:white;
+        flex-direction:column;
 
-    box-shadow:0 4px 12px rgba(255,105,180,.18);
+        align-items:center;
 
-} */
-.btn-carrito-menu{
+        background:white;
 
-    position:absolute;
+        border-radius:15px;
 
-    right:15px;
+        overflow:hidden;
 
-    top:14px;
+        max-height:0;
 
-    width:48px;
+        opacity:0;
 
-    height:48px;
+        transition:
+        max-height .4s ease,
+        opacity .3s ease;
 
-    border-radius:50%;
+        margin-top:10px;
 
-    display:flex;
+        z-index:1000;
 
-    align-items:center;
-
-    justify-content:center;
-
-    z-index:1002;
-
-    background:white;
-
-    box-shadow:0 4px 12px rgba(255,105,180,.18);
-
-    margin-left:0;
-
-}
-
-    /* MENU */
-
-   .menu{
-
-    width:100%;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    background:white;
-
-    border-radius:15px;
-
-    overflow:hidden;
-
-    max-height:0;
-
-    opacity:0;
-
-    transition:
-    max-height .4s ease,
-    opacity .3s ease;
-
-    margin-top:10px;
-
-    z-index:1000;
-
-}
-
-    /* MENU ACTIVO */
+    }
 
     .menu.active{
 
@@ -401,8 +375,6 @@ margin-left:25px;
         padding:10px 0;
 
     }
-
-    /* LINKS */
 
     .menu a{
 
@@ -416,152 +388,21 @@ margin-left:25px;
 
     }
 
-    /* BUSCADOR */
-
-   .buscador-container{
-
-    position:relative;
-
-    left:auto;
-
-    transform:none;
-
-    width:100%;
-
-    margin-top:2px;
-
-}
-
-    #buscador{
-
-    width:100%;
-
-    padding:10px 15px;
-
-    font-size:14px;
-
-}
-}
-/* =========================
-   HEADER RESPONSIVE FIX
-========================= */
-
-@media(max-width:1100px){
-
-    .header-principal{
-
-        display:flex;
-
-        flex-wrap:wrap;
-
-        align-items:center;
-
-       justify-content:space-between;
-
-        gap:15px;
-
-        padding:15px 20px;
-
-    }
-
-    /* MENU */
-
-    .menu{
-
-        order:3;
-
-        width:100%;
-
-        justify-content:center;
-
-        flex-wrap:wrap;
-
-        gap:15px;
-
-    }
-
-    /* BUSCADOR */
-
     .buscador-container{
 
-        order:2;
+        position:relative;
 
-        flex:1;
+        left:auto;
 
-        min-width:220px;
-
-    }
-
-    #buscador{
+        transform:none;
 
         width:100%;
 
-    }
+        margin-top:10px;
 
-    /* LOGO */
-
-    .logo img{
-
-        max-width:140px;
+        order:10;
 
     }
-
-    /* CARRITO */
-
-    .btn-carrito-menu{
-
-        width:48px;
-
-        height:48px;
-
-        font-size:22px;
-
-    }
-
-}
-
-/* =========================
-   LAPTOP 1280x800 FIX
-========================= */
-
-/* @media(max-width:1400px){
-
-    .header-principal{
-
-        padding:14px 22px;
-
-        gap:15px;
-
-    }
-
-    /* LOGO */
-
-    .logo img{
-
-        width:85px;
-
-    }
-
-    /* MENU */
-
-    .menu{
-
-        gap:12px;
-
-    }
-
-    .menu a{
-
-        font-size:13px;
-
-    }
-   .buscador-container{
-
-    max-width:220px;
-
-}
-
-   
 
     #buscador{
 
@@ -573,182 +414,11 @@ margin-left:25px;
 
     }
 
-    /* CARRITO */
-
-    .btn-carrito-menu{
-
-        width:48px;
-
-        height:48px;
-
-        font-size:21px;
-
-        margin-left:15px;
-
-    }
-
-} */
-/* =========================
-   FIX LAPTOP 1280x800
-========================= */
-
-@media(max-width:1400px){
-
-    .menu{
-
-        gap:14px;
-
-    }
-
-    .menu a{
-
-        font-size:13px;
-
-    }
-
-    .buscador-container{
-
-        width:220px;
-
-    }
-
-    #buscador{
-
-        width:100%;
-
-    }
-
 }
 
 /* =========================
-   FIX ESTILO MENU
+   FIX 1280x800
 ========================= */
-
-.menu a{
-
-    color:#444;
-
-    text-decoration:none;
-
-    font-weight:600;
-
-    font-size:15px;
-
-    letter-spacing:1px;
-
-    text-transform:uppercase;
-
-    position:relative;
-
-    transition:.3s ease;
-
-}
-
-/* LINEA ANIMADA */
-
-.menu a::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    bottom:-6px;
-
-    width:0%;
-
-    height:2px;
-
-    background:#ff4d8d;
-
-    transition:width .3s ease;
-
-}
-
-/* HOVER */
-
-.menu a:hover{
-
-    color:#c2185b;
-
-}
-
-.menu a:hover::after{
-
-    width:100%;
-
-}
-
-/* =========================
-   FIX REAL 1280x800
-========================= */
-
-/* @media (min-width:1101px) and (max-width:1400px){
-
-    .header-principal{
-
-        flex-wrap:wrap;
-
-        padding-bottom:20px;
-
-    }
-   .logo{
-    order:1;
-}
-
-.buscador-container{
-    order:2;
-}
-
-.menu{
-    order:3;
-}
-
-.btn-carrito-menu{
-    order:4;
-}
-
-    .buscador-container{
-
-        position:relative;
-
-        left:auto;
-
-        transform:none;
-
-        width:100%;
-
-        order:10;
-
-        margin-top:10px;
-
-    }
-
-    #buscador{
-
-        width:100%;
-
-        max-width:500px;
-
-    }
-
-    .menu{
-
-        gap:10px;
-
-        flex-wrap:wrap;
-
-    }
-
-    .menu a{
-
-        font-size:12px;
-
-    }
-
-}
- */
 
 @media (min-width:1101px) and (max-width:1400px){
 
@@ -758,7 +428,9 @@ margin-left:25px;
 
         align-items:center;
 
-        padding-bottom:10px;
+        gap:10px;
+
+        padding:14px 20px;
 
     }
 
@@ -813,73 +485,5 @@ margin-left:25px;
         white-space:nowrap;
 
     }
-
-}
-
-@media(max-width:768px){
-
-    .btn-carrito-menu:hover{
-
-        transform:none;
-
-    }
-
-}
-/* =========================
-   BOTON CARRITO ELEGANTE
-========================= */
-
-.btn-carrito-menu{
-
-    width:52px;
-
-    height:52px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    position:relative;
-
-    background:linear-gradient(
-        135deg,
-        #fff0f5,
-        #ffd6e5
-    );
-
-    box-shadow:
-        0 6px 15px rgba(255,64,129,.18);
-
-    transition:all .3s ease;
-
-}
-
-/* HOVER */
-
-.btn-carrito-menu:hover{
-
-    transform:
-        translateY(-2px)
-        scale(1.05);
-
-    border-radius:50%;
-
-    box-shadow:
-        0 12px 22px rgba(255,64,129,.28);
-
-}
-
-/* QUITAR CUADRO FEO */
-
-.btn-carrito-menu:focus,
-.btn-carrito-menu:active{
-
-    outline:none;
-
-    border:none;
 
 }
