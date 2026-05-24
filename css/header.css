@@ -487,3 +487,66 @@
     }
 
 }
+/* =========================
+   FIX 853x1280 Y 1024x600
+========================= */
+
+@media (max-width:1024px){
+
+    .header-principal{
+
+        flex-wrap:wrap;
+
+        gap:12px;
+
+        padding:12px 15px;
+
+    }
+
+    /* BUSCADOR */
+
+    .buscador-container{
+
+        position:relative;
+
+        left:auto;
+
+        transform:none;
+
+        order:10;
+
+        width:100%;
+
+        max-width:100%;
+
+        margin-top:8px;
+
+    }
+
+    #buscador{
+
+        width:100%;
+
+        max-width:100%;
+
+    }
+
+    /* MENU */
+
+    .menu{
+
+        gap:12px;
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+    }
+
+    .menu a{
+
+        font-size:13px;
+
+    }
+
+}
