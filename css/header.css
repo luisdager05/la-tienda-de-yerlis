@@ -652,7 +652,7 @@ margin-left:25px;
    FIX REAL 1280x800
 ========================= */
 
-@media (min-width:1101px) and (max-width:1400px){
+/* @media (min-width:1101px) and (max-width:1400px){
 
     .header-principal{
 
@@ -661,6 +661,21 @@ margin-left:25px;
         padding-bottom:20px;
 
     }
+   .logo{
+    order:1;
+}
+
+.buscador-container{
+    order:2;
+}
+
+.menu{
+    order:3;
+}
+
+.btn-carrito-menu{
+    order:4;
+}
 
     .buscador-container{
 
@@ -701,4 +716,70 @@ margin-left:25px;
     }
 
 }
+ */
 
+@media (min-width:1101px) and (max-width:1400px){
+
+    .header-principal{
+
+        flex-wrap:nowrap;
+
+        align-items:center;
+
+        padding-bottom:10px;
+
+    }
+
+    .logo{
+        order:1;
+    }
+
+    .buscador-container{
+
+        order:2;
+
+        position:relative;
+
+        left:auto;
+
+        transform:none;
+
+        flex:1;
+
+        max-width:220px;
+
+        margin:0 10px;
+
+    }
+
+    .menu{
+
+        order:3;
+
+        gap:10px;
+
+        flex-wrap:nowrap;
+
+    }
+
+    .btn-carrito-menu{
+        order:4;
+    }
+
+    #buscador{
+
+        width:100%;
+
+        max-width:220px;
+
+    }
+
+    .menu a{
+
+        font-size:12px;
+
+        white-space:nowrap;
+
+    }
+
+}
