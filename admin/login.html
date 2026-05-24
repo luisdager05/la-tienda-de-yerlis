@@ -145,12 +145,24 @@ async function iniciarSesion() {
         <!-- PASSWORD -->
         <div class="grupo-input">
 
-            <label>Contraseña</label>
+           <label>Contraseña</label>
 
-            <input
-            type="password"
-            id="password"
-            placeholder="Ingresa tu contraseña">
+<div class="password-box">
+
+    <input
+    type="password"
+    id="password"
+    placeholder="Ingresa tu contraseña">
+
+    <span
+    class="toggle-password"
+    onclick="togglePassword()">
+
+        👁
+
+    </span>
+
+</div>
 
         </div>
 
