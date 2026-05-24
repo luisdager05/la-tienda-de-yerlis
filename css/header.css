@@ -825,3 +825,61 @@ margin-left:25px;
     }
 
 }
+/* =========================
+   BOTON CARRITO ELEGANTE
+========================= */
+
+.btn-carrito-menu{
+
+    width:52px;
+
+    height:52px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+    background:linear-gradient(
+        135deg,
+        #fff0f5,
+        #ffd6e5
+    );
+
+    box-shadow:
+        0 6px 15px rgba(255,64,129,.18);
+
+    transition:all .3s ease;
+
+}
+
+/* HOVER */
+
+.btn-carrito-menu:hover{
+
+    transform:
+        translateY(-2px)
+        scale(1.05);
+
+    border-radius:50%;
+
+    box-shadow:
+        0 12px 22px rgba(255,64,129,.28);
+
+}
+
+/* QUITAR CUADRO FEO */
+
+.btn-carrito-menu:focus,
+.btn-carrito-menu:active{
+
+    outline:none;
+
+    border:none;
+
+}
