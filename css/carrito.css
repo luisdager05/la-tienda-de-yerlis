@@ -37,6 +37,46 @@
     right:0;
 
 }
+/* =========================
+   CONTADOR CARRITO
+========================= */
+
+.contador-carrito{
+
+    position:absolute;
+
+    top:-8px;
+
+    right:-8px;
+
+    min-width:22px;
+
+    height:22px;
+
+    padding:0 6px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#ffd6e5;
+
+    color:#c2185b;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    border:2px solid white;
+
+    box-shadow:
+        0 4px 10px rgba(255,64,129,.18);
+
+}
 
 /* =========================
    BOTON CERRAR CARRITO
